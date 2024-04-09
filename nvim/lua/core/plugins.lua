@@ -194,6 +194,9 @@ local plugins = {
 
     -- aniseed
     'Olical/aniseed',
+
+    -- kanagawa.nvim
+    'rebelot/kanagawa.nvim',
 }
 
 require('lazy').setup(plugins, {})
