@@ -53,11 +53,8 @@
 
 (elpaca nil (message "deferred"))
 
-;; Use `custom-file.el` for custom stuff.
-(setq custom-file "~/.config/emacs/custom-file.el")
-
-;; Load `custom-file`
-(load-file custom-file)
+(defconst custom-file (expand-file-name "custom-file.el" user-emacs-directory))
+(load custom-file t)
 
 (setq configs "~/.config/emacs/configs.el")
 (load-file configs)
@@ -65,21 +62,21 @@
 ;; Language stuff
 (setq-default lsp-auto-guess-root t)
 (defvar lsp-language-id-configuration '((c-mode . "c")
-										(c++-mode . "cpp")
-										(cmake-mode . "cmake")
-										(csharp-mode . "csharp")
-										(glsl-mode . "glsl")
-										(f90-mode . "fortran")
-										(go-mode . "go")
-										(julia-mode . "julia")
-										(php-mode . "php")
-										(python-mode . "python")
-										(svelte-mode . "svelte")
-										(tuareg-mode . "ocaml")
-										(typescript-mode . "typescript")
-										(odin-mode . "odin")
-										(rust-mode . "rust")
-										(zig-mode . "zig")))
+                                        (c++-mode . "cpp")
+                                        (cmake-mode . "cmake")
+                                        (csharp-mode . "csharp")
+                                        (glsl-mode . "glsl")
+                                        (f90-mode . "fortran")
+                                        (go-mode . "go")
+                                        (julia-mode . "julia")
+                                        (php-mode . "php")
+                                        (python-mode . "python")
+                                        (svelte-mode . "svelte")
+                                        (tuareg-mode . "ocaml")
+                                        (typescript-mode . "typescript")
+                                        (odin-mode . "odin")
+                                        (rust-mode . "rust")
+                                        (zig-mode . "zig")))
 
 ;; Installed packages found here
 (setq packages-file "~/.config/emacs/packages.el")

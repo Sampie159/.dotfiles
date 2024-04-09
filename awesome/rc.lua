@@ -263,8 +263,8 @@ globalkeys = gears.table.join(
         { description = "open nvim", group = "applications" }),
     awful.key({ modkey, "Shift" }, "r", function() awful.spawn("alacritty -e ranger") end,
         { description = "open ranger", group = "applications" }),
-    awful.key({ modkey, "Shift" }, "h", function() awful.spawn("alacritty -e bpytop") end,
-        { description = "open bpytop", group = "applications" }),
+    awful.key({ modkey, "Shift" }, "h", function() awful.spawn("alacritty -e btop") end,
+        { description = "open btop", group = "applications" }),
 
     -- Multimedia keys
     awful.key({}, "XF86AudioRaiseVolume", function() awful.spawn("pactl set-sink-volume @DEFAULT_SINK@ +2%") end,
