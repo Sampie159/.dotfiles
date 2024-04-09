@@ -74,7 +74,7 @@ keys = [
 
     # My custom keybindings
     Key([mod], "b", lazy.spawn("firefox"), desc="Launch firefox"),
-    Key([mod, "shift"], "b", lazy.spawn("alacritty -e bpytop"), desc="Launch bpytop"),
+    Key([mod, "shift"], "b", lazy.spawn("alacritty -e btop"), desc="Launch btop"),
     Key([], "Print", lazy.spawn("flameshot gui"), desc="Launch flameshot"),
 
     # Volume control

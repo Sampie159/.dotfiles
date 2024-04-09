@@ -19,7 +19,7 @@ programs=(
     firefox
     steam
     lutris
-    bpytop
+    btop
     mpv
     dmenu
     rofi

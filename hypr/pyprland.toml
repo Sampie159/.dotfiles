@@ -13,9 +13,9 @@ lazy = true
 size = "50% 30%"
 unfocus = "hide"
 
-[scratchpads.bpytop]
+[scratchpads.btop]
 animation = "fromBottom"
-command = "alacritty --class scratchpad -e bpytop"
+command = "alacritty --class scratchpad -e btop"
 class = "scratchpad"
 lazy = true
 size = "60% 60%"
