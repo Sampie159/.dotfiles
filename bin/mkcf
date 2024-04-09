@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+clangformat="---
+IncludeBlocks: Regroup
+SortIncludes: CaseInsensitive"
+
+echo "${clangformat}" > .clang-format

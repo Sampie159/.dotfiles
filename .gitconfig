@@ -1,0 +1,21 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = Sampie159
+	email = 38163547+Sampie159@users.noreply.github.com
+[init]
+	defaultBranch = master
+[rerere]
+	enabled = true
+[alias]
+	wccc = -w -C -C -C
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[maintenance]
+	repo = /home/sampie/playgrounds/zig

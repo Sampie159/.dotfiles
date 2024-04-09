@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+olsjson="{
+    \"\$schema\": \"https://raw.githubusercontent.com/DanielGavin/ols/master/misc/ols.schema.json\",
+    \"collections\": [
+        { \"name\": \"core\", \"path\": \"/usr/lib/odin/core\" },
+        { \"name\": \"vendor\", \"path\": \"/usr/lib/odin/vendor\" },
+        { \"name\": \"shared\", \"path\": \"/usr/lib/odin/shared\" },
+        { \"name\": \"base\", \"path\": \"/usr/lib/odin/base\" },
+    ],
+    \"enable_semantic_tokens\": true,
+    \"enable_snippets\": true,
+    \"enable_document_symbols\": true,
+    \"enable_hover\": true,
+    \"enable_inlay_hints\": true,
+    \"enable_procedure_snippet\": true,
+}"
+
+odinfmt="{
+    \"\$schema\": \"https://raw.githubusercontent.com/DanielGavin/ols/master/misc/odinfmt.schema.json\",
+    \"tabs\": true,
+    \"tabs_width\": 4,
+    \"sort_imports\": true,
+    \"spaces\": 4,
+}"
+
+echo "$olsjson" > ols.json
+echo "$odinfmt" > odinfmt.json

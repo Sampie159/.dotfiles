@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+restart_waybar () {
+  killall waybar
+  waybar &
+}
+
+set_wallpaper () {
+  swww img "${1}" \
+    --transition-fps=60 \
+    --transition-step=1 \
+    --transition-type=random
+}
+
+restart_mako () {
+  . ~/.cache/wal/colors.sh
+
+  conffile=~/.config/mako/config
+
+  declare -A colors
+  colors=(
+    ["background-color"]="${background}89"
+    ["text-color"]="$foreground"
+    ["border-color"]="$color11"
+  )
+
+  for color_name in "${!colors[@]}"; do
+    sed -i "0,/^$color_name.*/{s//$color_name=${colors[$color_name]}/}" $conffile
+  done
+
+  makoctl reload
+}
+
+while getopts ri: flag
+do
+  case "${flag}" in
+    i) wal -i "${OPTARG}"
+       cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/
+       if pgrep -x waybar > /dev/null; then
+         restart_waybar
+       fi
+
+       set_wallpaper "${OPTARG}"
+
+       if pgrep -x awesome > /dev/null; then
+         awesome-client 'awesome.restart()' > /dev/null 2>&1
+       fi
+
+       restart_mako
+       pywalfox update
+       ;;
+    r) wal -q -i ~/Wallpapers/
+       source ~/.cache/wal/colors.sh
+       cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/
+       if pgrep -x waybar > /dev/null; then
+         restart_waybar
+       fi
+
+       set_wallpaper $wallpaper
+
+       if pgrep -x awesome > /dev/null; then
+         awesome-client 'awesome.restart()' > /dev/null 2>&1
+       fi
+
+       restart_mako
+       pywalfox update
+       ;;
+  esac
+done
