@@ -7,9 +7,13 @@
             url = "github:nix-community/home-manager";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        zig = {
+            url = "github:mitchellh/zig-overlay";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = { self, nixpkgs, home-manager, ... }: 
+    outputs = inputs@{ self, nixpkgs, home-manager, zig, ... }: 
         let 
         lib = nixpkgs.lib;
     in {
@@ -20,6 +24,7 @@
                     ./configuration.nix
                     home-manager.nixosModules.home-manager {
                         home-manager = {
+                            extraSpecialArgs = { inherit inputs zig; };
                             useGlobalPkgs = true;
                             useUserPackages = true;
                             users.sampie = import ./home.nix;

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, zig, ... }:
 
 {
     home.username = "sampie";
@@ -18,6 +18,7 @@
         btop
         vesktop
         telegram-desktop
+        zig.packages."${pkgs.system}".master
 
         (pkgs.nerdfonts.override { fonts = [ "FiraCode" "CascadiaMono" ]; })
     ];
