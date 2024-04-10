@@ -18,6 +18,7 @@
         btop
         vesktop
         telegram-desktop
+        kanata
         zig.packages."${pkgs.system}".master
 
         (pkgs.nerdfonts.override { fonts = [ "FiraCode" "CascadiaMono" ]; })
