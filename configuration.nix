@@ -30,6 +30,7 @@
             pulse.enable = true;
             jack.enable = true;
         };
+        kanata.enable = true;
     };
 
 # Configure keymap in X11
@@ -45,7 +46,7 @@
 
     users.users.sampie = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+        extraGroups = [ "wheel" "uinput" ];
         shell = pkgs.fish;
     };
 
