@@ -110,5 +110,6 @@
     systemd.user.sessionVariables = {
         CC = "clang";
         CXX = "clang++";
+        EDITOR = "nvim";
     };
 }
