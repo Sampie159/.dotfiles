@@ -4,6 +4,7 @@
     home.username = "sampie";
     home.homeDirectory = "/home/sampie";
 
+
     fonts.fontconfig.enable = true;
     home.packages = with pkgs; [
         neofetch
@@ -14,6 +15,9 @@
         pyprland
         grim
         slurp
+        meson
+        ninja
+        python3
         wl-clipboard
         btop
         vesktop
@@ -46,6 +50,61 @@
         waybar.enable = true;
         firefox.enable = true;
         lazygit.enable = true;
+
+        fish = {
+            enable = true;
+            shellAliases = {
+                # General aliases
+                nv = "nvim";
+                po = "poweroff";
+                rb = "reboot";
+                sd = "shutdown now";
+                hx = "helix";
+                ls = "eza";
+                cat = "bat";
+                hype = "Hyprland";
+
+                # Rust aliases
+                ca = "cargo add";
+                cb = "cargo build";
+                cbr = "cargo build --release";
+                cbp = "cargo build --profile";
+                cr = "cargo run";
+                crr = "cargo run --release";
+                crp = "cargo run --profile";
+                cw = "cargo watch -x";
+                cwb = "cargo watch -x build";
+                cwr = "cargo watch -x run";
+                cwt = "cargo watch -x test";
+
+                # Tmux aliases
+                t = "tmux";
+                ta = "tmux attach -t";
+                tns = "tmux new -s";
+                tks = "tmux kill-session";
+                tls = "tmus ls";
+
+                # Meson aliases
+                min = "meson init build";
+                ms = "meson setup build";
+                msw = "meson setup --wipe build";
+                mcb = "meson compile -C build";
+                mswcb = "meson setup --wipe build && meson compile -C build";
+
+                # CMake aliases
+                cmin = "cmake -S . -B debug -DCMAKE_BUILD_TYPE=Debug -G Ninja";
+                cmd = "cmake --build debug";
+                cmi = "sudo cmake --install release --prefix /usr/local";
+                cminr = "cmake -S . -B release -DCMAKE_BUILD_TYPE=Release -G Ninja";
+                cmr = "cmake --build release";
+
+                # Zig aliases
+                zb = "zig build -Doptimize=Debug";
+                zr = "zig build -Doptimize=Debug run";
+                zbr = "zig build -Doptimize=Release";
+                zrr = "zig build -Doptimize=Release run";
+            };
+        };
 
         eza = {
             enable = true;
