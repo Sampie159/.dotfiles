@@ -5,6 +5,7 @@
     home.homeDirectory = "/home/sampie";
     home.keyboard = {
         model = "br,us";
+        variant = "abnt2,";
         options = [ "grp:ctrls_toggle" ];
     };
 
