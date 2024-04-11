@@ -3,7 +3,10 @@
 {
     home.username = "sampie";
     home.homeDirectory = "/home/sampie";
-
+    home.keyboard = {
+        model = "br,us";
+        options = [ "grp:ctrls_toggle" ];
+    };
 
     fonts.fontconfig.enable = true;
     home.packages = with pkgs; [
