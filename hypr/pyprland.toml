@@ -39,6 +39,13 @@ class = "scratchpad"
 size = "50% 50%"
 lazy = true
 
+[scratchpads.kanata]
+command = "alacritty --class scratchpad -e sudo kanata -c .dotfiles/kanata/kanata.kbd"
+class = "scratchpad"
+size = "30% 30%"
+animation = "fromTop"
+unfocus = "hide"
+
 [layout_center]
 next = "movefocus r"
 prev = "movefocus l"

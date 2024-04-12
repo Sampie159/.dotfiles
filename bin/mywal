@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 restart_waybar () {
-  killall waybar
+  killall .waybar-wrapped
   waybar &
+  echo "resetted waybar"
 }
 
 set_wallpaper () {
@@ -35,8 +36,7 @@ while getopts ri: flag
 do
   case "${flag}" in
     i) wal -i "${OPTARG}"
-       cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/
-       if pgrep -x waybar > /dev/null; then
+       if pgrep -x .waybar-wrapped > /dev/null; then
          restart_waybar
        fi
 
@@ -50,9 +50,8 @@ do
        pywalfox update
        ;;
     r) wal -q -i ~/Wallpapers/
-       source ~/.cache/wal/colors.sh
-       cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/
-       if pgrep -x waybar > /dev/null; then
+       source ${HOME}/.cache/wal/colors.sh
+       if pgrep -x .waybar-wrapped > /dev/null; then
          restart_waybar
        fi
 

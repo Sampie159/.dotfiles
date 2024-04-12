@@ -13,6 +13,8 @@
     home.packages = with pkgs; [
         neofetch
         tree
+        killall
+        pavucontrol
         steam
         gamemode
         alacritty
@@ -23,18 +25,42 @@
         ninja
         python3
         wl-clipboard
+        spotify
+        neovim
+        wget
+        # gcc
+        clang
+        llvm
+        rustup
+        cmake
+        gnumake
+        nodejs
+        tree-sitter
+        libtool
+        pkg-config
         btop
         vesktop
         telegram-desktop
+        protonup-qt
         kanata
+        lutris
+        erlang
+        gleam
+        elixir
+        aseprite
+        wine-staging
+        wine
+        winetricks
+        qbittorrent
+        swww
+        pywalfox-native
+        mako
+        rofi
+        playerctl
         zig.packages."${pkgs.system}".master
 
         (pkgs.nerdfonts.override { fonts = [ "FiraCode" "CascadiaMono" ]; })
     ];
-
-    wayland.windowManager.hyprland = {
-        enable = true;
-    };
 
     programs = {
         git = {
@@ -43,6 +69,8 @@
             userEmail = "sfamboni@gmail.com";
         };
 
+        mpv.enable = true;
+        bat.enable = true;
         gh.enable = true;
         pywal.enable = true;
         jq.enable = true;
@@ -55,6 +83,22 @@
         firefox.enable = true;
         lazygit.enable = true;
 
+        irssi = {
+            enable = true;
+            networks = {
+                clonk = {
+                    nick = "sampie";
+                    server = {
+                        address = "colonq.computer";
+                        port = 26697;
+                        autoConnect = true;
+                        ssl.enable = true;
+                        ssl.verify = true;
+                    };
+                };
+            };
+        };
+        
         fish = {
             enable = true;
             shellAliases = {
@@ -66,7 +110,7 @@
                 hx = "helix";
                 ls = "eza";
                 cat = "bat";
-                hype = "Hyprland";
+                hypr = "Hyprland";
 
                 # Rust aliases
                 ca = "cargo add";
@@ -86,7 +130,7 @@
                 ta = "tmux attach -t";
                 tns = "tmux new -s";
                 tks = "tmux kill-session";
-                tls = "tmus ls";
+                tls = "tmux ls";
 
                 # Meson aliases
                 min = "meson init build";
@@ -105,9 +149,12 @@
                 # Zig aliases
                 zb = "zig build -Doptimize=Debug";
                 zr = "zig build -Doptimize=Debug run";
-                zbr = "zig build -Doptimize=Release";
-                zrr = "zig build -Doptimize=Release run";
+                zbr = "zig build -Doptimize=ReleaseFast";
+                zrr = "zig build -Doptimize=ReleaseFast run";
             };
+            shellInit = ''
+            cat ~/.cache/wal/sequences
+            '';
         };
 
         eza = {
@@ -119,31 +166,21 @@
             enable = true;
             enableFishIntegration = true;
         };
-
-        rofi = {
-            enable = true;
-            font = "CaskaydiaMono Nerd Font 12";
-        };
     };
 
     services = {
-        mako = {
+        gpg-agent = {
             enable = true;
-            font = "CaskaydiaMono Nerd Font 10";
-            borderRadius = 8;
-            defaultTimeout = 5000;
-            width = 500;
-            extraConfig = ''
-            background-color=#00000000
-            text-color=#000000
-            border-color=#000000
-            '';
+            enableFishIntegration = true;
+            enableSshSupport = true;
+            pinentryPackage = pkgs.pinentry-curses;
         };
     };
 
     home.file = {
         ".config/alacritty".source = ./alacritty;
         ".config/hypr".source = ./hypr;
+        ".config/wal/templates".source = ./templates;
         ".config/waybar" = {
             recursive = true;
             source = ./waybar;
@@ -160,6 +197,12 @@
             recursive = true;
             source = ./tmux;
         };
+        ".config/rofi/config.rasi".text = ''
+        configuration {
+        font: "CaskaydiaMono Nerd Font 12";
+        }
+        @import "~/.cache/wal/colors-rofi-light"
+        '';
         "Wallpapers" = {
             recursive = true;
             source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/Wallpapers";

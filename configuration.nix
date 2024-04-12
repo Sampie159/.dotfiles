@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
     imports = [
@@ -8,7 +8,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "uinput" ];
 
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
@@ -20,8 +20,11 @@
     services = {
         xserver = {
             enable = true;
-            displayManager.sddm.enable = true;
             videoDrivers = [ "nvidia" ];
+            displayManager.sddm = {
+                enable = true;
+                wayland.enable = true;
+            };
         };
         pipewire = {
             enable = true;
@@ -31,14 +34,13 @@
             jack.enable = true;
         };
         kanata.enable = true;
+        pcscd.enable = true;
+        udev.extraRules = ''
+        KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput", GROUP="input", MODE="0660"
+        '';
     };
 
-# Configure keymap in X11
-# services.xserver.xkb.layout = "us";
-# services.xserver.xkb.options = "eurosign:e,caps:escape";
-
     sound.enable = true;
-# hardware.pulseaudio.enable = true;
 
     home-manager.users.sampie = {
         home.stateVersion = "23.11";
@@ -64,24 +66,16 @@
         };
     };
 
-    environment.systemPackages = with pkgs; [
-        neovim
-        wget
-        gcc
-        clang
-        llvm
-        rustup
-        cmake
-        gnumake
-        libtool
-        pkg-config
-    ];
-
     programs = {
         fish = {
             enable = true;
         };
 
+        hyprland = {
+            enable = true;
+            package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        };
+        
         gnupg.agent = {
             enable = true;
             enableSSHSupport = true;
@@ -93,8 +87,23 @@
         polkit.enable = true;
         rtkit.enable = true;
     };
+    networking.firewall.enable = false;
+
     system.stateVersion = "23.11";
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nixpkgs.config.allowUnfree = true;
+    nix = {
+        settings = {
+            experimental-features = [ "nix-command" "flakes" ];
+            substituters = [ "https://hyprland.cachix.org" ];
+            trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+            auto-optimise-store = true;
+        };
+        optimise.automatic = true;
+        gc = {
+            automatic = true;
+            dates = "weekly";
+            options = "--delete-older-than 7d";
+        };
+    };
 }
 
