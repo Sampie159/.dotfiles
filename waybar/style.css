@@ -1,8 +1,8 @@
-@import 'colors-waybar.css';
+@import url("/home/sampie/.cache/wal/colors-waybar.css");
 
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "FiraCode Nerd Font";
+    font-family: "CaskaydiaMono Nerd Font";
     font-size: 13px;
     border: none;
     border-radius: 10;

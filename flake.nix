@@ -11,15 +11,17 @@
             url = "github:mitchellh/zig-overlay";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+        hyprland.url = "github:hyprwm/Hyprland";
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, zig, ... }: 
+    outputs = inputs@{ self, nixpkgs, home-manager, zig, hyprland, ... }: 
         let 
         lib = nixpkgs.lib;
     in {
         nixosConfigurations = {
             nixos = lib.nixosSystem {
                 system = "x86_64-linux";
+                specialArgs = { inherit inputs; };
                 modules = [
                     ./configuration.nix
                     home-manager.nixosModules.home-manager {
@@ -30,6 +32,15 @@
                             users.sampie = import ./home.nix;
                         };
                     }
+                ];
+            };
+        };
+        homeConfigurations = {
+            nixos = home-manager.lib.homeManagerConfiguration {
+                pkgs = nixpkgs.legacyPackages.x86_64-linux;
+                modules = [
+                    hyprland.homeManagerModules.default
+                    {wayland.windowManager.hyprland.enable = true;}
                 ];
             };
         };
