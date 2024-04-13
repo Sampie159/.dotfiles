@@ -103,7 +103,7 @@
 (use-package vterm
   :ensure t
   :config
-  (setq shell-file-name "/bin/zsh"
+  (setq shell-file-name "/bin/bash"
    vterm-max-scrollback 5000))
 
 (use-package vterm-toggle

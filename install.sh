@@ -10,6 +10,7 @@ programs=(
     pipewire-jack
     pipewire-pulse
     alsa-firmware
+    lazygit
     alacritty
     awesome
     git
@@ -20,7 +21,12 @@ programs=(
     steam
     lutris
     btop
+    fzf
+    ripgrep
+    gamemode
     mpv
+    mangohud
+    lib32-mangohud
     dmenu
     rofi
     mako
@@ -33,7 +39,7 @@ programs=(
 for program in "${programs[@]}"; do
     if ! command -v $program &> /dev/null; then
         echo "Installing $program"
-        sudo pacman -S $program --noconfirm
+        sudo pacman -S --needed $program --noconfirm
     fi
 done
 
@@ -54,7 +60,7 @@ if [ ! -d ~/.local/bin ]; then
 fi
 
 git clone https://aur.archlinux.org/paru.git && cd paru
-makepkg -si
+makepkg -si --noconfirm
 cd .. && rm -rf paru
 
 programs_aur=(
@@ -74,7 +80,7 @@ programs_aur=(
 for program in "${programs_aur[@]}"; do
     if ! command -v $program &> /dev/null; then
         echo "Installing $program"
-        paru -S $program --noconfirm
+        paru -S --needed $program --noconfirm
     fi
 done
 
@@ -89,6 +95,7 @@ configs=(
     picom
     rofi
     emacs
+    fish
 )
 
 for config in "${configs[@]}"; do
@@ -109,6 +116,9 @@ for home_config in "${home_configs[@]}"; do
 done
 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+fisher install rafaelrinaldi/pure
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
