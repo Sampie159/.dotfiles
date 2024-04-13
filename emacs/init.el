@@ -53,8 +53,11 @@
 
 (elpaca nil (message "deferred"))
 
-(defconst custom-file (expand-file-name "custom-file.el" user-emacs-directory))
-(load custom-file t)
+;; Use `custom-file.el` for custom stuff.
+(setq custom-file "~/.config/emacs/custom-file.el")
+
+;; Load `custom-file`
+(load custom-file 'noerror)
 
 (setq configs "~/.config/emacs/configs.el")
 (load-file configs)
