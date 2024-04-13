@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "profile = janestreet
+version = `ocamlformat --version`
+margin = 100
+doc-comments-padding = 100
+exp-grouping = preserve" > .ocamlformat
