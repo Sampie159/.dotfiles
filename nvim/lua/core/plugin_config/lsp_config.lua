@@ -37,7 +37,7 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-    -- clangd = {},
+    -- clangd = {},lsp
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
@@ -137,16 +137,11 @@ lsp.zls.setup {
 }
 
 lsp.hls.setup {
-    cmd = { 'haskell-language-server-wrapper', '--lsp' },
-    filetypes = { 'haskell', 'lhaskell', },
-    root_dir = lsp.util.root_pattern('*.cabal', 'stack.yaml', 'cabal.project', 'package.yaml', 'hie.yaml', '.git'),
     settings = {
         haskell = {
-            formattingProvider = "fourmolu",
+            formattingProvider = "stylish-haskell"
         }
-    },
-    single_file_support = true,
-    on_attach = on_attach,
+    }
 }
 
 lsp.glsl_analyzer.setup {
@@ -175,11 +170,11 @@ lsp.pyright.setup {
     capabilities = capabilities
 }
 
-lsp.gleam.setup{}
+lsp.gleam.setup {}
 
-lsp.racket_langserver.setup{}
+lsp.racket_langserver.setup {}
 
-lsp.fennel_ls.setup{}
+lsp.fennel_ls.setup {}
 
 -- Setup neovim lua configuration
 require('neodev').setup()

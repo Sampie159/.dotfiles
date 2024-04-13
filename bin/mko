@@ -3,10 +3,10 @@
 olsjson="{
     \"\$schema\": \"https://raw.githubusercontent.com/DanielGavin/ols/master/misc/ols.schema.json\",
     \"collections\": [
-        { \"name\": \"core\", \"path\": \"/usr/lib/odin/core\" },
-        { \"name\": \"vendor\", \"path\": \"/usr/lib/odin/vendor\" },
-        { \"name\": \"shared\", \"path\": \"/usr/lib/odin/shared\" },
-        { \"name\": \"base\", \"path\": \"/usr/lib/odin/base\" },
+        { \"name\": \"core\", \"path\": \"${HOME}/Downloads/Odin/core\" },
+        { \"name\": \"vendor\", \"path\": \"${HOME}/Downloads/Odin/vendor\" },
+        { \"name\": \"shared\", \"path\": \"${HOME}/Downloads/Odin/shared\" },
+        { \"name\": \"base\", \"path\": \"${HOME}/Downloads/Odin/base\" },
     ],
     \"enable_semantic_tokens\": true,
     \"enable_snippets\": true,
