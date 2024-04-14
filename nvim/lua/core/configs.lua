@@ -68,3 +68,5 @@ vim.opt.concealcursor = 'nc'
 
 vim.g.pascal_fpc=1
 vim.g.pascal_delphi=1
+
+vim.opt.shell = "/bin/bash"

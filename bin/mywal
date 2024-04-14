@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 restart_waybar () {
-  killall .waybar-wrapped
+  killall waybar
   waybar &
   echo "resetted waybar"
 }
@@ -36,7 +36,7 @@ while getopts ri: flag
 do
   case "${flag}" in
     i) wal -i "${OPTARG}"
-       if pgrep -x .waybar-wrapped > /dev/null; then
+       if pgrep -x waybar > /dev/null; then
          restart_waybar
        fi
 
@@ -51,7 +51,7 @@ do
        ;;
     r) wal -q -i ~/Wallpapers/
        source ${HOME}/.cache/wal/colors.sh
-       if pgrep -x .waybar-wrapped > /dev/null; then
+       if pgrep -x waybar > /dev/null; then
          restart_waybar
        fi
 

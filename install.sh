@@ -1,10 +1,31 @@
 #!/usr/bin/env bash
 
+sudo sed -i s/MODULES=\(\)/MODULES=\(nvidia nvidia_dmr nvidia_modeset nvidia_uvm\) /etc/mkinitcpio.conf
+sudo echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"uinput\", OPTIONS+=\"static_node=uinput\"" > /lib/udev/rules.d/kmonad.rules
+sudo mkdir /etc/pacman.d/hooks/
+sudo echo "nvidia_drm.modeset=1" >> /boot/loader/entries/arch.conf
+sudo groupadd uinput
+sudo modprobe uinput
+sudo cp ./nvidia-hook /etc/pacman.d/hooks/
+ln -sf ~/.dotfiles/discord-flags.conf ~/.config/discord-flags.conf
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+ln -sf ~/.dotfiles/bin/* ~/.local/bin/
+ln -sf ~/.dotfiles/templates/* ~/.config/wal/templates
+rm -rf ~/.emacs.d/
+
+mako_example="background-color=#00000000
+text-color=#000000
+border-color=#000000
+border-radius=8
+default-timeout=5000
+width=500"
+
+mkdir ~/.config/mako
+echo "$mako_example" > ~/.config/mako/config
+
 programs=(
     tmux
     screenkey
-    flameshot
-    redshift
     pipewire
     pipewire-alse
     pipewire-jack
@@ -12,11 +33,10 @@ programs=(
     alsa-firmware
     lazygit
     alacritty
-    awesome
     git
     discord
     linux-headers
-    picom
+    nvidia-dkms
     firefox
     steam
     lutris
@@ -27,7 +47,6 @@ programs=(
     mpv
     mangohud
     lib32-mangohud
-    dmenu
     rofi
     mako
     pass
@@ -75,6 +94,7 @@ programs_aur=(
     emacs-wayland
     vencord-desktop
     pyprland
+    all-repository-fonts
 )
 
 for program in "${programs_aur[@]}"; do
@@ -86,13 +106,10 @@ done
 
 configs=(
     tmux
-    conky
     alacritty
-    awesome
     hypr
     waybar
     nvim
-    picom
     rofi
     emacs
     fish
@@ -119,24 +136,3 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 fisher install rafaelrinaldi/pure
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-ln -sf ~/.dotfiles/.zshrc ~/.zshrc
-ln -sf ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
-ln -sf ~/.dotfiles/.zshenv ~/.zshenv
-ln -sf ~/.dotfiles/discord-flags.conf ~/.config/discord-flags.conf
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-ln -sf ~/.dotfiles/bin/* ~/.local/bin/
-ln -sf ~/.dotfiles/templates/* ~/.config/wal/templates
-rm -rf ~/.emacs.d/
-
-mako_example="background-color=#00000000
-text-color=#000000
-border-color=#000000
-border-radius=8
-default-timeout=5000
-width=500"
-
-mkdir ~/.config/mako
-echo "$mako_example" > ~/.config/mako/config
