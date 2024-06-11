@@ -56,8 +56,4 @@ vim.keymap.set("v", "<leader>s", ":sort<CR>")
 -- Reverse sort selected lines
 vim.keymap.set("v", "<leader>S", ":sort!<CR>")
 
--- Format
-vim.keymap.set("n", "<leader>F", "<cmd>Format<CR>")
-
--- Explore
-vim.keymap.set("n", "-", "<cmd>Ex<CR>", { silent = true })
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

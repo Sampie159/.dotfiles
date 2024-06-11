@@ -5,7 +5,7 @@ local t = ls.t
 
 local d = ls.dynamic_node
 local c = ls.choice_node
-local f= ls.function_node
+local f = ls.function_node
 local sn = ls.snippet_node
 
 local fmt = require('luasnip.extras.fmt').fmt
@@ -19,16 +19,25 @@ local scts = s('scts', fmt([[
 </script>
 ]], {
     i(1, '// Your code here')
-  }))
+}))
 table.insert(autosnippets, scts)
 
-local stp = s('sts', fmt([[
+local sts = s('sts', fmt([[
 <style lang="scss">
     {}
 </style>
 ]], {
     i(1, '// Your code here')
-  }))
-table.insert(autosnippets, stp)
+}))
+table.insert(autosnippets, sts)
+
+local stpc = s('stpc', fmt([[
+<style lang="postcss">
+    {}
+</style>
+]], {
+    i(1, '// Your code here')
+}))
+table.insert(autosnippets, stpc)
 
 return snippets, autosnippets

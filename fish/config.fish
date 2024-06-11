@@ -88,6 +88,7 @@ abbr -a cmr 'cmake --build release'
 abbr dip 'dune init project'
 abbr db 'dune build'
 abbr dbr 'dune build --release'
+abbr dbw 'dune build --watch'
 
 abbr zb 'zig build -Doptimize=Debug'
 abbr zr 'zig build -Doptimize=Debug run'
@@ -106,3 +107,13 @@ set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; se
 source /home/sampie/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
 fish_vi_key_bindings 2>/dev/null
+
+# pnpm
+set -gx PNPM_HOME "/home/sampie/.local/share/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
+
+source /opt/asdf-vm/asdf.fish
+zoxide init fish --cmd cd | source

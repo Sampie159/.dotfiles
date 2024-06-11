@@ -50,7 +50,9 @@ do
        pywalfox update
        ;;
     r) wal -q -i ~/Wallpapers/
+        echo "1"
        source ${HOME}/.cache/wal/colors.sh
+       echo $wallpaper
        if pgrep -x waybar > /dev/null; then
          restart_waybar
        fi

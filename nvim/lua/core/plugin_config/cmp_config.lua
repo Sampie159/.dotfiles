@@ -9,10 +9,6 @@ end
 
 luasnip.config.setup {}
 
--- nvlime
-local nvlime_config = require('nvlime.config')
-nvlime_config.cmp.enabled = true
-
 cmp.setup {
     snippet = {
         expand = function(args)
@@ -23,7 +19,7 @@ cmp.setup {
         ['<C-d>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<C-y>'] = cmp.mapping.confirm {
+        ['<C-i>'] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
@@ -51,7 +47,5 @@ cmp.setup {
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'orgmode' },
-        { name = 'conjure' },
-        { name = 'nvlime' },
     },
 }

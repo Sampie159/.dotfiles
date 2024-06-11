@@ -8,20 +8,6 @@ local on_attach = function(client, bufnr)
 
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
-
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-    nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-    nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    -- nmap('<C-K>', vim.lsp.buf.signature_help, 'Signature Documentation')
-
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
@@ -36,21 +22,38 @@ local on_attach = function(client, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = {
-    -- clangd = {},lsp
-    -- gopls = {},
-    -- pyright = {},
-    -- rust_analyzer = {},
-    -- tsserver = {},
+vim.keymap.set('n', 'K', vim.lsp.buf.hover)
+vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references)
+vim.keymap.set('n', 'gI', vim.lsp.buf.implementation)
+vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition)
+vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols)
+vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
+vim.keymap.set("n", "<leader>F", function()
+    vim.lsp.buf.format()
+    vim.api.nvim_command('write')
+end)
 
+local servers = {
     lua_ls = {
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
         },
     },
+    rust_analyzer = {
+        ['rust-analyzer'] = {
+            checkOnSave = {
+                command = 'clippy',
+            },
+        },
+    },
+    gopls = {
+    },
 }
-
 
 -- Go lsp config
 lsp.gopls.setup {
@@ -73,34 +76,6 @@ lsp.asm_lsp.setup {
     root_dir = lsp.util.root_pattern('.git'),
     on_attach = on_attach,
     capabilities = capabilities
-}
-
--- Rust lsp config
-lsp.rust_analyzer.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-    settings = {
-        ['rust-analyzer'] = {
-            checkOnSave = {
-                command = 'clippy',
-            },
-            cargo = {
-                loadOutDirsFromCheck = true,
-            },
-            procMacro = {
-                enable = true,
-            },
-            rustfmt = {
-                extraArgs = { '--emit=stdout' },
-            },
-            imports = {
-                granularity = {
-                    group = "module",
-                },
-                prefix = "self",
-            },
-        },
-    },
 }
 
 -- C/C++ lsp config
@@ -136,14 +111,6 @@ lsp.zls.setup {
     capabilities = capabilities
 }
 
-lsp.hls.setup {
-    settings = {
-        haskell = {
-            formattingProvider = "stylish-haskell"
-        }
-    }
-}
-
 lsp.glsl_analyzer.setup {
     cmd = { "glsl_analyzer" },
     filetypes = { "glsl", "hlsl", "vert", "tesc", "tese", "geom", "frag", "comp", "mesh", "task", "rgen", "rint", "rahit", "rchit", "rmiss", "rcall" },
@@ -151,8 +118,6 @@ lsp.glsl_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities
 }
-
-lsp.gdscript.setup {}
 
 lsp.ols.setup {
     cmd = { "ols", "--stdio" },
@@ -162,12 +127,10 @@ lsp.ols.setup {
     capabilities = capabilities
 }
 
-lsp.pyright.setup {
-    cmd = { "pyright-langserver", "--stdio" },
-    filetypes = { "python" },
-    root_dir = lsp.util.root_pattern(".git", "requirements.txt", "pyproject.toml", "setup.py", "Pipfile", "pyrightconfig.json"),
-    on_attach = on_attach,
-    capabilities = capabilities
+lsp.sourcekit.setup {
+    cmd = { "sourcekit-lsp" },
+    filetypes = { "swift" },
+    root_dir = lsp.util.root_pattern("Package.swift")
 }
 
 lsp.gleam.setup {}
@@ -175,6 +138,8 @@ lsp.gleam.setup {}
 lsp.racket_langserver.setup {}
 
 lsp.fennel_ls.setup {}
+
+lsp.roc_ls.setup {}
 
 -- Setup neovim lua configuration
 require('neodev').setup()

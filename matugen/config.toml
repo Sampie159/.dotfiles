@@ -1,0 +1,15 @@
+[config]
+reload_apps = true
+set_wallpaper = true
+wallpaper_tool = 'Swww'
+swww_options = [
+    "--transition-fps=60",
+    "--transition-step=1",
+    "--transition-type=random",
+]
+
+[config.reload_apps_list]
+waybar = true
+gtk_theme = true
+
+[templates]

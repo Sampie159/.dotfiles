@@ -53,6 +53,11 @@ programs=(
     slurp
     grim
     zoxide
+    qt6ct
+    qt5ct
+    kvantum
+    kvantum-qt5
+    sccache
 )
 
 for program in "${programs[@]}"; do
@@ -88,13 +93,15 @@ programs_aur=(
     hyprland-git
     swww
     xdg-desktop-portal-hyprland
-    waybar wl-clipboard
+    waybar
+    wl-clipboard
     kmonad-bin
     rar
     emacs-wayland
     vencord-desktop
     pyprland
     all-repository-fonts
+    matugen-bin
 )
 
 for program in "${programs_aur[@]}"; do
@@ -113,6 +120,7 @@ configs=(
     rofi
     emacs
     fish
+    Kvantum
 )
 
 for config in "${configs[@]}"; do
@@ -135,4 +143,5 @@ done
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 fisher install rafaelrinaldi/pure

@@ -1,8 +1,15 @@
+;;; keybinds --- My General Keybinds
+;;; Commentary:
+;;; Code:
+
 (use-package general
   :ensure t
   :config
-  (general-create-definer sam/leader-key
-    :prefix "C-c")
+  (general-evil-setup t)
+  (general-create-definer evil-leader-key
+    :prefix "SPC")
+  (general-create-definer good-leader-key
+	:prefix "C-c")
 
   (general-define-key
    "C-<return>" '(lambda () (interactive)
@@ -26,26 +33,30 @@
 	    (transpose-lines 1)
 	    (forward-line -1)))
   
-  (sam/leader-key
-   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
-   "TAB TAB" '(comment-line :wk "Comment lines")
-   "b i" '(ibuffer :wk "Ibuffer")
-   "e s" '(eshell :wk "Eshell")
-   "t v" '(vterm-toggle :wk "Toggle vterm")
-   "h f" '(describe-function :wk "Describe function")
-   "h v" '(descrive-variable :wk "Describe variable")
-   "h r r" '((lambda () (interactive)
-	       (load-file "~/.config/emacs/init.el")
-	       (load-file "~/.config/emacs/init.el"))
-	     :wk "Reload emacs config"))
+  (good-leader-key
+	:keymaps 'normal
+	"f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
+	"e s" '(eshell :wk "Eshell")
+	"t v" '(vterm-toggle :wk "Toggle vterm")
+	"h f" '(describe-function :wk "Describe function")
+	"h v" '(descrive-variable :wk "Describe variable")
+	"h r r" '((lambda () (interactive)
+   				(load-file "~/.config/emacs/init.el")
+   				(load-file "~/.config/emacs/init.el"))
+   			  :wk "Reload emacs config"))
 
-  (sam/leader-key
+  (evil-leader-key
+	:keymaps 'normal
     "l u" '(lsp-ui-imenu :wk "Show imenu entries"))
-  )
+
+  (general-nmap "gcc" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
   :ensure t
   :config
-  (sam/leader-key
-   "f u" '(sudo-edit-find-file :wk "Sudo find file")
-   "f U" '(sudo-edit :wk "Sudo edit file")))
+  (evil-leader-key
+	:keymaps 'normal
+	"f u" '(sudo-edit-find-file :wk "Sudo find file")
+	"f U" '(sudo-edit :wk "Sudo edit file")))
+
+;;; keybinds.el ends here

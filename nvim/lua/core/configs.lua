@@ -11,6 +11,9 @@ vim.wo.number = true
 -- Enable mouse
 vim.o.mouse = 'a'
 
+vim.o.cindent = true
+vim.o.cino = "N-s,g0,:0,E-s"
+
 -- Sync clipboard
 vim.o.clipboard = 'unnamedplus'
 
@@ -66,7 +69,8 @@ vim.o.autoread = true
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
-vim.g.pascal_fpc=1
-vim.g.pascal_delphi=1
-
 vim.opt.shell = "/bin/bash"
+
+vim.g.zig_fmt_autosave = 0
+vim.g.colortemplate_toolbar = 0
+
