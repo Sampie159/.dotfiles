@@ -1,3 +1,9 @@
+;;; configs --- A bunch of configs
+;;; Commentary:
+;; No idea why it's in this file but ok
+
+;;; Code:
+
 (setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
       eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
       eshell-history-size 5000
@@ -18,6 +24,7 @@
 (setq backup-directory-alist '((".*" . "~/.trash")))
 (setq lsp-clients-clangd-args
       '("-j=16"
+		"--compile-commands-dir=./debug"
         "--background-index"
         "--completion-style=bundled"
         "--pch-storage=memory"
@@ -45,5 +52,10 @@
 
 (setq-default indent-tabs-mode t)
 (setq-default tab-width 4)
+
+(setq treesit-language-source-alist
+	  '((rust "https://github.com/tree-sitter/tree-sitter-rust")
+		(elixir "https://github.com/elixir-lang/tree-sitter-elixir")
+		(heex "https://github.com/phoenixframework/tree-sitter-heex")))
 
 ;;; configs.el ends here

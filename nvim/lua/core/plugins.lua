@@ -12,13 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-    -- Copilot.lua
-    {
-        'zbirenbaum/copilot.lua',
-        cmd = "Copilot",
-        event = "InsertEnter",
-    },
-
     -- Todo Comments
     'travisvroman/todo-comments.nvim',
 
@@ -46,9 +39,6 @@ local plugins = {
         branch = "harpoon2",
     },
 
-    -- vim-be-good
-    'ThePrimeagen/vim-be-good',
-
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
@@ -73,7 +63,7 @@ local plugins = {
     },
 
     -- Which key
-    { 'folke/which-key.nvim',          opts = {} },
+    { 'folke/which-key.nvim',      opts = {} },
 
     {
         -- Adds git releated signs to the gutter, as well as utilities for managing changes
@@ -103,7 +93,6 @@ local plugins = {
         opts = {
             options = {
                 icons_enabled = true,
-                theme = 'palenight',
                 component_separators = '|',
                 section_separators = '',
             },
@@ -154,14 +143,6 @@ local plugins = {
     -- Parinfer
     'gpanders/nvim-parinfer',
 
-    -- nvlime
-    {
-        'monkoose/nvlime',
-        dependencies = {
-            'monkoose/parsley',
-        },
-    },
-
     -- Yuck.vim
     'elkowar/yuck.vim',
 
@@ -183,20 +164,67 @@ local plugins = {
     -- nvim-spectre
     'nvim-pack/nvim-spectre',
 
-    -- Conjure
-    {
-        'Olical/conjure',
-        dependencies = {
-            'PaterJason/cmp-conjure',
-            'wlangstroth/vim-racket',
-        },
-    },
-
-    -- aniseed
-    'Olical/aniseed',
-
     -- kanagawa.nvim
     'rebelot/kanagawa.nvim',
+
+    -- haskell-tools
+    {
+        'mrcjkb/haskell-tools.nvim',
+        version = '^3',
+        lazy = false,
+    },
+
+    -- undotree
+    'mbbill/undotree',
+
+    -- cyberdream
+    {
+        'scottmckendry/cyberdream.nvim',
+        config = function()
+            require("cyberdream").setup({
+                transparent = true,
+                italic_comments = true,
+                hide_fillchars = true,
+                borderless_telescope = false,
+                terminal_colors = true,
+            })
+        end,
+    },
+
+    -- miasma
+    'xero/miasma.nvim',
+
+    -- night-owl
+    'oxfist/night-owl.nvim',
+
+    -- oil.nvim
+    {
+        'stevearc/oil.nvim',
+        config = function()
+            require("oil").setup()
+            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+        end,
+    },
+
+    -- adwaita theme
+    {
+        "Mofiqul/adwaita.nvim",
+        config = function ()
+            -- vim.g.adwaita_darker = true
+        end,
+    },
+
+    -- vtools
+    'zakuro9715/vim-vtools',
+
+    -- komau
+    'ntk148v/komau.vim',
+
+    -- Mies
+    'jaredgorski/Mies.vim',
+
+    -- fogbell
+    'jaredgorski/fogbell.vim',
 }
 
 require('lazy').setup(plugins, {})

@@ -1,7 +1,7 @@
 require('nvim-treesitter.configs').setup {
   ensure_installed = { 'org' },
-  highlight = { enable = true },
-  indent = { enable = true, disable = { 'python', 'ocaml', 'ocaml_interface' } },
+  highlight = { enable = false },
+  indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,
     keymaps = {
