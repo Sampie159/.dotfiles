@@ -23,49 +23,9 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs=(
-    tmux
-    screenkey
-    pipewire
-    pipewire-alse
-    pipewire-jack
-    pipewire-pulse
-    alsa-firmware
-    lazygit
-    alacritty
-    git
-    discord
-    linux-headers
-    nvidia-dkms
-    firefox
-    steam
-    lutris
-    btop
-    fzf
-    ripgrep
-    gamemode
-    mpv
-    mangohud
-    lib32-mangohud
-    rofi
-    mako
-    pass
-    slurp
-    grim
-    zoxide
-    qt6ct
-    qt5ct
-    kvantum
-    kvantum-qt5
-    sccache
-)
+programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache"
 
-for program in "${programs[@]}"; do
-    if ! command -v $program &> /dev/null; then
-        echo "Installing $program"
-        sudo pacman -S --needed $program --noconfirm
-    fi
-done
+sudo pacman -S --needed $program --noconfirm
 
 directories=(.config .local/bin)
 
@@ -87,29 +47,9 @@ git clone https://aur.archlinux.org/paru.git && cd paru
 makepkg -si --noconfirm
 cd .. && rm -rf paru
 
-programs_aur=(
-    python-pywalfox
-    pywal-16-colors
-    hyprland-git
-    swww
-    xdg-desktop-portal-hyprland
-    waybar
-    wl-clipboard
-    kmonad-bin
-    rar
-    emacs-wayland
-    vencord-desktop
-    pyprland
-    all-repository-fonts
-    matugen-bin
-)
+programs_aur="python-pywalfox pywal-16-colors hyprland-git swww xdg-desktop-portal-hyprland waybar wl-clipboard kmonad-bin rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
 
-for program in "${programs_aur[@]}"; do
-    if ! command -v $program &> /dev/null; then
-        echo "Installing $program"
-        paru -S --needed $program --noconfirm
-    fi
-done
+paru -S --needed $program --noconfirm
 
 configs=(
     tmux
@@ -140,7 +80,6 @@ for home_config in "${home_configs[@]}"; do
     fi
 done
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
