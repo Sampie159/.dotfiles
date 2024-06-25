@@ -201,7 +201,9 @@ local plugins = {
     {
         'stevearc/oil.nvim',
         config = function()
-            require("oil").setup()
+            require("oil").setup({
+                skip_confirm_for_simple_edits = true,
+            })
             vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
         end,
     },
@@ -209,7 +211,7 @@ local plugins = {
     -- adwaita theme
     {
         "Mofiqul/adwaita.nvim",
-        config = function ()
+        config = function()
             -- vim.g.adwaita_darker = true
         end,
     },
@@ -224,7 +226,24 @@ local plugins = {
     'jaredgorski/Mies.vim',
 
     -- fogbell
-    'jaredgorski/fogbell.vim',
+    'Sampie159/fogbell.vim',
+
+    -- lsp_signature
+    {
+        'ray-x/lsp_signature.nvim',
+        event = "VeryLazy",
+        opts = {},
+        config = function(_, opts) require 'lsp_signature'.setup(opts) end,
+    },
+
+    -- vimtex
+    {
+        'lervag/vimtex',
+        lazy = false,
+        init = function()
+            vim.g.vimtex_view_method = 'zathura'
+        end,
+    },
 }
 
 require('lazy').setup(plugins, {})
