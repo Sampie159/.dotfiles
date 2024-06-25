@@ -8,7 +8,7 @@ require('core.plugin_config.lsp_config')
 require('core.plugin_config.luasnip_config')
 
 -- Theme
-vim.cmd.colorscheme('komau')
+vim.cmd.colorscheme('fogbell_light')
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

@@ -46,7 +46,7 @@ vim.o.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
--- Set colorscheme
+-- Set termguicolors
 vim.o.termguicolors = true
 
 -- Set scrolloff
@@ -73,4 +73,3 @@ vim.opt.shell = "/bin/bash"
 
 vim.g.zig_fmt_autosave = 0
 vim.g.colortemplate_toolbar = 0
-
