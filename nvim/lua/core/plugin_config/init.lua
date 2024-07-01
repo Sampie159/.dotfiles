@@ -8,7 +8,12 @@ require('core.plugin_config.lsp_config')
 require('core.plugin_config.luasnip_config')
 
 -- Theme
-vim.cmd.colorscheme('fogbell_light')
+local hour = tonumber(os.date("%H"))
+if hour > 17 or hour < 9 then
+    vim.cmd.colorscheme('fogbell_lite')
+else
+    vim.cmd.colorscheme('fogbell_light')
+end
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

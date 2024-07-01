@@ -52,6 +52,11 @@ call plug#end()
 
 let mapleader = " "
 
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap <C-d> <C-d>zz
@@ -80,13 +85,6 @@ vnoremap <leader>S :sort!<CR>
 " }}}
 
 " VIMSCRIPT -------------------------------------------------------------- {{{
-
-" This will enable code folding.
-" Use the marker method of folding.
-augroup filetype_vim
-    autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
-augroup END
 
 " }}}
 

@@ -9,7 +9,6 @@ local on_attach = function(client, bufnr)
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
     -- Lesser used LSP functionality
-    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
     nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
     nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
     nmap('<leader>wl', function()
@@ -22,15 +21,14 @@ local on_attach = function(client, bufnr)
     end, { desc = 'Format current buffer with LSP' })
 end
 
-vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
 vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references)
 vim.keymap.set('n', 'gI', vim.lsp.buf.implementation)
-vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition)
-vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols)
-vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
+-- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition)
+-- vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols)
+-- vim.keymap.set('n', '<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols)
 vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
 vim.keymap.set("n", "<leader>F", function()
     vim.lsp.buf.format()
@@ -140,6 +138,8 @@ lsp.racket_langserver.setup {}
 lsp.fennel_ls.setup {}
 
 lsp.roc_ls.setup {}
+
+lsp.erlangls.setup {}
 
 -- Setup neovim lua configuration
 require('neodev').setup()
