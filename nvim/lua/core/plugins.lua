@@ -244,6 +244,27 @@ local plugins = {
             vim.g.vimtex_view_method = 'zathura'
         end,
     },
+
+    -- text-case.nvim
+    {
+        'johmsalas/text-case.nvim',
+        config = function ()
+            require('textcase').setup({})
+            require('telescope').load_extension('textcase')
+        end,
+        keys = {
+            "ga",
+            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
+        },
+        cmd = {
+            "Subs",
+            "TextCaseOpenTelescope",
+            "TextCaseOpenTelescopeQuickChange",
+            "TextCaseOpenTelescopeLSPChange",
+            "TextCaseStartReplacingCommand",
+        },
+        lazy = false,
+    },
 }
 
 require('lazy').setup(plugins, {})
