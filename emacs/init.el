@@ -65,17 +65,20 @@
 
 ;; Language stuff
 (setq-default lsp-auto-guess-root t)
-(defvar lsp-language-id-configuration '((c-mode . "c")
+(defvar lsp-language-id-configuration '((asm-mode . "asm")
+										(c-mode . "c")
                                         (c++-mode . "cpp")
                                         (cmake-mode . "cmake")
                                         (csharp-mode . "csharp")
                                         (glsl-mode . "glsl")
-										(elixir-ts-mode . "elixir")
-										(haskell-mode . "haskell")
+										(elixir-mode . "elixir")
                                         (f90-mode . "fortran")
                                         (go-mode . "go")
+										(haskell-mode . "haskell")
                                         (python-mode . "python")
+										(latex-mode . "latex")
                                         (svelte-mode . "svelte")
+										(swift-mode . "swift")
                                         (tuareg-mode . "ocaml")
                                         (typescript-mode . "typescript")
                                         (odin-mode . "odin")
@@ -90,8 +93,5 @@
 ;; Keybindings
 (setq keybindings "~/.config/emacs/keybinds.el")
 (load-file keybindings)
-
-(setq auto-inserts "~/.config/emacs/auto-inserts.el")
-(load-file auto-inserts)
 
 ;;; init.el ends here
