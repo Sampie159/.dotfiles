@@ -5,26 +5,12 @@ plugins = [
     "layout_center",
 ]
 
-[scratchpads.pavucontrol]
-animation = "fromTop"
-command = "pavucontrol"
-class = "pavucontrol"
-lazy = true
-size = "50% 30%"
-unfocus = "hide"
-
 [scratchpads.btop]
 animation = "fromBottom"
 command = "alacritty --class scratchpad -e btop"
 class = "scratchpad"
 lazy = true
 size = "60% 60%"
-
-[scratchpads.rofi]
-command = "rofi -show drun"
-lazy = true
-animation = "fromBottom"
-class = "rofi"
 
 [scratchpads.irssi]
 command = "alacritty --class scratchpad -e irssi"
@@ -38,13 +24,6 @@ animation = "fromTop"
 class = "scratchpad"
 size = "50% 50%"
 lazy = true
-
-[scratchpads.kanata]
-command = "alacritty --class scratchpad -e sudo kanata -c .dotfiles/kanata/kanata.kbd"
-class = "scratchpad"
-size = "30% 30%"
-animation = "fromTop"
-unfocus = "hide"
 
 [layout_center]
 next = "movefocus r"

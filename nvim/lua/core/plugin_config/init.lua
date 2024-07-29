@@ -9,7 +9,7 @@ require('core.plugin_config.luasnip_config')
 
 -- Theme
 local hour = tonumber(os.date("%H"))
-if hour > 17 or hour < 9 then
+if hour > 16 or hour < 9 then
     vim.cmd.colorscheme('fogbell_lite')
 else
     vim.cmd.colorscheme('fogbell_light')
