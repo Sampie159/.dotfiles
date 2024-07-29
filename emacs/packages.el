@@ -153,16 +153,19 @@
 					:major-modes '(odin-mode)
 					:server-id 'ols
 					:multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "/usr/bin/glsl_analyzer")
 					:major-modes '(glsl-mode)
 					:server-id 'glsl_analyzer
 					:multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "/usr/bin/sourcekit-lsp")
-					:major-modes '(swift-mode)
-					:server-id 'sourcekit-lsp
-					:multi-root t))
+   (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/c3-lsp")
+                    :major-modes '(c3-ts-mode)
+                    :server-id 'c3-lsp
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(c3-ts-mode . "c3"))
   :commands (lsp))
 
 (use-package lsp-ui
@@ -217,19 +220,18 @@
 (use-package projectile
   :ensure t
   :config
+  (projectile-register-project-type 'zig '("build.zig")
+									:project-file "build.zig"
+									:compile "zig build"
+									:test "zig build test"
+									:run "zig build run")
+  (projectile-register-project-type 'c3 '("project.json")
+                                    :project-file "project.json"
+                                    :compile "c3c build"
+                                    :run "c3c run")
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/projects/" "~/playgrounds/" "~/faculdade/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-
-(use-package naysayer-theme
-  :ensure t)
-;; :config (load-theme 'naysayer))
-
-(use-package modus-themes :ensure t)
-
-(use-package almost-mono-themes
-  :ensure t)
-  ;; :config (load-theme 'almost-mono-black t))
 
 (use-package lsp-pyright
   :ensure t
@@ -258,15 +260,13 @@
   (global-set-key (kbd "C-\"") 'mc/skip-to-next-like-this)
   (global-set-key (kbd "C-:") 'mc/skip-to-previous-like-this))
 
-(use-package auctex
+(use-package modus-themes
   :ensure t
-  :hook
-  (LaTeX-mode . turn-on-prettify-symbols-mode)
-  (LaTeX-mode . turn-on-flyspell))
-
-(use-package cdlatex
-  :ensure t
-  :hook
-  (latex-mode . 'turn-on-cdlatex))
+  :config
+  (setq modus-themes-italic-constructs t
+        modus-themes-bold-constructs t
+        modus-themes-common-palette-overrides
+        modus-themes-preset-overrides-cooler)
+  (load-theme 'modus-vivendi-tinted))
 
 ;;; Packages.el ends here

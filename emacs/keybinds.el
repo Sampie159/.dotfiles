@@ -17,7 +17,7 @@
    "C-S-<return>" '(lambda () (interactive)
 		      (let ((oldpos (point)))
 			(beginning-of-line)
-			(newline-and-indent)
+			(newline)
 			(previous-line)
 			(indent-according-to-mode)))
 
@@ -35,7 +35,7 @@
 	"e s" '(eshell :wk "Eshell")
 	"t v" '(vterm-toggle :wk "Toggle vterm")
 	"h f" '(describe-function :wk "Describe function")
-	"h v" '(descrive-variable :wk "Describe variable")
+	"h v" '(describe-variable :wk "Describe variable")
 	"h r r" '((lambda () (interactive)
    				(load-file "~/.config/emacs/init.el")
    				(load-file "~/.config/emacs/init.el"))

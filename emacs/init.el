@@ -65,26 +65,6 @@
 
 ;; Language stuff
 (setq-default lsp-auto-guess-root t)
-(defvar lsp-language-id-configuration '((asm-mode . "asm")
-										(c-mode . "c")
-                                        (c++-mode . "cpp")
-                                        (cmake-mode . "cmake")
-                                        (csharp-mode . "csharp")
-                                        (glsl-mode . "glsl")
-										(elixir-mode . "elixir")
-                                        (f90-mode . "fortran")
-                                        (go-mode . "go")
-										(haskell-mode . "haskell")
-                                        (python-mode . "python")
-										(latex-mode . "latex")
-                                        (svelte-mode . "svelte")
-										(swift-mode . "swift")
-                                        (tuareg-mode . "ocaml")
-                                        (typescript-mode . "typescript")
-                                        (odin-mode . "odin")
-										(racket-mode . "racket")
-                                        (rust-mode . "rust")
-                                        (zig-mode . "zig")))
 
 ;; Installed packages found here
 (setq packages-file "~/.config/emacs/packages.el")
@@ -93,5 +73,9 @@
 ;; Keybindings
 (setq keybindings "~/.config/emacs/keybinds.el")
 (load-file keybindings)
+
+(load-file "~/Downloads/c3-ts-mode/c3-ts-mode.el")
+(require 'c3-ts-mode)
+(setq c3-ts-mode-indent-offset 4)
 
 ;;; init.el ends here

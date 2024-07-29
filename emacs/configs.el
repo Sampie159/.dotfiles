@@ -1,6 +1,6 @@
-;; ;;; configs --- A bunch of configs
-;; ;;; Commentary:
-;; No idea why it's in this file but ok
+;;; configs --- A bunch of configs
+;;; Commentary:
+;;; No idea why it's in this file but ok
 
 ;;; Code:
 
@@ -39,22 +39,16 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-;; (set-face-attribute
-;;  'default
-;;  (selected-frame)
-;;  :font "FiraCode Nerd Font"
-;;  :height 130)
-
 (set-frame-font "CaskaydiaMono Nerd Font 11" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 
-(let ((time (string-to-number (format-time-string "%H" (current-time)))))
-  (if (or (> time 17) (< time 9))
-	  (load-theme 'sdark)
-	(load-theme 'slight)))
+;; (let ((time (string-to-number (format-time-string "%H" (current-time)))))
+;;   (if (or (> time 17) (< time 9))
+;; 	  (load-theme 'sdark)
+;; 	(load-theme 'slight)))
 
-(setq-default indent-tabs-mode t)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
 (load-file "~/.config/emacs/glsl-mode.el")
