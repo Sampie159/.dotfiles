@@ -2,11 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq inhibit-startup-message t)
+(setq font-lock-maximum-decoration t
+      inhibit-startup-message t
+      display-line-numbers-type 'relative)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode)
 
 ;; Elpaca
@@ -75,7 +76,9 @@
 (load-file keybindings)
 
 (load-file "~/Downloads/c3-ts-mode/c3-ts-mode.el")
-(require 'c3-ts-mode)
-(setq c3-ts-mode-indent-offset 4)
+(setq c3-ts-mode-indent-offset 4
+      treesit-font-lock-level 4)
+
+(load-file "~/projects/odin-ts-mode/odin-ts-mode.el")
 
 ;;; init.el ends here

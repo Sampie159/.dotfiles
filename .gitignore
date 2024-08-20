@@ -80,3 +80,7 @@ fish/functions/_pure_string_width.fish
 fish/functions/_pure_user_at_host.fish
 fish/conf.d/_pure_init.fish
 fish/conf.d/zoxide.fish
+/emacs/tramp
+/emacs/recentf
+/emacs/.cache/
+/emacs/%backup%~

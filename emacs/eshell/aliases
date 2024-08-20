@@ -1,4 +1,5 @@
-alias cmin cmake -S . -B debug -DCMAKE_BUILD_TYPE=Debug
-alias cminr cmake -S . -B release -DCMAKE_BUILD_TYPE=Release
-alias cmd cmake --build debug
+alias 2 3 $*
 alias cmr cmake --build release
+alias cmd cmake --build debug
+alias cminr cmake -S . -B release -DCMAKE_BUILD_TYPE=Release
+alias cmin cmake -S . -B debug -DCMAKE_BUILD_TYPE=Debug
