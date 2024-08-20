@@ -8,9 +8,15 @@
 
 (use-package transient :ensure t)
 
+(use-package treesit)
+
 (use-package magit
   :ensure t
   :bind ("C-c g" . magit-status))
+
+(use-package c-ts-mode
+  :config
+  (setq c-ts-mode-indent-offset 4))
 
 (use-package cmake-mode
   :ensure t
@@ -18,9 +24,21 @@
   :config
   (setq cmake-tab-width 4))
 
-(use-package elixir-mode
+(use-package elixir-ts-mode
   :ensure t
-  :hook ((elixir-mode . lsp)))
+  :hook ((elixir-ts-mode . lsp)))
+
+(use-package gleam-ts-mode
+  :load-path "~/Downloads/gleam-mode"
+  :init (add-to-list 'auto-mode-alist '("\\.gleam\\'" . gleam-ts-mode)))
+
+(use-package go-ts-mode
+  :hook
+  ((go-ts-mode . lsp)
+   (before-save . lsp-organize-imports))
+  :init (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+  :config
+  (setq go-ts-mode-indent-offset 4))
 
 (use-package haskell-mode
   :ensure t
@@ -33,18 +51,11 @@
 
 (use-package rust-mode
   :ensure t
-  :config (setq lsp-rust-analyzer-cargo-watch-command "clippy")
+  :init (setq rust-mode-treesitter-derive t)
+  :config
+  (setq lsp-rust-analyzer-cargo-watch-command "clippy"
+        rust-indent-offset 4)
   :hook ((rust-mode . lsp)))
-
-(use-package go-mode
-  :ensure t
-  :hook
-  ((go-mode . lsp)
-   (before-save . lsp-organize-imports)))
-
-(use-package odin-mode
-  :ensure (:host github :repo "Sampie159/odin-mode")
-  :hook ((odin-mode . lsp)))
 
 (use-package svelte-mode
   :ensure t
@@ -54,9 +65,8 @@
   :ensure t
   :hook ((swift-mode . lsp)))
 
-(use-package typescript-mode
-  :ensure t
-  :hook ((typescript-mode . lsp)))
+(use-package typescript-ts-mode
+  :hook ((typescript-ts-mode . lsp)))
 
 (use-package tuareg
   :ensure t
@@ -137,23 +147,26 @@
   (setq lsp-keymap-prefix "C-c l")
   :hook
   ((asm-mode . lsp)
-   (c-mode . lsp)
-   (c++-mode . lsp)
+   (c-ts-mode . lsp)
+   (c++-ts-mode . lsp)
    (csharp-mode . lsp)
    (glsl-mode . lsp)
+   (gleam-ts-mode . lsp)
    (fortran-mode . lsp)
    (f90-mode . lsp)
    (latex-mode . lsp)
+   (odin-ts-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
-  (setq lsp-enable-on-type-formatting nil)
+  (setq lsp-enable-on-type-formatting nil
+        lsp-enable-snippet nil)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
-					:major-modes '(odin-mode)
-					:server-id 'ols
-					:multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
+    				:major-modes '(odin-ts-mode)
+    				:server-id 'ols
+    				:multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "/usr/bin/glsl_analyzer")
 					:major-modes '(glsl-mode)
@@ -229,13 +242,17 @@
                                     :project-file "project.json"
                                     :compile "c3c build"
                                     :run "c3c run")
+  (projectile-register-project-type 'gleam '("gleam.toml")
+                                    :project-file "gleam.toml"
+                                    :compile "gleam build"
+                                    :run "gleam run")
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/projects/" "~/playgrounds/" "~/faculdade/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package lsp-pyright
   :ensure t
-  :hook (python-mode . (lambda ()
+  :hook (python-ts-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
 
@@ -260,13 +277,36 @@
   (global-set-key (kbd "C-\"") 'mc/skip-to-next-like-this)
   (global-set-key (kbd "C-:") 'mc/skip-to-previous-like-this))
 
-(use-package modus-themes
+(use-package ef-themes
   :ensure t
   :config
-  (setq modus-themes-italic-constructs t
-        modus-themes-bold-constructs t
-        modus-themes-common-palette-overrides
-        modus-themes-preset-overrides-cooler)
-  (load-theme 'modus-vivendi-tinted))
+  (load-theme 'ef-night))
+
+(use-package moody
+  :ensure t
+  :config
+  (moody-replace-mode-line-front-space)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (setq treesit-auto-langs
+        '(c
+          c++
+          elixir
+          go
+          heex
+          java
+          javascript
+          python
+          svelte
+          typescript
+          tsx))
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 ;;; Packages.el ends here

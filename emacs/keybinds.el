@@ -28,7 +28,15 @@
    "M-n" '(lambda () (interactive)
 	    (forward-line 1)
 	    (transpose-lines 1)
-	    (forward-line -1)))
+	    (forward-line -1))
+
+   "C-q" '(lambda () (interactive)
+            (move-beginning-of-line 1)
+            (kill-line)
+            (yank)
+            (open-line 1)
+            (next-line 1)
+            (yank)))
   
   (good-leader-key
 	"f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
