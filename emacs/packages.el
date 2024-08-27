@@ -14,13 +14,8 @@
   :ensure t
   :bind ("C-c g" . magit-status))
 
-(use-package c-ts-mode
-  :config
-  (setq c-ts-mode-indent-offset 4))
-
 (use-package cmake-mode
   :ensure t
-  :hook ((cmake-mode . lsp))
   :config
   (setq cmake-tab-width 4))
 
@@ -32,51 +27,44 @@
   :load-path "~/Downloads/gleam-mode"
   :init (add-to-list 'auto-mode-alist '("\\.gleam\\'" . gleam-ts-mode)))
 
-(use-package go-ts-mode
+(use-package go-mode
+  :ensure t
   :hook
-  ((go-ts-mode . lsp)
+  ((go-mode . lsp)
    (before-save . lsp-organize-imports))
-  :init (add-to-list 'auto-mode-alist '("\\.go\\'" . go-ts-mode))
+  :init (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
   :config
-  (setq go-ts-mode-indent-offset 4))
+  (setq go-mode-indent-offset 4))
 
 (use-package haskell-mode
   :ensure t
-  :hook ((haskell-mode . lsp))
   :config (setq lsp-haskell-formatting-provider "stylish-haskell"))
 
+(use-package odin-mode
+  :ensure (:host github :repo "Sampie/odin-mode"))
+
 (use-package racket-mode
-  :ensure t
-  :hook ((racket-mode . lsp)))
+  :ensure t)
 
 (use-package rust-mode
   :ensure t
-  :init (setq rust-mode-treesitter-derive t)
   :config
   (setq lsp-rust-analyzer-cargo-watch-command "clippy"
-        rust-indent-offset 4)
-  :hook ((rust-mode . lsp)))
+        rust-indent-offset 4))
 
 (use-package svelte-mode
   :ensure t
   :hook ((svelte-mode . lsp)))
 
-(use-package swift-mode
-  :ensure t
-  :hook ((swift-mode . lsp)))
-
-(use-package typescript-ts-mode
-  :hook ((typescript-ts-mode . lsp)))
+(use-package typescript-mode :ensure t)
 
 (use-package tuareg
   :ensure t
   :config
-  (setq tuareg-match-patterns-aligned t)
-  :hook ((tuareg-mode . lsp)))
+  (setq tuareg-match-patterns-aligned t))
 
 (use-package zig-mode
   :ensure t
-  :hook ((zig-mode . lsp))
   :config (setq zig-format-on-save nil))
 
 (use-package which-key
@@ -146,17 +134,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((asm-mode . lsp)
-   (c-ts-mode . lsp)
-   (c++-ts-mode . lsp)
-   (csharp-mode . lsp)
-   (glsl-mode . lsp)
-   (gleam-ts-mode . lsp)
-   (fortran-mode . lsp)
-   (f90-mode . lsp)
-   (latex-mode . lsp)
-   (odin-ts-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration))
+  ((lsp-mode . lsp-enable-which-key-integration)
+   (lsp-completion-mode . my/lsp-mode-setup-completion))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
@@ -180,11 +159,6 @@
                     :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(c3-ts-mode . "c3"))
   :commands (lsp))
-
-(use-package lsp-ui
-  :ensure t
-  :config (setq lsp-ui-doc-show-with-cursor t)
-  :commands lsp-ui-mode)
 
 (use-package lsp-ivy
   :ensure t
@@ -222,13 +196,7 @@
 (use-package org-bullets :ensure t)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
-(use-package ob-rust :ensure t)
-
 (use-package edit-indirect :ensure t)
-
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
 
 (use-package projectile
   :ensure t
@@ -256,14 +224,9 @@
                          (require 'lsp-pyright)
                          (lsp))))
 
-(use-package company
+(use-package smart-tab
   :ensure t
-  :config
-  (global-company-mode)
-  (with-eval-after-load 'company
-    (define-key company-active-map (kbd "<return>") nil)
-    (define-key company-active-map (kbd "RET") nil)
-    (define-key company-active-map (kbd "C-i") #'company-complete-selection)))
+  :config (global-smart-tab-mode 1))
 
 (use-package lsp-haskell :ensure t)
 
@@ -277,11 +240,6 @@
   (global-set-key (kbd "C-\"") 'mc/skip-to-next-like-this)
   (global-set-key (kbd "C-:") 'mc/skip-to-previous-like-this))
 
-(use-package ef-themes
-  :ensure t
-  :config
-  (load-theme 'ef-night))
-
 (use-package moody
   :ensure t
   :config
@@ -289,24 +247,13 @@
   (moody-replace-mode-line-buffer-identification)
   (moody-replace-vc-mode))
 
-(use-package treesit-auto
+(use-package highlight-numbers
   :ensure t
+  :hook ((prog-mode . highlight-numbers-mode)))
+
+(use-package emacs
   :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (setq treesit-auto-langs
-        '(c
-          c++
-          elixir
-          go
-          heex
-          java
-          javascript
-          python
-          svelte
-          typescript
-          tsx))
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+  (tab-always-indent 'complete)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 ;;; Packages.el ends here

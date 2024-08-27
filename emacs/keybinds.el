@@ -30,13 +30,16 @@
 	    (transpose-lines 1)
 	    (forward-line -1))
 
-   "C-q" '(lambda () (interactive)
+   "C-l" '(lambda () (interactive)
             (move-beginning-of-line 1)
             (kill-line)
             (yank)
             (open-line 1)
             (next-line 1)
-            (yank)))
+            (yank))
+
+   "C-," '(lambda () (interactive)
+            (recenter-top-bottom)))
   
   (good-leader-key
 	"f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")

@@ -42,11 +42,7 @@
 (set-frame-font "CaskaydiaMono Nerd Font 11" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-
-;; (let ((time (string-to-number (format-time-string "%H" (current-time)))))
-;;   (if (or (> time 17) (< time 9))
-;; 	  (load-theme 'sdark)
-;; 	(load-theme 'slight)))
+(load-theme '4coder)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -82,33 +78,42 @@
 		 (dedicated . t)
 		 (body-function . (lambda (window) (select-window window))))))
 
-(defvar treesit-language-source-alist
-      '((c3 "https://github.com/c3lang/tree-sitter-c3")
-        (c "https://github.com/tree-sitter/tree-sitter-c")
-        (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
-        (c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-        (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
-        (go "https://github.com/tree-sitter/tree-sitter-go")
-        (gomod "https://github.com/camdencheek/tree-sitter-go-mod")
-        (heex "https://github.com/phoenixframework/tree-sitter-heex")
-        (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
-        (odin "https://github.com/tree-sitter-grammars/tree-sitter-odin")
-        (python "https://github.com/tree-sitter/tree-sitter-python")
-        (rust "https://github.com/tree-sitter/tree-sitter-rust")
-        (typescript "https://github.com/tree-sitter/tree-sitter-typescript")))
+(defun header-guard ()
+  "Add header guard to new C/C++ header files."
+  (when (and (buffer-file-name)
+             (string-match "\\.\\(h\\|hh\\|hpp\\)\\'" (buffer-file-name))
+             (zerop (buffer-size)))
+    (let* ((filename (file-name-nondirectory (buffer-file-name)))
+           (extension (concat "_" (upcase (file-name-extension filename)) "__"))
+           (guard (concat "__" (upcase (file-name-sans-extension filename)) extension)))
+      (insert "ifndef " guard "\n#define " guard "\n\n")
+      (insert "\n\n#endif /* " guard " */\n")
+      (goto-char (point-min))
+      (forward-line 3))))
 
-(defun treesit-install-all-grammars ()
-  "Install all the language grammars defined."
+(add-hook 'c-mode-common-hook 'header-guard)
+
+(defun label (label)
+  (interactive "sLABEL: ")
+  (insert "/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */\n")
+  (insert (concat "/*" (store-substring (make-string 75 ?\s) (/ (- 75 (length label)) 2) (upcase label))) "*/\n")
+  (insert "/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */\n"))
+
+(defun insert-if0-guard ()
+  "Insert a #if 0 ... #endif block around a block."
   (interactive)
-  (mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist)))
+  (save-excursion
+    (let ((begin (progn (beginning-of-defun) (point)))
+          (end (progn (end-of-defun) (point))))
+      (goto-char end)
+      (insert "#endif\n")
+      (goto-char begin)
+      (insert "#if 0\n"))))
 
-;; (setq major-mode-remap-alist
-;;       '((c-mode . c-ts-mode)
-;;         (c++-mode . c++-ts-mode)
-;;         (c-or-c++-mode . c-or-c++-ts-mode)
-;;         (csharp-mode . csharp-ts-mode)
-;;         (python-mode . python-ts-mode)
-;;         (typescript-mode . typescript-ts-mode)))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (c-set-offset 'inextern-lang 0)
+            (c-set-offset 'innamespace 0)
+            (define-key c-mode-map (kbd "C-c 0") 'insert-if0-guard)))
 
 ;;; configs.el ends here
