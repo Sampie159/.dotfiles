@@ -76,9 +76,6 @@
 (load-file keybindings)
 
 (load-file "~/Downloads/c3-ts-mode/c3-ts-mode.el")
-(setq c3-ts-mode-indent-offset 4
-      treesit-font-lock-level 4)
-
-(load-file "~/projects/odin-ts-mode/odin-ts-mode.el")
+(setq c3-ts-mode-indent-offset 4)
 
 ;;; init.el ends here
