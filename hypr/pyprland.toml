@@ -12,12 +12,6 @@ class = "scratchpad"
 lazy = true
 size = "60% 60%"
 
-[scratchpads.irssi]
-command = "alacritty --class scratchpad -e irssi"
-class = "scratchpad"
-animation = "fromRight"
-size = "46% 86%"
-
 [scratchpads.term]
 command = "alacritty --class scratchpad"
 animation = "fromTop"

@@ -116,4 +116,19 @@
             (c-set-offset 'innamespace 0)
             (define-key c-mode-map (kbd "C-c 0") 'insert-if0-guard)))
 
+(defun elisp-headandfoot ()
+  "Insert the headers and footers and inbetweeners required by elisp."
+  (interactive)
+  (when (and (buffer-file-name)
+             (string-match "\\.el\\'" (buffer-file-name))
+             (zerop (buffer-size)))
+    (let ((filename (file-name-nondirectory (buffer-file-name))))
+      (insert (concat ";;; " filename " --- \n"))
+      (insert ";;; Commentary:\n")
+      (insert ";;; Code:\n\n\n\n")
+      (insert (concat ";;; " filename " ends here"))
+      (previous-line 2))))
+
+(add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
+
 ;;; configs.el ends here
