@@ -134,8 +134,7 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((lsp-mode . lsp-enable-which-key-integration)
-   (lsp-completion-mode . my/lsp-mode-setup-completion))
+  ((lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
@@ -256,4 +255,13 @@
   (tab-always-indent 'complete)
   (read-extended-command-predicate #'command-completion-default-include-p))
 
-;;; Packages.el ends here
+(use-package circe
+  :ensure t
+  :config
+  (setq circe-network-options
+        '(("CLONKOZONE"
+           :host "colonq.computer" :port 26697
+           :tls t
+           :nick "sampie"))))
+
+;;; packages.el ends here
