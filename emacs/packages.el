@@ -16,6 +16,7 @@
 
 (use-package cmake-mode
   :ensure t
+  :hook ((cmake-mode . lsp))
   :config
   (setq cmake-tab-width 4))
 
@@ -25,7 +26,8 @@
 
 (use-package gleam-ts-mode
   :load-path "~/Downloads/gleam-mode"
-  :init (add-to-list 'auto-mode-alist '("\\.gleam\\'" . gleam-ts-mode)))
+  :init (add-to-list 'auto-mode-alist '("\\.gleam\\'" . gleam-ts-mode))
+  :hook ((gleam-ts-mode . lsp)))
 
 (use-package go-mode
   :ensure t
@@ -38,34 +40,42 @@
 
 (use-package haskell-mode
   :ensure t
-  :config (setq lsp-haskell-formatting-provider "stylish-haskell"))
+  :config (setq lsp-haskell-formatting-provider "stylish-haskell")
+  :hook ((haskell-mode . lsp)))
 
 (use-package odin-mode
-  :ensure (:host github :repo "Sampie/odin-mode"))
+  :ensure (:host github :repo "Sampie/odin-mode")
+  :hook ((odin-mode . lsp)))
 
 (use-package racket-mode
-  :ensure t)
+  :ensure t
+  :hook ((racket-mode . lsp)))
 
 (use-package rust-mode
   :ensure t
   :config
   (setq lsp-rust-analyzer-cargo-watch-command "clippy"
-        rust-indent-offset 4))
+        rust-indent-offset 4)
+  :hook ((rust-mode . lsp)))
 
 (use-package svelte-mode
   :ensure t
   :hook ((svelte-mode . lsp)))
 
-(use-package typescript-mode :ensure t)
+(use-package typescript-mode
+  :ensure t
+  :hook ((typescript-mode . lsp)))
 
 (use-package tuareg
   :ensure t
   :config
-  (setq tuareg-match-patterns-aligned t))
+  (setq tuareg-match-patterns-aligned t)
+  :hook ((tuareg-mode . lsp)))
 
 (use-package zig-mode
   :ensure t
-  :config (setq zig-format-on-save nil))
+  :config (setq zig-format-on-save nil)
+  :hook ((zig-mode . lsp)))
 
 (use-package which-key
   :ensure t
@@ -134,11 +144,15 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((lsp-mode . lsp-enable-which-key-integration))
+  ((c-mode . lsp)
+   (c++-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
-        lsp-enable-snippet nil)
+        lsp-enable-snippet nil
+        lsp-inlay-hint-enable nil
+        lsp-diagnostics-provider :none)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
     				:major-modes '(odin-ts-mode)
@@ -166,13 +180,13 @@
 (use-package hl-todo
   :ensure t
   :config
-  (setq hl-todo-highlight-punctuation ":"
-		hl-todo-keyword-faces
+  (setq hl-todo-keyword-faces
 		'(("TODO" . "#E6E600")
 		  ("DEBUG" . "#A020F0")
 		  ("FIXME" . "#FF0000")
 		  ("NOTE" . "#FF4500")
-		  ("DEPRECATED" . "#1E90FF")))
+		  ("DEPRECATED" . "#1E90FF"))
+        hl-todo-highlight-punctuation ":")
   (global-hl-todo-mode t))
 
 (use-package dired-open
@@ -217,15 +231,15 @@
   (setq projectile-project-search-path '("~/projects/" "~/playgrounds/" "~/faculdade/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
+;; (use-package smart-tab
+;;   :ensure t
+;;   :config (global-smart-tab-mode))
+
 (use-package lsp-pyright
   :ensure t
   :hook (python-ts-mode . (lambda ()
                          (require 'lsp-pyright)
                          (lsp))))
-
-(use-package smart-tab
-  :ensure t
-  :config (global-smart-tab-mode 1))
 
 (use-package lsp-haskell :ensure t)
 
@@ -239,16 +253,22 @@
   (global-set-key (kbd "C-\"") 'mc/skip-to-next-like-this)
   (global-set-key (kbd "C-:") 'mc/skip-to-previous-like-this))
 
-(use-package moody
-  :ensure t
-  :config
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode))
-
 (use-package highlight-numbers
   :ensure t
   :hook ((prog-mode . highlight-numbers-mode)))
+
+(use-package corfu
+  :ensure t
+  :init (global-corfu-mode))
+
+(use-package dabbrev
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
 (use-package emacs
   :custom

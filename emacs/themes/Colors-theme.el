@@ -1,8 +1,8 @@
-;;; 4coder-theme.el --- Theme
+;;; Colors-theme.el --- Theme
 
-;; Copyright (C) 2024 , 
+;; Copyright (C) 2024 , Sampie
 
-;; Author: 
+;; Author: Sampie
 ;; Version: 0.1
 ;; Package-Requires: ((emacs "24.1"))
 ;; Created with ThemeCreator, https://github.com/mswift42/themecreator.
@@ -23,35 +23,35 @@
 ;; This file is not part of Emacs.
 
 ;;; Commentary:
-;;; 4coder theme created by  in 2024
+;;; Colors theme created by Sampie in 2024
 
 ;;; Code:
 
-(deftheme 4coder)
+(deftheme Colors)
 (let ((class '((class color) (min-colors 89)))
-      (fg1 "#90b080")
-      (fg2 "#84a276")
-      (fg3 "#79946c")
-      (fg4 "#6d8661")
-      (fg6 "#abc39e")
-      (bg1 "#0c0c0c")
-      (bg2 "#1f1f1f")
-      (bg3 "#333333")
-      (bg4 "#464646")
-      (builtin "#a0b8a0")
-      (keyword "#d08f20")
-      (const   "#50ff30")
-      (comment "#2090f0")
-      (func    "#90b080")
-      (str     "#50ff30")
-      (type    "#d08f20")
-      (var     "#90b080")
+      (fg1 "#ffffff")
+      (fg2 "#ebebeb")
+      (fg3 "#d6d6d6")
+      (fg4 "#c2c2c2")
+      (fg6 "#ffffff")
+      (bg1 "#1d0237")
+      (bg2 "#2f1647")
+      (bg3 "#412a57")
+      (bg4 "#533f67")
+      (builtin "#ed333b")
+      (keyword "#3584e4")
+      (const   "#26a269")
+      (comment "#26a269")
+      (func    "#ffffff")
+      (str     "#26a269")
+      (type    "#c061cb")
+      (var     "#ffffff")
       (selection "#0000ff")
       (warning   "#ff0000")
       (warning2  "#ff8800")
       (unspec   (when (>= emacs-major-version 29) 'unspecified)))
   (custom-theme-set-faces
-   '4coder
+   'Colors
    `(default ((,class (:background ,bg1 :foreground ,fg1))))
    `(font-lock-builtin-face ((,class (:foreground ,builtin))))
    `(font-lock-comment-face ((,class (:foreground ,comment))))
@@ -59,8 +59,8 @@
 	 `(font-lock-reference-face ((,class (:foreground ,const))))
 	 `(font-lock-constant-face ((,class (:foreground ,const))))
    `(font-lock-doc-face ((,class (:foreground ,comment))))
-   `(font-lock-function-name-face ((,class (:foreground ,func))))
-   `(font-lock-keyword-face ((t (:foreground "#d08f20"))))
+   `(font-lock-function-name-face ((,class (:foreground ,func ))))
+   `(font-lock-keyword-face ((t (:foreground "#3584e4"))))
    `(font-lock-string-face ((,class (:foreground ,str))))
    `(font-lock-number-face ((,class (:foreground ,str))))
    `(font-lock-type-face ((,class (:foreground ,type ))))
@@ -71,7 +71,7 @@
    `(region ((,class (:background ,selection))))
    `(highlight ((,class (:foreground ,fg3 :background ,bg3))))
 	 `(hl-line ((,class (:background  ,bg2))))
-	 `(fringe ((,class (:background ,bg1 :foreground ,fg4))))
+	 `(fringe ((,class (:background ,bg2 :foreground ,fg4))))
 	 `(cursor ((,class (:background ,fg4))))
    `(isearch ((,class (:bold nil :foreground ,warning :background ,bg3))))
    `(mode-line ((,class (:box (:line-width 1 :color nil) :bold nil :foreground ,fg4 :background ,bg2))))
@@ -248,23 +248,23 @@
    ;; Legacy
    (if (< emacs-major-version 22)
        (custom-theme-set-faces
-        '4coder
+        'Colors
         `(show-paren-match-face ((,class (:background ,warning))))) ;; obsoleted in 22.1, removed 2016
      (custom-theme-set-faces
-      '4coder
+      'Colors
       `(show-paren-match ((,class (:foreground ,bg1 :background ,str))))
       `(show-paren-mismatch ((,class (:foreground ,bg1 :background ,warning))))))
    ;; emacs >= 26.1
    (when (>= emacs-major-version 26)
      (custom-theme-set-faces
-      '4coder
+      'Colors
       `(line-number ((t (:inherit fringe))))
       `(line-number-current-line ((t (:inherit fringe :foreground ,fg6 :weight normal))))))
 
   ;; emacs >= 27.1
   (when (>= emacs-major-version 27)
     (custom-theme-set-faces
-     '4coder
+     'Colors
      `(tab-line              ((,class (:background ,bg2 :foreground ,fg4))))
      `(tab-line-tab          ((,class (:inherit tab-line))))
      `(tab-line-tab-inactive ((,class (:background ,bg2 :foreground ,fg4))))
@@ -272,13 +272,13 @@
      `(tab-line-highlight    ((,class (:background ,bg1 :foreground ,fg2))))))
  (when (>= emacs-major-version 28)
     (custom-theme-set-faces
-     '4coder
+     'Colors
      `(line-number ((t (:inherit fringe))))
      `(line-number-current-line ((t (:inherit fringe :foreground ,fg6 :weight normal))))))
 ;; emacs >= 27.1
 (when (>= emacs-major-version 27)
   (custom-theme-set-faces
-   '4coder
+   'Colors
    `(tab-line              ((,class (:background ,bg2 :foreground ,fg4))))
    `(tab-line-tab          ((,class (:inherit tab-line))))
    `(tab-line-tab-inactive ((,class (:background ,bg2 :foreground ,fg4))))
@@ -286,11 +286,11 @@
    `(tab-line-highlight    ((,class (:background ,bg1 :foreground ,fg2))))))
  (when (>= emacs-major-version 28)
     (custom-theme-set-faces
-     '4coder
+     'Colors
      `(tab-line-tab-modified ((,class (:foreground ,warning2 :weight normal))))))
   (when (boundp 'font-lock-regexp-face)
     (custom-theme-set-faces
-    '4coder
+    'Colors
     `(font-lock-regexp-face ((,class (:inherit font-lock-string-face :underline t)))))))
 
 ;;;###autoload
@@ -298,10 +298,10 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme '4coder)
+(provide-theme 'Colors)
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
 
-;;; 4coder-theme.el ends here
+;;; Colors-theme.el ends here
