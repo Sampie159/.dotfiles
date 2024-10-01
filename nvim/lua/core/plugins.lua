@@ -48,8 +48,6 @@ local plugins = {
             'williamboman/mason-lspconfig.nvim',
 
             { 'j-hui/fidget.nvim', opts = {}, tag = 'legacy' },
-
-            'folke/neodev.nvim',
         },
     },
 
@@ -265,6 +263,35 @@ local plugins = {
         },
         lazy = false,
     },
+
+    -- aquarium
+    'FrenzyExists/aquarium-vim',
+
+    -- lazydev
+    {
+        'folke/lazydev.nvim',
+        ft = 'lua',
+        opts = {
+            library = {
+                { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+            },
+        },
+    },
+
+    -- luvit (no idea)
+    { 'Bilal2453/luvit-meta', lazy = true },
+
+    -- c3
+    'Airbus5717/c3.vim',
+
+    -- dadbox
+    'tpope/vim-dadbod',
+
+    -- prunner (dev)
+    -- {
+    --     dir = "~/projects/prunner.nvim",
+    --     name = "prunner.nvim",
+    -- },
 }
 
 require('lazy').setup(plugins, {})

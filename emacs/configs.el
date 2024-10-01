@@ -43,6 +43,7 @@
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 (load-theme '4coder)
+;;(load-theme 'Colors)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -59,6 +60,7 @@
 
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-l") 'label)
 	(define-key map (kbd "C-x b") 'counsel-switch-buffer)
 	map)
   "Defines the my-keys-minor-mode keymaps.")
@@ -86,12 +88,10 @@
     (let* ((filename (file-name-nondirectory (buffer-file-name)))
            (extension (concat "_" (upcase (file-name-extension filename)) "__"))
            (guard (concat "__" (upcase (file-name-sans-extension filename)) extension)))
-      (insert "ifndef " guard "\n#define " guard "\n\n")
+      (insert "#ifndef " guard "\n#define " guard "\n\n")
       (insert "\n\n#endif /* " guard " */\n")
       (goto-char (point-min))
       (forward-line 3))))
-
-(add-hook 'c-mode-common-hook 'header-guard)
 
 (defun label (label)
   (interactive "sLABEL: ")
@@ -114,7 +114,9 @@
           (lambda ()
             (c-set-offset 'inextern-lang 0)
             (c-set-offset 'innamespace 0)
+            (header-guard)
             (define-key c-mode-map (kbd "C-c 0") 'insert-if0-guard)))
+            ;; (define-key c-mode-map (kbd "C-c C-l") 'label)))
 
 (defun elisp-headandfoot ()
   "Insert the headers and footers and inbetweeners required by elisp."
@@ -130,5 +132,10 @@
       (previous-line 2))))
 
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
+(add-hook 'c3-ts-mode-hook
+          (lambda()
+            (when (zerop (buffer-size))
+              (insert "\n\n")
+              (goto-char (point-min)))))
 
 ;;; configs.el ends here

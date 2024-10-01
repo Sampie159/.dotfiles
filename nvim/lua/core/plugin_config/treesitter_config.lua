@@ -1,6 +1,6 @@
 require('nvim-treesitter.configs').setup {
-  ensure_installed = { 'org' },
-  highlight = { enable = false },
+  ensure_installed = { 'org', 'markdown', 'lua' },
+  highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
     enable = true,

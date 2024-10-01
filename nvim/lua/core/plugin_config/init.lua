@@ -7,13 +7,9 @@ require('core.plugin_config.treesitter_config')
 require('core.plugin_config.lsp_config')
 require('core.plugin_config.luasnip_config')
 
--- Theme
-local hour = tonumber(os.date("%H"))
-if hour > 16 or hour < 9 then
-    vim.cmd.colorscheme('fogbell_lite')
-else
-    vim.cmd.colorscheme('fogbell_light')
-end
+vim.g.aquarium_style = "light"
+vim.g.aqua_bold = 0
+vim.cmd.colorscheme("night-owl")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.
