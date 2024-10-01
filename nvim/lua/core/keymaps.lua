@@ -1,5 +1,5 @@
 -- Kill buffer
-vim.keymap.set("n", "<leader>bk", "<cmd>:bdelete<CR>")
+vim.keymap.set("n", "<leader>bk", "<cmd>:bdelete!<CR>")
 
 -- Keymaps for better default experience
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })

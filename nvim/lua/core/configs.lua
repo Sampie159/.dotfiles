@@ -72,4 +72,14 @@ vim.opt.concealcursor = 'nc'
 vim.opt.shell = "/bin/bash"
 
 vim.g.zig_fmt_autosave = 0
-vim.g.colortemplate_toolbar = 0
+
+vim.lsp.inlay_hint.enable(false)
+vim.diagnostic.enable(false)
+
+if vim.g.neovide then
+    vim.o.guifont = "CaskaydiaMono Nerd Font:h12"
+end
+
+for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
+    vim.api.nvim_set_hl(0, group, {})
+end

@@ -12,9 +12,13 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
         hyprland.url = "github:hyprwm/Hyprland";
+        kmonad = {
+            url = "git+https://github.com/kmonad/kmonad?submodules=1&dir=nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, zig, hyprland, ... }: 
+    outputs = inputs@{ self, nixpkgs, home-manager, zig, hyprland, kmonad, ... }: 
         let 
         lib = nixpkgs.lib;
     in {
@@ -32,6 +36,7 @@
                             users.sampie = import ./home.nix;
                         };
                     }
+                    kmonad.nixosModules.default
                 ];
             };
         };

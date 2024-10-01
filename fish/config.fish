@@ -4,7 +4,8 @@ end
 
 cat /home/sampie/.cache/wal/sequences
 
-abbr -a nv nvim
+abbr -a nv 'neovide &'
+abbr -a 4cd '4ed &'
 abbr -a po poweroff
 abbr -a rb reboot
 abbr -a sd 'shutdown now'

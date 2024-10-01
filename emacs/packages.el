@@ -106,11 +106,11 @@
   :ensure t
   :config (counsel-mode))
 
-(use-package swiper
-  :ensure t
-  :after ivy
-  :config
-  (global-set-key (kbd "C-s") 'swiper))
+;; (use-package swiper
+;;   :ensure t
+;;   :after ivy
+;;   :config
+;;   (global-set-key (kbd "C-s") 'swiper))
 
 (use-package eshell-syntax-highlighting
   :ensure t
@@ -144,8 +144,10 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((c-mode . lsp)
+  ((c3-ts-mode .lsp)
+   (c-mode . lsp)
    (c++-mode . lsp)
+   (csharp-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
@@ -155,10 +157,10 @@
         lsp-diagnostics-provider :none)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
-    				:major-modes '(odin-ts-mode)
+    				:major-modes '(odin-mode)
     				:server-id 'ols
     				:multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
+  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "/usr/bin/glsl_analyzer")
 					:major-modes '(glsl-mode)

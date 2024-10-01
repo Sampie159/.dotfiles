@@ -42,7 +42,6 @@
         vesktop
         telegram-desktop
         protonup-qt
-        kanata
         lutris
         erlang
         gleam
@@ -82,6 +81,7 @@
         waybar.enable = true;
         firefox.enable = true;
         lazygit.enable = true;
+        neovide.enable = true;
 
         irssi = {
             enable = true;
@@ -98,12 +98,12 @@
                 };
             };
         };
-        
+
         fish = {
             enable = true;
-            shellAliases = {
+            shellAbbrs = {
                 # General aliases
-                nv = "nvim";
+                nv = "neovide &";
                 po = "poweroff";
                 rb = "reboot";
                 sd = "shutdown now";
@@ -111,6 +111,22 @@
                 ls = "eza";
                 cat = "bat";
                 hypr = "Hyprland";
+
+                # Git related
+                ga = "git add";
+                gaa = "git add .";
+                gc = "git commit -m";
+                gck = "git checkout";
+                gcb = "git checkout -b";
+                gf = "git fetch";
+                gm = "git merge";
+                gpl = "git pull";
+                gps = "git push";
+                gr = "git rebase";
+                gs = "git status";
+
+                ghrn = "gh repo create";
+                ghrc = "gh repo clone";
 
                 # Rust aliases
                 ca = "cargo add";
@@ -174,6 +190,15 @@
             enableFishIntegration = true;
             enableSshSupport = true;
             pinentryPackage = pkgs.pinentry-curses;
+        };
+        kmonad = {
+            enable = true;
+            keyboards = {
+                myKMonadOutput = {
+                    device = "/dev/input/by-id/usb-0c45_Teclado_Gamer_Husky_Blizzard-event-kbd";
+                    config = builtins.readFile ~/.dotfiles/kmonad/nix.kbd;
+                };
+            };
         };
     };
 
