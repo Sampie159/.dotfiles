@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-sudo sed -i s/MODULES=\(\)/MODULES=\(nvidia nvidia_dmr nvidia_modeset nvidia_uvm v4l2loopback\) /etc/mkinitcpio.conf
+sudo sed -i "s/MODULES=\(\)/MODULES=\(nvidia nvidia_drm nvidia_modeset nvidia_uvm v4l2loopback\)" /etc/mkinitcpio.conf
 sudo echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"uinput\", OPTIONS+=\"static_node=uinput\"" > /lib/udev/rules.d/kmonad.rules
 sudo mkdir /etc/pacman.d/hooks/
 sudo echo "nvidia_drm.modeset=1" >> /boot/loader/entries/arch.conf
+sudo echo "nvidia_drm.fpdev" >> /boot/loader/entries/arch.conf
 sudo groupadd uinput
 sudo modprobe uinput
 sudo cp ./nvidia-hook /etc/pacman.d/hooks/
@@ -23,7 +24,7 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms"
+programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim neovide steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms"
 
 sudo pacman -S --needed $program --noconfirm
 
