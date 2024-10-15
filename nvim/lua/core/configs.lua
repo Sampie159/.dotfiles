@@ -6,13 +6,13 @@ vim.g.maplocalleader = ' '
 vim.o.hlsearch = false
 
 -- Line numbers default
-vim.wo.number = true
+-- vim.wo.number = true
 
 -- Enable mouse
 vim.o.mouse = 'a'
 
 vim.o.cindent = true
-vim.o.cino = "N-s,g0,:0,E-s"
+vim.o.cino = "N-s,g0,:0,E-s,(0"
 
 -- Sync clipboard
 vim.o.clipboard = 'unnamedplus'
@@ -24,7 +24,7 @@ vim.o.breakindent = true
 vim.o.undofile = true
 
 -- Relative numbers
-vim.o.relativenumber = true
+-- vim.o.relativenumber = true
 
 -- Tab stop
 vim.o.tabstop = 4
@@ -44,7 +44,8 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = "menu,menuone"
+vim.opt.completeopt = "menu,menuone"
 
 -- Set termguicolors
 vim.o.termguicolors = true

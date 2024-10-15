@@ -16,7 +16,6 @@ else
     vim.g.aquarium_style = "light"
     vim.o.background = "light"
 end
-vim.g.komau_bold = 0
 vim.cmd.colorscheme("aquarium")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
