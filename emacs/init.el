@@ -3,12 +3,10 @@
 ;;; Code:
 
 (setq font-lock-maximum-decoration t
-      inhibit-startup-message t
-      display-line-numbers-type 'relative)
+      inhibit-startup-message t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(global-display-line-numbers-mode)
 
 ;; Elpaca
 (defvar elpaca-installer-version 0.7)

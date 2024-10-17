@@ -23,7 +23,7 @@ vim.cmd.colorscheme("aquarium")
 
 require('mini.surround').setup()
 
--- Git stuf
+-- Git stuff
 -- Neogit
 require('neogit').setup {}
 vim.keymap.set("n", "<leader>gn", "<cmd>Neogit<CR>")

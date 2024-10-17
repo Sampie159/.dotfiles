@@ -44,8 +44,8 @@ vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = "menu,menuone"
-vim.opt.completeopt = "menu,menuone"
+vim.o.completeopt = "longest,menu,menuone"
+vim.opt.completeopt = "longest,menu,menuone"
 
 -- Set termguicolors
 vim.o.termguicolors = true

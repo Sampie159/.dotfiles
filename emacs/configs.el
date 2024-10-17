@@ -42,8 +42,8 @@
 (set-frame-font "CaskaydiaMono Nerd Font 11" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-(load-theme '4coder)
-;;(load-theme 'Colors)
+;; (load-theme '4coder)
+(load-theme 'Colors)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
