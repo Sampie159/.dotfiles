@@ -67,7 +67,7 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-nnoremap <leader>bk :bdelete<CR>
+nnoremap <leader>bk :bdelete!<CR>
 
 nnoremap ;s :%s/\<<C-r><C-w>\>/<C-w>/gI<Left><Left><Left>
 
