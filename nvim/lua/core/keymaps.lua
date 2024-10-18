@@ -45,5 +45,3 @@ vim.keymap.set("v", "<leader>s", ":sort<CR>")
 vim.keymap.set("v", "<leader>S", ":sort!<CR>")
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
-
-vim.keymap.set("i", "<C-i>", "<CMD>lua require('cmp').complete()<CR>")
