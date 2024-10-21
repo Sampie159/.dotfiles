@@ -78,7 +78,7 @@ vim.lsp.inlay_hint.enable(false)
 vim.diagnostic.enable(false)
 
 if vim.g.neovide then
-    vim.o.guifont = "CaskaydiaMono Nerd Font:h12"
+    vim.o.guifont = "AnonymicePro Nerd Font:h12"
 end
 
 for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
