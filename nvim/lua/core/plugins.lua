@@ -287,6 +287,30 @@ local plugins = {
     -- dadbox
     'tpope/vim-dadbod',
 
+    -- sweetie
+    "NTBBloodbath/sweetie.nvim",
+
+    -- modus
+    "miikanissi/modus-themes.nvim",
+
+    -- flow
+    "0xstepit/flow.nvim",
+
+    -- lush
+    "rktjmp/lush.nvim",
+
+    -- zenbones
+    "zenbones-theme/zenbones.nvim",
+
+    -- mellifluous
+    "ramojus/mellifluous.nvim",
+
+    -- deepwhite
+    'Verf/deepwhite.nvim',
+
+    -- minimal
+    'Yazeed1s/minimal.nvim'
+
     -- prunner (dev)
     -- {
     --     dir = "~/projects/prunner.nvim",
