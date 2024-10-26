@@ -24,7 +24,7 @@
 (setq backup-directory-alist '((".*" . "~/.trash")))
 (setq lsp-clients-clangd-args
       '("-j=16"
-		"--compile-commands-dir=./debug"
+        "--compile-commands-dir=./debug"
         "--background-index"
         "--completion-style=bundled"
         "--pch-storage=memory"
@@ -39,7 +39,7 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-(set-frame-font "CaskaydiaMono Nerd Font 11" nil t)
+(set-frame-font "AnonymicePro Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 ;; (load-theme '4coder)
@@ -61,8 +61,8 @@
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "C-c C-l") 'label)
-	(define-key map (kbd "C-x b") 'counsel-switch-buffer)
-	map)
+   (define-key map (kbd "C-x b") 'counsel-switch-buffer)
+   map)
   "Defines the my-keys-minor-mode keymaps.")
 
 (define-minor-mode my-keys-minor-mode
@@ -73,12 +73,12 @@
 (my-keys-minor-mode 1)
 
 (setq display-buffer-alist
-	  '(("\\*compilation\\*"
-		 (display-buffer-reuse-window
-		  display-buffer-below-selected)
-		 (window-height . 15)
-		 (dedicated . t)
-		 (body-function . (lambda (window) (select-window window))))))
+    '(("\\*compilation\\*"
+       (display-buffer-reuse-window
+        display-buffer-below-selected)
+       (window-height . 15)
+       (dedicated . t)
+       (body-function . (lambda (window) (select-window window))))))
 
 (defun header-guard ()
   "Add header guard to new C/C++ header files."

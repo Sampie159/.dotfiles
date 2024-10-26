@@ -9,15 +9,16 @@ require('core.plugin_config.luasnip_config')
 
 vim.g.aqua_bold = 0
 vim.g.zenbones_darkness = "stark"
-vim.g.zenwritten_lightness = "dim"
-local hour = tonumber(os.date("%H"))
-if hour > 17 or hour < 9 then
-    vim.o.background = "dark"
-    vim.cmd.colorscheme("zenbones")
-else
-    vim.o.background = "light"
-    vim.cmd.colorscheme("zenwritten")
-end
+vim.o.background = "dark"
+vim.cmd.colorscheme("zenbones")
+-- local hour = tonumber(os.date("%H"))
+-- if hour > 17 or hour < 9 then
+--     vim.o.background = "dark"
+--     vim.cmd.colorscheme("zenbones")
+-- else
+--     vim.o.background = "light"
+--     vim.cmd.colorscheme("zenwritten")
+-- end
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

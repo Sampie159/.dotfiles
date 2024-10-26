@@ -309,7 +309,10 @@ local plugins = {
     'Verf/deepwhite.nvim',
 
     -- minimal
-    'Yazeed1s/minimal.nvim'
+    'Yazeed1s/minimal.nvim',
+
+    -- quickmath
+    'jbyuki/quickmath.nvim',
 
     -- prunner (dev)
     -- {
