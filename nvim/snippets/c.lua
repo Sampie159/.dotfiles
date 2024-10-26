@@ -20,18 +20,12 @@ end
 
 local snippets, autosnippets = {}, {}
 
-local prifunc = s('prifunc', fmt([[
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *                          PRIVATE FUNCTIONS                              *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-]], {}))
-table.insert(autosnippets, prifunc)
-
-local pubfunc = s('pubfunc', fmt([[
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *                          PUBLIC FUNCTIONS                               *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-]], {}))
-table.insert(autosnippets, pubfunc)
+local hif = s("#if", fmt([[
+#if{}
+#endif
+]], {
+    i(1, '')
+}))
+table.insert(autosnippets, hif)
 
 return snippets, autosnippets

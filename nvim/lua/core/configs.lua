@@ -12,7 +12,7 @@ vim.o.hlsearch = false
 vim.o.mouse = 'a'
 
 vim.o.cindent = true
-vim.o.cino = "N-s,g0,:0,E-s,(0"
+vim.o.cino = "N-s,g0,:0,E-s,(0,Ps,+0"
 
 -- Sync clipboard
 vim.o.clipboard = 'unnamedplus'
@@ -78,9 +78,5 @@ vim.lsp.inlay_hint.enable(false)
 vim.diagnostic.enable(false)
 
 if vim.g.neovide then
-    vim.o.guifont = "AnonymicePro Nerd Font:h12"
-end
-
-for _, group in ipairs(vim.fn.getcompletion("@lsp", "highlight")) do
-    vim.api.nvim_set_hl(0, group, {})
+    vim.o.guifont = "AnonymicePro Nerd Font:h13"
 end
