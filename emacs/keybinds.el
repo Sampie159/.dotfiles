@@ -10,25 +10,25 @@
 
   (general-define-key
    "C-<return>" '(lambda () (interactive)
-		    (let ((oldpos (point)))
-		      (end-of-line)
-		      (newline-and-indent)))
+		           (let ((oldpos (point)))
+		             (end-of-line)
+		             (newline-and-indent)))
    
    "C-S-<return>" '(lambda () (interactive)
-		      (let ((oldpos (point)))
-			(beginning-of-line)
-			(newline)
-			(previous-line)
-			(indent-according-to-mode)))
+		             (let ((oldpos (point)))
+			           (beginning-of-line)
+			           (newline)
+			           (previous-line)
+			           (indent-according-to-mode)))
 
    "M-p" '(lambda () (interactive)
-	    (transpose-lines 1)
-	    (forward-line -2))
+	        (transpose-lines 1)
+	        (forward-line -2))
    
    "M-n" '(lambda () (interactive)
-	    (forward-line 1)
-	    (transpose-lines 1)
-	    (forward-line -1))
+	        (forward-line 1)
+	        (transpose-lines 1)
+	        (forward-line -1))
 
    "C-l" '(lambda () (interactive)
             (move-beginning-of-line 1)
