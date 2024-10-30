@@ -145,8 +145,6 @@
   (setq lsp-keymap-prefix "C-c l")
   :hook
   ((c3-ts-mode .lsp)
-   (c-mode . lsp)
-   (c++-mode . lsp)
    (csharp-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
@@ -265,7 +263,7 @@
 
 (use-package dabbrev
   :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand))
+         ("M-TAB" . dabbrev-expand))
   :config
   (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
   (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
