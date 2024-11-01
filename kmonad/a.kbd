@@ -1,8 +1,5 @@
 (defcfg
-  input (device-file "/dev/input/by-id/usb-0c45_Teclado_Gamer_Husky_Blizzard-event-kbd")
-  output (uinput-sink "KMonad")
-
-  fallthrough true
+  process-unmapped-keys yes
 )
 
 (defsrc
@@ -18,16 +15,24 @@
   qwe (layer-switch qwerty)
   4cd (layer-switch 4coder)
   mvt (layer-toggle movement)
-  e/c (tap-next esc lctl)
-  e/m (tap-next esc @mvt))
+  e/c (tap-hold 200 200 esc lctl)
+  a/s (tap-hold 200 200 a lmet)
+  s/a (tap-hold 200 200 s lalt)
+  d/l (tap-hold 200 200 d lsft)
+  f/c (tap-hold 200 200 f lctl)
+  j/c (tap-hold 200 200 j rctl)
+  k/r (tap-hold 200 200 k rsft)
+  l/a (tap-hold 200 200 l lalt)
+  ;/s (tap-hold 200 200 ; rmet)
+  e/m (tap-hold 200 200 esc @mvt))
 
 (deflayer qwerty
   grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        prnt slck pause
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret   del  end  pgdn  kp7  kp8  kp9  kp+
-  @e/c a    s    d    f    g    h    j    k    l    ;    '    \                          kp4  kp5  kp6
+  @e/c @a/s @s/a @d/l @f/c g    h    @j/c @k/r @l/a @;/s '    \                          kp4  kp5  kp6
   lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc                 ralt rmet cmp  rctl       left down rght  kp0  kp.
+  lctl lmet lalt           spc                 ralt rmet @4cd rctl       left down rght  kp0  kp.
 )
 
 (deflayer 4coder
