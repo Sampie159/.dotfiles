@@ -537,19 +537,13 @@ awful.rules.rules = {
     -- Set to always map on the tag named "2" on screen 1.
     {
         rule_any = { class = { "firefox" }, },
-        properties = { screen = 1, tag = "2", switchtotag = true }
+        properties = { screen = 1, tag = "1", switchtotag = true }
     },
 
     -- Set to always map on the tag named "3" on screen 1.
     {
         rule_any = { class = { "discord" }, },
-        properties = { screen = 1, tag = "3", switchtotag = true }
-    },
-
-    -- Set to always map on the tag named "4" on screen 1.
-    {
-        rule_any = { class = { "steam", "Lutris" }, },
-        properties = { screen = 1, tag = "4", switchtotag = true }
+        properties = { screen = 1, tag = "2", switchtotag = true }
     },
 
     -- Set to always map on the tag named "5" on screen 1.
@@ -561,7 +555,7 @@ awful.rules.rules = {
     -- Set to always map on the tag named "6" on screen 1.
     {
         rule_any = { class = { "mpv" }, },
-        properties = { screen = 1, tag = "6", switchtotag = true }
+        properties = { screen = 1, tag = "4", switchtotag = true }
     },
 
     -- Set to always map on the tag named "9" on screen 1.

@@ -4,9 +4,10 @@ end
 
 cat /home/sampie/.cache/wal/sequences
 
-abbr -a nv 'nvim'
 # abbr -a nv 'neovide &'
+abbr -a nv 'nvim'
 abbr -a 4cd '4ed &'
+abbr -a focus '~/Downloads/focus-linux &'
 abbr -a po poweroff
 abbr -a rb reboot
 abbr -a sd 'shutdown now'
@@ -43,6 +44,7 @@ abbr -a cw 'cargo watch -x'
 abbr -a cwb 'cargo watch -x build'
 abbr -a cwr 'cargo watch -x run'
 abbr -a cwt 'cargo watch -x test'
+abbr -a musl-build 'RUSTFLAGS="-C linker=ld.lld -C relocation-model=static -C strip=symbols" cargo build --release --target x86_64-unknown-linux-musl'
 
 abbr -a mr 'make run'
 abbr -a mrl 'make release'
@@ -59,7 +61,7 @@ abbr -a prin 'pnpm install prisma @prisma/client'
 abbr -a prinit 'pnpx prisma init --datasource-provider sqlite'
 abbr -a pps 'pnpx prisma db push && pnpx prisma generate'
 
-abbr -a svnew 'pnpm create svelte@latest'
+abbr -a svnew 'pnpx sv create'
 abbr -a twin 'pnpm install -D tailwindcss postcss autoprefixer'
 abbr -a twcfg 'pnpx tailwindcss init tailwind.config.cjs -p'
 abbr -a luin 'pnpm add lucia-auth @lucia-auth/adapter-prisma'

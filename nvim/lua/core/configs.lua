@@ -12,7 +12,7 @@ vim.o.hlsearch = false
 vim.o.mouse = 'a'
 
 vim.o.cindent = true
-vim.o.cino = "N-s,g0,:0,E-s,(0,Ps,+0"
+vim.o.cino = "N-s,g0,:0,E-s,(0,P0,l0"
 
 -- Sync clipboard
 vim.o.clipboard = 'unnamedplus'
@@ -76,7 +76,3 @@ vim.g.zig_fmt_autosave = 0
 
 vim.lsp.inlay_hint.enable(false)
 vim.diagnostic.enable(false)
-
-if vim.g.neovide then
-    vim.o.guifont = "AnonymicePro Nerd Font:h13"
-end
