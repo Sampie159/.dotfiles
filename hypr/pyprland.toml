@@ -7,8 +7,8 @@ plugins = [
 
 [scratchpads.btop]
 animation = "fromBottom"
-command = "alacritty --class scratchpad -e btop"
-class = "scratchpad"
+command = "alacritty --class top -e btop"
+class = "top"
 lazy = true
 size = "60% 60%"
 
@@ -26,10 +26,16 @@ lazy = true
 size = "50% 30%"
 unfocus = "hide"
 
+[scratchpads.irssi]
+animation = "fromRight"
+command = "alacritty --class irc -e irssi"
+class = "irc"
+size = "46% 80%"
+
 [scratchpads.term]
-command = "alacritty --class scratchpad"
+command = "alacritty --class term"
 animation = "fromTop"
-class = "scratchpad"
+class = "term"
 size = "50% 50%"
 lazy = true
 

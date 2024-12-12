@@ -24,7 +24,7 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim neovide steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms"
+programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim neovide steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal"
 
 sudo pacman -S --needed $program --noconfirm
 
@@ -48,7 +48,7 @@ git clone https://aur.archlinux.org/paru.git && cd paru
 makepkg -si --noconfirm
 cd .. && rm -rf paru
 
-programs_aur="python-pywalfox pywal-16-colors hyprland-git swww xdg-desktop-portal-hyprland waybar wl-clipboard kmonad-bin rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
+programs_aur="python-pywalfox hyprland-git swww xdg-desktop-portal-hyprland waybar wl-clipboard rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
 
 paru -S --needed $program --noconfirm
 

@@ -50,8 +50,6 @@ local servers = {
             },
         },
     },
-    gopls = {
-    },
 }
 
 -- Go lsp config

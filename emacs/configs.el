@@ -42,8 +42,7 @@
 (set-frame-font "AnonymicePro Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-;; (load-theme '4coder)
-(load-theme 'Colors)
+(load-theme 'assemblage)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -57,6 +56,7 @@
 (add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.tesc\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.tese\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
 
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
