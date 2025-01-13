@@ -1,8 +1,5 @@
 (defcfg
-  input (device-file "/dev/input/by-id/usb-0c45_Teclado_Gamer_Husky_Blizzard-event-kbd")
-  output (uinput-sink "KMonad")
-
-  fallthrough true
+  process-unmapped-keys yes
 )
 
 (defsrc
@@ -15,28 +12,18 @@
 )
 
 (defalias
-  qwe (layer-switch qwerty)
-  cdh (layer-switch colemak-dh)
+  4cd (layer-switch 4coder)
   mvt (layer-toggle movement)
-  e/c (tap-next esc lctl)
-  e/m (tap-next esc @mvt))
+  e/c (tap-hold 100 100 esc lctl)
+  e/m (tap-hold 100 100 esc @mvt))
 
-(deflayer qwerty
+(deflayer 4coder
   grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        prnt slck pause
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret   del  end  pgdn  kp7  kp8  kp9  kp+
   @e/m a    s    d    f    g    h    j    k    l    ;    '    \                          kp4  kp5  kp6
-  lsft lsft z    x    c    v    b    n    m    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc                 ralt rmet lmet rctl       left down rght  kp0  kp.
-)
-
-(deflayer colemak-dh
-  grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        prnt @qwe pause
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  tab  q    w    f    p    b    j    l    u    y    ;    [    ]    ret   del  end  pgdn  kp7  kp8  kp9  kp+
-  @e/c a    r    s    t    g    m    n    e    i    o    '    \                          kp4  kp5  kp6
-  lsft z    x    c    d    v    102d k    h    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
-  @mvt lmet lalt           spc                 ralt rmet lmet rctl       left down rght  kp0  kp.
+  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
+  lctl lmet lalt           spc                 ralt rmet cmp  rctl       left down rght  kp0  kp.
 )
 
 (deflayer movement
@@ -44,6 +31,6 @@
   _    1    2    3    4    5    6    7    8    9    0    _    _    _     _    _    _     _    _    _    _
   _    _    _    end  _    _    _    _    _    _    up   _    _    _     _    _    _     _    _    _    _
   _    home _    _    rght _    _    _    _    _    _    _    _                          _    _    _
-  lsft _    _    _    _    _    left down _    pgdn pgup _    rsft            _          _    _    _    _
-  lctl _    lalt           _                   _    _    _    rctl       _    _    _     _    _
+  lsft _    _    _    _    _    left down _    pgup pgdn _    _               _          _    _    _    _
+  lctl _    lalt           _                   _    _    _    _          _    _    _     _    _
 )

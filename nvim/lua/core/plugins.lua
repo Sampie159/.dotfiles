@@ -144,33 +144,11 @@ local plugins = {
     -- Yuck.vim
     'elkowar/yuck.vim',
 
-    -- mini.surround
-    'echasnovski/mini.surround',
-
-    -- Orgmode
-    {
-        'nvim-orgmode/orgmode',
-        event = 'VeryLazy',
-    },
-
-    -- Gleam
-    'gleam-lang/gleam.vim',
-
-    -- Elixir
-    'elixir-editors/vim-elixir',
-
     -- nvim-spectre
     'nvim-pack/nvim-spectre',
 
     -- kanagawa.nvim
     'rebelot/kanagawa.nvim',
-
-    -- haskell-tools
-    {
-        'mrcjkb/haskell-tools.nvim',
-        version = '^3',
-        lazy = false,
-    },
 
     -- undotree
     'mbbill/undotree',
@@ -206,17 +184,6 @@ local plugins = {
         end,
     },
 
-    -- adwaita theme
-    {
-        "Mofiqul/adwaita.nvim",
-        config = function()
-            -- vim.g.adwaita_darker = true
-        end,
-    },
-
-    -- vtools
-    'zakuro9715/vim-vtools',
-
     -- komau
     'ntk148v/komau.vim',
 
@@ -227,20 +194,11 @@ local plugins = {
     'Sampie159/fogbell.vim',
 
     -- lsp_signature
-    -- {
-    --     'ray-x/lsp_signature.nvim',
-    --     event = "VeryLazy",
-    --     opts = {},
-    --     config = function(_, opts) require 'lsp_signature'.setup(opts) end,
-    -- },
-
-    -- vimtex
     {
-        'lervag/vimtex',
-        lazy = false,
-        init = function()
-            vim.g.vimtex_view_method = 'zathura'
-        end,
+        'ray-x/lsp_signature.nvim',
+        event = "VeryLazy",
+        opts = {},
+        config = function(_, opts) require 'lsp_signature'.setup(opts) end,
     },
 
     -- text-case.nvim
@@ -299,8 +257,8 @@ local plugins = {
     -- lush
     "rktjmp/lush.nvim",
 
-    -- zenbones
-    "zenbones-theme/zenbones.nvim",
+    -- tokyonight
+    "folke/tokyonight.nvim",
 
     -- mellifluous
     "ramojus/mellifluous.nvim",
@@ -314,11 +272,13 @@ local plugins = {
     -- quickmath
     'jbyuki/quickmath.nvim',
 
-    -- prunner (dev)
-    -- {
-    --     dir = "~/projects/prunner.nvim",
-    --     name = "prunner.nvim",
-    -- },
+    -- hex.nvim
+    {
+        'RaafatTurki/hex.nvim',
+        config = function()
+            require('hex').setup()
+        end,
+    },
 }
 
 require('lazy').setup(plugins, {})

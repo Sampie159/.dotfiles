@@ -2,7 +2,6 @@
 plugins = [
     "scratchpads",
     "magnify",
-    "layout_center",
 ]
 
 [scratchpads.btop]
@@ -38,10 +37,3 @@ animation = "fromTop"
 class = "term"
 size = "50% 50%"
 lazy = true
-
-[layout_center]
-next = "movefocus r"
-prev = "movefocus l"
-next2 = "movefocus d"
-prev2 = "movefocus u"
-margin = 70

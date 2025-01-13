@@ -9,18 +9,23 @@ require('core.plugin_config.luasnip_config')
 
 vim.g.agua_bold = 0
 vim.g.zenbones_darkness = "stark"
-
-vim.o.background = 'dark'
-vim.cmd.colorscheme('zenbones')
+vim.g.komau_bold = 0
 
 if vim.g.neovide then
-    vim.o.guifont = "CaskaydiaMono Nerd Font:h12"
+    vim.o.guifont = "IosevkaTerm Nerd Font:h13"
+end
+
+local hour = tonumber(os.date("%H"))
+if hour > 17 or hour < 9 then
+    vim.o.background = "dark"
+    vim.cmd.colorscheme("tokyonight-night")
+else
+    vim.o.background = "light"
+    vim.cmd.colorscheme("tokyonight-day")
 end
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.
-
-require('mini.surround').setup()
 
 -- Git stuff
 -- Neogit
@@ -29,19 +34,6 @@ vim.keymap.set("n", "<leader>gn", "<cmd>Neogit<CR>")
 
 -- Lazygit
 vim.keymap.set("n", "<leader>gl", "<CMD>LazyGit<CR>")
-
--- Orgmode
-local orgmode = require('orgmode')
--- orgmode.setup_ts_grammar()
-orgmode.setup({
-    org_agenda_files = { '~/org/**/*' },
-    org_default_notes_file = '~/org/notes.org',
-    mappings = {
-        org = {
-            org_toggle_checkbox = '<C-b>',
-        },
-    },
-})
 
 -- nvim-spectre
 vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {

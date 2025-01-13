@@ -36,6 +36,10 @@ vim.keymap.set("n", "<leader>F", function()
     vim.api.nvim_command('write')
 end)
 
+-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 local servers = {
     lua_ls = {
         Lua = {
@@ -79,7 +83,7 @@ lsp.asm_lsp.setup {
 -- lsp.clangd.setup {
 --     capabilities = capabilities,
 --     on_attach = on_attach,
---     cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=bundled', '--header-insertion=never', '--header-insertion-decorators=0' },
+--     cmd = { '/home/sampie/llvm/bin/clangd', '--background-index', '--clang-tidy', '--completion-style=bundled', '--header-insertion=never', '--header-insertion-decorators=0' },
 --     filetypes = { 'c', 'cpp' },
 --     init_options = {
 --         clangdFileStatus = true,
@@ -130,6 +134,31 @@ lsp.sourcekit.setup {
     root_dir = lsp.util.root_pattern("Package.swift")
 }
 
+lsp.jdtls.setup {}
+
+lsp.omnisharp.setup {
+    cmd = { 'dotnet', '/usr/lib/omnisharp-roslyn/OmniSharp.dll' },
+    settings = {
+        FormattingOptions = {
+            EnableEditorConfigSupport = true,
+            OrganizeImports = nil,
+        },
+        MsBuild = {
+            LoadProjectsOnDemand = nil,
+        },
+        RoslynExtensionsOptions = {
+            EnableAnalyzersSupport = nil,
+            EnableImportCompletion = nil,
+            AnalyzeOpenDocumentsOnly = nil,
+        },
+        Sdk = {
+            IncludePrereleases = true,
+        },
+    },
+}
+
+lsp.neocmake.setup {}
+
 lsp.gleam.setup {}
 
 lsp.racket_langserver.setup {}
@@ -140,9 +169,22 @@ lsp.roc_ls.setup {}
 
 lsp.erlangls.setup {}
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+local util = require('lspconfig/util')
+local configs = require('lspconfig.configs')
+if not configs.c3_lsp then
+    configs.c3_lsp = {
+        default_config = {
+            cmd = { 'c3lsp' },
+            filetypes = { 'c3', 'c3i' },
+            root_dir = function(fname)
+                return util.find_git_ancestor(fname)
+            end,
+            settings = {},
+            name = 'c3_lsp',
+        }
+    }
+end
+lsp.c3_lsp.setup{}
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
