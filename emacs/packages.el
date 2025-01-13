@@ -147,8 +147,6 @@
   (setq lsp-keymap-prefix "C-c l")
   :hook
   ((c3-ts-mode .lsp)
-   (c-mode . lsp)
-   (c++-mode . lsp)
    (csharp-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config

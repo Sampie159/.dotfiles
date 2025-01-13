@@ -64,25 +64,21 @@ end
 --     local hour = tonumber(os.date("%H"))
 --     if hour > 17 or hour < 9 then
 --         vim.o.background = "dark"
---         if vim.g.neovide then
---             vim.cmd.colorscheme("modus_vivendi")
---         else
---             vim.cmd.colorscheme("zenbones")
---         end
+--         vim.cmd.colorscheme("komau")
 --     else
 --         vim.o.background = "light"
---         if vim.g.neovide then
---             vim.cmd.colorscheme("modus_operandi")
---         else
---             vim.cmd.colorscheme("zenwritten")
---         end
+--         vim.cmd.colorscheme("komau")
 --     end
 -- end
 
+function begin_command(cmd)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>:" .. cmd .. " ", true, false, true), 'n', false)
+end
+
 vim.api.nvim_create_user_command('Label', label, { nargs = "*" })
 vim.api.nvim_create_user_command('Vcvars', vcvars, {})
+vim.keymap.set('i', '<M-l>', '<CMD>lua begin_command("Label")<CR>', { noremap = true, silent = true })
 
--- vim.api.nvim_create_user_command('Ref', update_theme, {})
 -- vim.api.nvim_create_autocmd('BufEnter', {
 --     desc = 'Update the theme',
 --     group = vim.api.nvim_create_augroup('update_theme', { clear = true }),

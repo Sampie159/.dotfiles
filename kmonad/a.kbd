@@ -13,10 +13,7 @@
 
 (defalias
   qwe (layer-switch qwerty)
-  4cd (layer-switch 4coder)
-  mvt (layer-toggle movement)
-  e/c (tap-hold 100 100 esc lctl)
-  e/m (tap-hold 100 100 esc @mvt))
+  e/c (tap-hold 100 100 esc lctl))
 
 (deflayer qwerty
   grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        prnt slck pause
@@ -24,23 +21,5 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret   del  end  pgdn  kp7  kp8  kp9  kp+
   @e/c a    s    d    f    g    h    j    k    l    ;    '    \                          kp4  kp5  kp6
   lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc                 ralt rmet @4cd rctl       left down rght  kp0  kp.
-)
-
-(deflayer 4coder
-  grv  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12        prnt slck pause
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup  nlck kp/  kp*  kp-
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret   del  end  pgdn  kp7  kp8  kp9  kp+
-  @e/m a    s    d    f    g    h    j    k    l    ;    '    \                          kp4  kp5  kp6
-  lsft 102d z    x    c    v    b    n    m    ,    .    /    rsft            up         kp1  kp2  kp3  kprt
-  lctl lmet lalt           spc                 ralt rmet @qwe rctl       left down rght  kp0  kp.
-)
-
-(deflayer movement
-  _    _    _    _    _    _    _    _    _    _    _    _    _          _    _    _ 
-  _    1    2    3    4    5    6    7    8    9    0    _    _    _     _    _    _     _    _    _    _
-  _    _    _    end  _    _    _    _    _    _    up   _    _    _     _    _    _     _    _    _    _
-  _    home _    _    rght _    _    _    _    _    _    _    _                          _    _    _
-  lsft _    _    _    _    _    left down _    pgup pgdn _    _               _          _    _    _    _
-  lctl _    lalt           _                   _    _    _    _          _    _    _     _    _
+  lctl lmet lalt           spc                 ralt rmet cmp  rctl       left down rght  kp0  kp.
 )
