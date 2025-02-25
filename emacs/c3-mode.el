@@ -28,7 +28,7 @@
     ;; C compatibility types
     "CChar" "CShort" "CUShort" "CInt" "CUInt" "CLong" "CULong" "CLongLong" "CULongLong" "CFloat" "CDouble" "CLongDouble"
     ;; CT types
-    "$typefrom" "$tyypeof" "$vatype"       
+    "$typefrom" "$typeof" "$vatype"       
     ))
 
 (defun c3-keywords ()
@@ -54,7 +54,8 @@
     "$offsetof"   "$qnameof"    "$sizeof"
     "$stringify"  "$vacount"    "$vaconst"
     "$varef"      "$vaarg"      "$vaexpr"
-    "$vasplat"
+    "$vasplat"    "private"     "dynamic"
+    "builtin"
 ))
 
 (defun c3-font-lock-keywords ()

@@ -119,5 +119,6 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-source /opt/asdf-vm/asdf.fish
 zoxide init fish --cmd cd | source
+COMPLETE=fish jj | source
+starship init fish | source

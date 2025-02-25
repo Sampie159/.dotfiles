@@ -42,7 +42,7 @@
 (set-frame-font "Iosevka Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
-(load-theme 'assemblage)
+;; (load-theme 'assemblage)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
@@ -86,12 +86,12 @@
              (string-match "\\.\\(h\\|hh\\|hpp\\)\\'" (buffer-file-name))
              (zerop (buffer-size)))
     (let* ((filename (file-name-nondirectory (buffer-file-name)))
-           (extension (concat "_" (upcase (file-name-extension filename)) "__"))
-           (guard (concat "__" (upcase (file-name-sans-extension filename)) extension)))
-      (insert "#ifndef " guard "\n#define " guard "\n\n")
-      (insert "\n\n#endif /* " guard " */\n")
+           (extension (concat "_" (upcase (file-name-extension filename)) "_"))
+           (guard (concat "_" (upcase (file-name-sans-extension filename)) extension)))
+      (insert "#if !defined(" guard ")\n\n\n\n#define " guard "\n")
+      (insert "#endif /* " guard " */\n")
       (goto-char (point-min))
-      (forward-line 3))))
+      (forward-line 2))))
 
 (defun label (label)
   (interactive "sLABEL: ")
@@ -137,5 +137,7 @@
             (when (zerop (buffer-size))
               (insert "\n\n")
               (goto-char (point-min)))))
+
+(setq-default cursor-type 'hollow)
 
 ;;; configs.el ends here
