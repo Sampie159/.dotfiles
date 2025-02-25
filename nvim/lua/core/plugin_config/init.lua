@@ -15,14 +15,14 @@ if vim.g.neovide then
     vim.o.guifont = "IosevkaTerm Nerd Font:h13"
 end
 
-local hour = tonumber(os.date("%H"))
-if hour > 17 or hour < 9 then
+-- local hour = tonumber(os.date("%H"))
+-- if hour > 16 or hour < 9 then
     vim.o.background = "dark"
     vim.cmd.colorscheme("tokyonight-night")
-else
-    vim.o.background = "light"
-    vim.cmd.colorscheme("tokyonight-day")
-end
+-- else
+--     vim.o.background = "light"
+--     vim.cmd.colorscheme("tokyonight-day")
+-- end
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

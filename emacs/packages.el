@@ -46,7 +46,7 @@
   :hook ((haskell-mode . lsp)))
 
 (use-package odin-mode
-  :ensure (:host github :repo "Sampie/odin-mode")
+  :ensure (:host sourcehut :repo "mgmarlow/odin-mode")
   :hook ((odin-mode . lsp)))
 
 (use-package racket-mode
@@ -146,7 +146,7 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((c3-ts-mode .lsp)
+  (;;(c3-mode .lsp)
    (csharp-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
@@ -168,11 +168,11 @@
 					:multi-root t))
   (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/c3-lsp")
-                    :major-modes '(c3-ts-mode)
+   (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/c3lsp")
+                    :major-modes '(c3-mode)
                     :server-id 'c3-lsp
                     :multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(c3-ts-mode . "c3"))
+  (add-to-list 'lsp-language-id-configuration '(c3-mode . "c3"))
   :commands (lsp))
 
 (use-package lsp-ivy
@@ -285,5 +285,18 @@
            :host "colonq.computer" :port 26697
            :tls t
            :nick "sampie"))))
+
+(use-package autumn-light-theme
+  :ensure t
+  :config (load-theme 'autumn-light))
+
+(use-package naysayer-theme
+  :ensure t)
+
+(use-package ef-themes
+  :ensure t)
+
+(use-package gotham-theme
+  :ensure t)
 
 ;;; packages.el ends here

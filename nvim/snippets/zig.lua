@@ -25,10 +25,10 @@ table.insert(autosnippets, constin)
 local consterr = s('conserr', t('const stderr = std.io.getStdErr().writer();'))
 table.insert(autosnippets, consterr)
 
-local import = s({ trig = "imp ([%a%d]+)%s", regTrig = true }, {
-  f(function(_, snip)
-    return "const " .. snip.captures[1] .. " = @import(\"" .. snip.captures[1] .. ".zig\");"
-  end),
+local import = s({ trig = "imp ([%a%d]+)%s", regTrig = false, hidden = true }, {
+    f(function(_, snip)
+        return "const " .. snip.captures[1] .. " = @import(\"" .. snip.captures[1] .. ".zig\");"
+    end),
 })
 table.insert(autosnippets, import)
 
