@@ -84,10 +84,10 @@ abbr -a mcb 'meson compile -C build'
 abbr -a mswcb 'meson setup --wipe build && meson compile -C build'
 
 abbr -a cmin 'cmake -S . -B debug -DCMAKE_BUILD_TYPE=Debug -G Ninja'
-abbr -a cmd 'cmake --build debug'
+abbr -a cmd 'cmake --build debug --parallel'
 abbr -a cmi 'sudo cmake --install release --prefix /usr/local'
-abbr -a cminr 'cmake -S . -B release -DCMAKE_BUILD_TYPE=Release -G Ninja'
-abbr -a cmr 'cmake --build release'
+abbr -a cminr 'cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -G Ninja'
+abbr -a cmb 'cmake --build build --parallel'
 
 abbr dip 'dune init project'
 abbr db 'dune build'

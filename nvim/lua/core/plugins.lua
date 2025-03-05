@@ -279,6 +279,9 @@ local plugins = {
             require('hex').setup()
         end,
     },
+
+    -- vacme
+    'raphael-proust/vacme',
 }
 
 require('lazy').setup(plugins, {})

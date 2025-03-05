@@ -17,8 +17,8 @@ end
 
 -- local hour = tonumber(os.date("%H"))
 -- if hour > 16 or hour < 9 then
-    vim.o.background = "dark"
-    vim.cmd.colorscheme("tokyonight-night")
+    vim.o.background = "light"
+    vim.cmd.colorscheme("komau")
 -- else
 --     vim.o.background = "light"
 --     vim.cmd.colorscheme("tokyonight-day")
