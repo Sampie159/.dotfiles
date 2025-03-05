@@ -146,8 +146,11 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  (;;(c3-mode .lsp)
+  ((c-mode .lsp)
+   (c++-mode . lsp)
    (csharp-mode . lsp)
+   (f90-mode . lsp)
+   (fortran-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
@@ -287,8 +290,7 @@
            :nick "sampie"))))
 
 (use-package autumn-light-theme
-  :ensure t
-  :config (load-theme 'autumn-light))
+  :ensure t)
 
 (use-package naysayer-theme
   :ensure t)
@@ -297,6 +299,7 @@
   :ensure t)
 
 (use-package gotham-theme
-  :ensure t)
+  :ensure t
+  :config (load-theme 'gotham))
 
 ;;; packages.el ends here

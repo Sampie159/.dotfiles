@@ -2,7 +2,7 @@ local cmp = require 'cmp'
 
 cmp.setup {
     completion = {
-        autocomplete = false,
+        -- autocomplete = false,
         completeopt = "menu,menuone",
     },
     mapping = cmp.mapping.preset.insert {

@@ -39,9 +39,11 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-(set-frame-font "Iosevka Nerd Font 13" nil t)
+(set-frame-font "EnvyCodeR Nerd Font 13" nil t)
+;; (set-frame-font "Iosevka Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+;; (add-to-list 'default-frame-alist '(alpha-background . 90))
 ;; (load-theme 'assemblage)
 
 (setq-default indent-tabs-mode nil)

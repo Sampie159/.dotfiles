@@ -80,21 +80,21 @@ lsp.asm_lsp.setup {
 }
 
 -- C/C++ lsp config
--- lsp.clangd.setup {
---     capabilities = capabilities,
---     on_attach = on_attach,
---     cmd = { '/home/sampie/llvm/bin/clangd', '--background-index', '--clang-tidy', '--completion-style=bundled', '--header-insertion=never', '--header-insertion-decorators=0' },
---     filetypes = { 'c', 'cpp' },
---     init_options = {
---         clangdFileStatus = true,
---         usePlaceholders = true,
---         completeUnimported = true,
---         semanticHighlighting = false,
---     },
---     root_dir = lsp.util.root_pattern('.clangd', '.clang-format', '.clang-tidy', '.clang=format', 'configure.ac',
---         'compile_commands.json',
---         'compile_flags.txt', '.git'),
--- }
+lsp.clangd.setup {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=bundled', '--header-insertion=never', '--header-insertion-decorators=0' },
+    filetypes = { 'c', 'cpp' },
+    init_options = {
+        clangdFileStatus = true,
+        usePlaceholders = true,
+        completeUnimported = true,
+        semanticHighlighting = false,
+    },
+    root_dir = lsp.util.root_pattern('.clangd', '.clang-format', '.clang-tidy', '.clang=format', 'configure.ac',
+        'compile_commands.json',
+        'compile_flags.txt', '.git'),
+}
 
 lsp.ocamllsp.setup {
     cmd = { 'ocamllsp' },
