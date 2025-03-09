@@ -7,7 +7,6 @@ run() {
     fi
 }
 
-kanata -c .dotfiles/kmonad/a.kbd &
 picom --config ~/.config/picom/picom.conf &
 mywal -R &
 run "flameshot"

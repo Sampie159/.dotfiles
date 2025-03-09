@@ -39,7 +39,8 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-(set-frame-font "EnvyCodeR Nerd Font 13" nil t)
+(set-frame-font "CaskaydiaMono Nerd Font 13" nil t)
+;; (set-frame-font "EnvyCodeR Nerd Font 13" nil t)
 ;; (set-frame-font "Iosevka Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
