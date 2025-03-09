@@ -3,8 +3,6 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
-set number
-set relativenumber
 set shiftwidth=4
 set tabstop=4
 set expandtab
@@ -42,7 +40,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'Sampie159/fogbell.vim'
-Plug 'prabirshrestha/vim-lsp'
 
 call plug#end()
 

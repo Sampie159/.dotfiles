@@ -33,7 +33,6 @@
             pulse.enable = true;
             jack.enable = true;
         };
-        kanata.enable = true;
         pcscd.enable = true;
         udev.extraRules = ''
         KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput", GROUP="input", MODE="0660"

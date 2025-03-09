@@ -10,7 +10,6 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id picom --config ~/.config/picom/picom.conf &
 exec --no-startup-id flameshot &
 exec --no-startup-id discord
-exec --no-startup-id kanata -c ~/.dotfiles/kmonad/a.kbd
 exec --no-startup-id feh --bg-scale --randomize ~/Wallpapers/*
 
 set $refresh_i3status killall -SIGUSR1 i3status

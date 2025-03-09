@@ -85,23 +85,23 @@
   (which-key-mode 1)
   :config
   (setq which-key-side-window-location 'bottom
-		which-key-sort-order #'which-key-key-order-alpha
-		which-key-sort-uppercase-first nil
-		which-key-add-column-padding 1
-		which-key-max-display-columns nil
-		which-key-min-display-lines 6
-		which-key-side-window-slot -10
-		which-key-side-window-max-height 0.25
-		which-key-idle-delay 0.8
-		which-key-max-description-length 25
-		which-key-allow-imprecise-window-fit t
-		which-key-separator " -> "))
+        which-key-sort-order #'which-key-key-order-alpha
+        which-key-sort-uppercase-first nil
+        which-key-add-column-padding 1
+        which-key-max-display-columns nil
+        which-key-min-display-lines 6
+        which-key-side-window-slot -10
+        which-key-side-window-max-height 0.25
+        which-key-idle-delay 0.8
+        which-key-max-description-length 25
+        which-key-allow-imprecise-window-fit t
+        which-key-separator " -> "))
 
 (use-package ivy
   :ensure t
   :config
   (setq ivy-use-virtual-buffers t
-		enable-recursive-minibuffers t)
+        enable-recursive-minibuffers t)
   (ivy-mode))
 
 (use-package counsel
@@ -123,31 +123,31 @@
   :ensure t
   :config
   (setq shell-file-name "/bin/bash"
-		vterm-max-scrollback 5000))
+        vterm-max-scrollback 5000))
 
 (use-package vterm-toggle
   :ensure t
   :after vterm
   :config
   (setq vterm-toggle-fullscreen-p nil
-		vterm-toggle-scope 'project)
+        vterm-toggle-scope 'project)
   (add-to-list 'display-buffer-alist
                '((lambda (buffer-or-name _)
-				   (let ((buffer (get-buffer buffer-or-name)))
-					 (with-current-buffer buffer
-					   (or (equal major-mode 'vterm-mode)
-						   (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
-				 (display-buffer-reuse-window display-buffer-at-bottom)
-				 (reusable-frames . visible)
-				 (window-height . 0.3))))
+                   (let ((buffer (get-buffer buffer-or-name)))
+                     (with-current-buffer buffer
+                       (or (equal major-mode 'vterm-mode)
+                           (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                 (display-buffer-reuse-window display-buffer-at-bottom)
+                 (reusable-frames . visible)
+                 (window-height . 0.3))))
 
 (use-package lsp-mode
   :ensure t
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((c-mode .lsp)
-   (c++-mode . lsp)
+  (;;(c-mode .lsp)
+   ;;(c++-mode . lsp)
    (csharp-mode . lsp)
    (f90-mode . lsp)
    (fortran-mode . lsp)
@@ -160,15 +160,15 @@
         lsp-diagnostics-provider :none)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
-    				:major-modes '(odin-mode)
-    				:server-id 'ols
-    				:multi-root t))
+                    :major-modes '(odin-mode)
+                    :server-id 'ols
+                    :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "/usr/bin/glsl_analyzer")
-					:major-modes '(glsl-mode)
-					:server-id 'glsl_analyzer
-					:multi-root t))
+                    :major-modes '(glsl-mode)
+                    :server-id 'glsl_analyzer
+                    :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/c3lsp")
@@ -186,11 +186,11 @@
   :ensure t
   :config
   (setq hl-todo-keyword-faces
-		'(("TODO" . "#E6E600")
-		  ("DEBUG" . "#A020F0")
-		  ("FIXME" . "#FF0000")
-		  ("NOTE" . "#FF4500")
-		  ("DEPRECATED" . "#1E90FF"))
+        '(("TODO" . "#E6E600")
+          ("DEBUG" . "#A020F0")
+          ("FIXME" . "#FF0000")
+          ("NOTE" . "#FF4500")
+          ("DEPRECATED" . "#1E90FF"))
         hl-todo-highlight-punctuation ":")
   (global-hl-todo-mode t))
 
@@ -220,10 +220,10 @@
   :ensure t
   :config
   (projectile-register-project-type 'zig '("build.zig")
-									:project-file "build.zig"
-									:compile "zig build"
-									:test "zig build test"
-									:run "zig build run")
+                                    :project-file "build.zig"
+                                    :compile "zig build"
+                                    :test "zig build test"
+                                    :run "zig build run")
   (projectile-register-project-type 'c3 '("project.json")
                                     :project-file "project.json"
                                     :compile "c3c build"
@@ -233,7 +233,7 @@
                                     :compile "gleam build"
                                     :run "gleam run")
   (projectile-mode +1)
-  (setq projectile-project-search-path '("~/projects/" "~/playgrounds/" "~/faculdade/"))
+  (setq projectile-project-search-path '("~/projects/" "~/playgrounds/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 ;; (use-package smart-tab
@@ -243,8 +243,8 @@
 (use-package lsp-pyright
   :ensure t
   :hook (python-ts-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))
+                            (require 'lsp-pyright)
+                            (lsp))))
 
 (use-package lsp-haskell :ensure t)
 
