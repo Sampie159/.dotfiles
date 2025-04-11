@@ -31,9 +31,6 @@ vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', moveopts)
 vim.keymap.set('v', '<A-j>', ':m \'>+1<CR>gv=gv', moveopts)
 vim.keymap.set('v', '<A-k>', ':m \'<-2<CR>gv=gv', moveopts)
 
--- Copilot
--- vim.keymap.set("n", "<leader>cp", "<cmd> Copilot enable<CR>")
-
 -- C-d C-u center screen
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")

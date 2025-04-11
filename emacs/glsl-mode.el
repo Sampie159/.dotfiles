@@ -439,6 +439,7 @@ are added to the `glsl-builtin-list' and are fontified using the
   (set (make-local-variable 'comment-start) "// ")
   (set (make-local-variable 'comment-end) "")
   (set (make-local-variable 'comment-padding) "")
+  (setq-local electric-indent-chars (append  "{}();:.," electric-indent-chars))
   (easy-menu-add glsl-menu)
   (add-to-list 'align-c++-modes 'glsl-mode)
   (c-run-mode-hooks 'c-mode-common-hook)

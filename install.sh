@@ -85,3 +85,4 @@ curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install 
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 gsettings set org.gnome.desktop.interface gtk-theme Arc-Dark
 fisher install rafaelrinaldi/pure
+curl -sS https://starship.rs/install.sh | sh

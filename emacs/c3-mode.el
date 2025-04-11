@@ -55,7 +55,7 @@
     "$stringify"  "$vacount"    "$vaconst"
     "$varef"      "$vaarg"      "$vaexpr"
     "$vasplat"    "private"     "dynamic"
-    "builtin"
+    "builtin"     "alias"
 ))
 
 (defun c3-font-lock-keywords ()
