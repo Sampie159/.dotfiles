@@ -1,8 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export CC:clang
 SETUVAR --export CMAKE_COLOR_DIAGNOSTICS:ON
-SETUVAR --export CXX:clang\x2b\x2b
 SETUVAR --export FLYCTL_INSTALL:/home/sampie/\x2efly
 SETUVAR --export RUSTC_WRAPPER:sccache
 SETUVAR __fish_initialized:3800

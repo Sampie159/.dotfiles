@@ -240,7 +240,7 @@ local plugins = {
     { 'Bilal2453/luvit-meta', lazy = true },
 
     -- c3
-    'Airbus5717/c3.vim',
+    'Sampie159/c3.vim',
 
     -- dadbox
     'tpope/vim-dadbod',
@@ -252,7 +252,12 @@ local plugins = {
     "miikanissi/modus-themes.nvim",
 
     -- flow
-    "0xstepit/flow.nvim",
+    { 
+        "0xstepit/flow.nvim",
+        config = function()
+            require('flow').setup{}
+        end,
+    },
 
     -- lush
     "rktjmp/lush.nvim",
@@ -282,6 +287,9 @@ local plugins = {
 
     -- vacme
     'raphael-proust/vacme',
+
+    -- nightfox
+    'EdenEast/nightfox.nvim',
 }
 
 require('lazy').setup(plugins, {})

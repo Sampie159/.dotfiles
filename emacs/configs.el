@@ -39,9 +39,10 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-(set-frame-font "CaskaydiaMono Nerd Font 13" nil t)
+;; (set-frame-font "FiraCode Nerd Font 12" nil t)
+;; (set-frame-font "CaskaydiaMono Nerd Font 13" nil t)
 ;; (set-frame-font "EnvyCodeR Nerd Font 13" nil t)
-;; (set-frame-font "Iosevka Nerd Font 13" nil t)
+(set-frame-font "Iosevka Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 ;; (add-to-list 'default-frame-alist '(alpha-background . 90))
@@ -50,16 +51,16 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-(load-file "~/.config/emacs/glsl-mode.el")
+;; (load-file "~/.config/emacs/glsl-mode.el")
 
-(autoload 'glsl-mode "glsl-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.comp\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.tesc\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.tese\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+;; (autoload 'glsl-mode "glsl-mode" nil t)
+;; (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.comp\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.geom\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.tesc\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.tese\\'" . glsl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
 
 (defvar my-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
@@ -135,11 +136,6 @@
       (previous-line 2))))
 
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
-(add-hook 'c3-ts-mode-hook
-          (lambda()
-            (when (zerop (buffer-size))
-              (insert "\n\n")
-              (goto-char (point-min)))))
 
 (setq-default cursor-type 'hollow)
 

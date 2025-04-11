@@ -26,6 +26,10 @@
   :ensure t
   :hook ((elixir-ts-mode . lsp)))
 
+(use-package d-mode
+  :ensure t
+  :hook ((d-mode . lsp)))
+
 (use-package gleam-ts-mode
   :load-path "~/Downloads/gleam-mode"
   :init (add-to-list 'auto-mode-alist '("\\.gleam\\'" . gleam-ts-mode))
@@ -73,6 +77,10 @@
   :config
   (setq tuareg-match-patterns-aligned t)
   :hook ((tuareg-mode . lsp)))
+
+(use-package glsl-mode
+  :ensure t
+  :hook ((glsl-mode . lsp)))
 
 (use-package zig-mode
   :ensure t
@@ -146,8 +154,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  (;;(c-mode .lsp)
-   ;;(c++-mode . lsp)
+  ((c-mode .lsp)
+   (c++-mode . lsp)
    (csharp-mode . lsp)
    (f90-mode . lsp)
    (fortran-mode . lsp)
