@@ -47,13 +47,6 @@ local servers = {
             telemetry = { enable = false },
         },
     },
-    rust_analyzer = {
-        ['rust-analyzer'] = {
-            checkOnSave = {
-                command = 'clippy',
-            },
-        },
-    },
 }
 
 -- Go lsp config
@@ -95,6 +88,8 @@ lsp.clangd.setup {
         'compile_commands.json',
         'compile_flags.txt', '.git'),
 }
+
+lsp.rust_analyzer.setup {}
 
 lsp.ocamllsp.setup {
     cmd = { 'ocamllsp' },

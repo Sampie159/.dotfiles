@@ -1,4 +1,4 @@
-;;; package --- use-packages
+;;; package --- use-packages  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -81,6 +81,12 @@
 (use-package glsl-mode
   :ensure t
   :hook ((glsl-mode . lsp)))
+
+(use-package parinfer-rust-mode
+  :ensure t
+  :config (setq parinfer-rust-preferred-mode 'smart)
+  :hook (emacs-lisp-mode)
+  :init (setq parinfer-rust-auto-download t))
 
 (use-package zig-mode
   :ensure t
@@ -307,7 +313,32 @@
   :ensure t)
 
 (use-package gotham-theme
+  :ensure t)
+
+(use-package creamsody-theme
+  :ensure t)
+;;  :config (load-theme 'creamsody-obsidian))
+
+(use-package parchment-theme
+  :ensure t)
+;;  :config (load-theme 'parchment))
+
+(use-package acme-theme
+  :ensure t)
+;;  :config (load-theme 'acme))
+
+(use-package sakura-theme
+  :ensure t)
+;;  :config (load-theme 'sakura))
+
+(use-package soothe-theme
+  :ensure t)
+
+(use-package sorcery-theme
+  :ensure t)
+
+(use-package kaolin-themes
   :ensure t
-  :config (load-theme 'gotham))
+  :config (load-theme 'kaolin-aurora))
 
 ;;; packages.el ends here

@@ -15,7 +15,7 @@ if vim.g.neovide then
     vim.o.guifont = "IosevkaTerm Nerd Font:h13"
 end
 
--- vim.o.background = "dark"
+--vim.o.background = "light"
 vim.cmd.colorscheme("flow")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll

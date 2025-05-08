@@ -4,8 +4,8 @@ end
 
 # cat /home/sampie/.cache/wal/sequences
 
-abbr -a nv 'neovide &'
-# abbr -a nv 'nvim'
+# abbr -a nv 'neovide &'
+abbr -a nv 'nvim'
 abbr -a 4cd '4ed &'
 abbr -a focus '~/Downloads/focus-linux &'
 abbr -a po poweroff
