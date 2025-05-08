@@ -1,4 +1,4 @@
-;;; keybinds --- My General Keybinds
+;;; keybinds --- My General Keybinds  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 

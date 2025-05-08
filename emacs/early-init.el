@@ -1,4 +1,4 @@
-;;; early-init --- Early init duh
+;;; early-init --- Early init duh  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 

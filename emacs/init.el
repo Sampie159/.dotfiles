@@ -1,4 +1,4 @@
-;;; init --- Entry point for my configuration
+;;; init --- Entry point for my configuration  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -9,7 +9,7 @@
 (scroll-bar-mode -1)
 
 ;; Elpaca
-(defvar elpaca-installer-version 0.10)
+(defvar elpaca-installer-version 0.11)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
 (defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
@@ -59,15 +59,15 @@
 ;; Load `custom-file`
 (load custom-file 'noerror)
 
-(setq configs "~/.config/emacs/configs.el")
-(load-file configs)
-
 ;; Language stuff
 (setq-default lsp-auto-guess-root t)
 
 ;; Installed packages found here
 (setq packages-file "~/.config/emacs/packages.el")
 (load-file packages-file)
+
+(setq configs "~/.config/emacs/configs.el")
+(load-file configs)
 
 ;; Keybindings
 (setq keybindings "~/.config/emacs/keybinds.el")

@@ -1,4 +1,4 @@
-;;; configs --- A bunch of configs
+;;; configs --- A bunch of configs  -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; No idea why it's in this file but ok
 
@@ -39,14 +39,10 @@
 
 (add-hook 'c++-mode-hook #'(lambda () (c-set-offset 'innamespace [0])))
 
-;; (set-frame-font "FiraCode Nerd Font 12" nil t)
-;; (set-frame-font "CaskaydiaMono Nerd Font 13" nil t)
-;; (set-frame-font "EnvyCodeR Nerd Font 13" nil t)
 (set-frame-font "Iosevka Nerd Font 13" nil t)
 
 (add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
 ;; (add-to-list 'default-frame-alist '(alpha-background . 90))
-;; (load-theme 'assemblage)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)

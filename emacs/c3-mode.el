@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (defvar c3-mode-syntax-table
   (let ((table (make-syntax-table)))
     ;; C/C++ style comments

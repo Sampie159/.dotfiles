@@ -1,1 +1,0 @@
-colorscheme fogbell_lite

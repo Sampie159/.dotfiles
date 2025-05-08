@@ -12,9 +12,6 @@ set nowrap
 set incsearch
 set ignorecase
 set smartcase
-set showcmd
-set showmode
-set showmatch
 set hlsearch
 set history=1000
 set wildmenu
@@ -31,19 +28,6 @@ set guicursor+=i:blinkwait10
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 let g:loaded_matchparen = 1
-
-" PLUGINS ---------------------------------------------------------------- {{{
-
-call plug#begin('~/.vim/plugged')
-
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-commentary'
-Plug 'Sampie159/fogbell.vim'
-
-call plug#end()
-
-" }}}
 
 "MAPPINGS --------------------------------------------------------------- {{{
 
@@ -78,23 +62,5 @@ nnoremap <leader>fps :G push<CR>
 
 vnoremap <leader>s :sort<CR>
 vnoremap <leader>S :sort!<CR>
-
-" }}}
-
-" VIMSCRIPT -------------------------------------------------------------- {{{
-
-" }}}
-
-" STATUS LINE ------------------------------------------------------------ {{{
-
-set statusline=
-
-set statusline+=\ %F\ %M\ %Y\ %R
-
-set statusline+=%=
-
-set statusline+=\ row:\ %l\ col:\ %c\ percent:\ %p%%
-
-set laststatus=2
 
 " }}}
