@@ -12,11 +12,11 @@ vim.g.zenbones_darkness = "stark"
 vim.g.komau_bold = 0
 
 if vim.g.neovide then
-    vim.o.guifont = "IosevkaTerm Nerd Font:h13"
+    vim.o.guifont = "FiraCode Nerd Font:h12"
 end
 
---vim.o.background = "light"
-vim.cmd.colorscheme("flow")
+vim.o.background = "light"
+vim.cmd.colorscheme("fogbell_light")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.
