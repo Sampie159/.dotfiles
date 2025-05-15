@@ -84,3 +84,4 @@ fish/conf.d/zoxide.fish
 /emacs/recentf
 /emacs/.cache/
 /emacs/%backup%~
+/emacs/recentf.eld
