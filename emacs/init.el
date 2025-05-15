@@ -1,4 +1,4 @@
-;;; init --- Entry point for my configuration  -*- lexical-binding: t; -*-
+;;; init --- Entry point for my configuration -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -53,29 +53,20 @@
 
 (use-package emacs :ensure nil :config (setq ring-bell-function #'ignore))
 
-;; Use `custom-file.el` for custom stuff.
 (setq custom-file "~/.config/emacs/custom-file.el")
 
-;; Load `custom-file`
 (load custom-file 'noerror)
 
-;; Language stuff
 (setq-default lsp-auto-guess-root t)
 
-;; Installed packages found here
-(setq packages-file "~/.config/emacs/packages.el")
-(load-file packages-file)
+(setq packages "~/.config/emacs/packages.el")
+(load-file packages)
 
-(setq configs "~/.config/emacs/configs.el")
-(load-file configs)
+(setq config "~/.config/emacs/config.el")
+(load-file config)
 
-;; Keybindings
-(setq keybindings "~/.config/emacs/keybinds.el")
-(load-file keybindings)
-
-;; (load-file "~/Downloads/c3-ts-mode/c3-ts-mode.el")
-;; (setq c3-ts-mode-indent-offset 4)
-
-(load-file "~/.dotfiles/emacs/c3-mode.el")
+(setq keybinds "~/.config/emacs/keybinds.el")
+(load-file keybinds)
 
 ;;; init.el ends here
+
