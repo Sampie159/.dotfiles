@@ -16,6 +16,10 @@
   :ensure t
   :hook ((glsl-mode . lsp)))
 
+(use-package rust-mode
+  :ensure t
+  :hook ((rust-mode . lsp)))
+
 (use-package lua-mode
   :ensure t
   :hook ((lua-mode . lsp)))
@@ -69,8 +73,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ((c-mode .lsp)
-   (c++-mode . lsp)
+  (;;(c-mode .lsp)
+   ;;(c++-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
@@ -88,11 +92,21 @@
   :ensure t
   :config (counsel-mode))
 
+(use-package corfu
+  :ensure t
+  :init (global-corfu-mode))
+
+(use-package emacs
+  :custom
+  (tab-always-indent 'complete)
+  (text-mode-ispell-word-completion nil)
+  (read-extend-command-predicate #'command-completion-default-include-p))
+
 (use-package projectile
   :ensure t
   :config
   (projectile-mode +1)
-  (setq projectile-project-search-path '("~/projects/" "~/playground/"))
+  (setq projectile-project-search-path '("~/projects/" "~/playgrounds/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package multiple-cursors
