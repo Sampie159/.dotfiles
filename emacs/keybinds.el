@@ -5,8 +5,12 @@
 (use-package general
   :ensure t
   :config
+  (general-evil-setup t)
   (general-create-definer good-leader-key
-                          :prefix "C-c")
+    :prefix "C-c")
+  (general-create-definer evil-leader-key
+    :prefix "SPC")
+
   (general-define-key
    "C-<return>" '(lambda () (interactive)
                    (let ((oldpos (point)))
@@ -39,7 +43,8 @@
    "C-," '(lambda () (interactive)
             (recenter-top-bottom)))
 
-  (good-leader-key
+  (evil-leader-key
+   :keymaps 'normal
    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
    "e s" '(eshell :wk "Eshell")
    "t v" '(vterm-toggle :wk "Toggle vterm")
@@ -49,13 +54,15 @@
                (load-file "~/.config/emacs/init.el")
                (load-file "~/.config/emacs/init.el"))
              :wk "Reload emacs config")
-   "c c" '(comment-line :wk "Comment lines")
-   "l u" '(lsp-ui-imenu :wk "Show imenu entries")))
+   "l u" '(lsp-ui-imenu :wk "Show imenu entries"))
+
+  (general-nmap "gcc" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
   :ensure t
   :config
-  (good-leader-key
+  (evil-leader-key
+   :keymaps 'normal
    "f u" '(sudo-edit-find-file :wk "Sudo find file")
    "f U" '(sudo-edit :wk "Sudo edit file")))
 
