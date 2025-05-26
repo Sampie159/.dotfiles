@@ -15,8 +15,8 @@ if vim.g.neovide then
     vim.o.guifont = "FiraCode Nerd Font:h12"
 end
 
-vim.o.background = "light"
-vim.cmd.colorscheme("fogbell_light")
+vim.o.background = "dark"
+vim.cmd.colorscheme("flow")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

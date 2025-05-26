@@ -1,4 +1,4 @@
-autocmd! FileType {c,cpp} nnoremap<buffer> <C-e> :Ouroboros<CR>
+autocmd! FileType {c,cpp} nnoremap<buffer> <C-e> :ClangdSwitchSourceHeader<CR>
 
 function! s:insert_header_guard()
     let filename = expand("%:t:r")

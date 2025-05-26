@@ -10,7 +10,7 @@
           (lambda ()
             (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
-(set-frame-font "FiraCode Nerd Font 12" nil t)
+(set-frame-font "IosevkaTerm Nerd Font 13" nil t)
 
 (setq-default indent-tabs-mode nil
               tab-width 4

@@ -7,6 +7,10 @@
 (use-package seq :ensure t)
 (use-package ripgrep :ensure t)
 
+(use-package evil
+  :ensure t
+  :config (evil-mode 1))
+
 (use-package cmake-mode
   :ensure t
   :hook ((cmake-mode . lsp))
@@ -23,6 +27,10 @@
 (use-package lua-mode
   :ensure t
   :hook ((lua-mode . lsp)))
+
+(use-package odin-mode
+  :ensure (:host sourcehut :repo "mgmarlow/odin-mode")
+  :hook ((odin-mode . lsp)))
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -82,6 +90,12 @@
         lsp-enable-snippet nil
         lsp-inlay-hint-enable nil
         lsp-diagnostics-provider :none)
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
+                    :major-modes '(odin-mode)
+                    :server-id 'ols
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
   :commands (lsp))
 
 (use-package lsp-ivy
@@ -124,11 +138,11 @@
   :hook ((prog-mode . highlight-numbers-mode)))
 
 (use-package parchment-theme
-  :ensure t
-  :config (load-theme 'parchment))
+  :ensure t)
+  ;; :config (load-theme 'parchment))
 
 (use-package kaolin-themes
-  :ensure t)
-;;  :config (load-theme 'kaolin-aurora))
+  :ensure t
+  :config (load-theme 'kaolin-aurora))
 
 ;;; packages.el ends here
