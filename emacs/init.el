@@ -65,8 +65,5 @@
 (setq config "~/.config/emacs/config.el")
 (load-file config)
 
-(setq keybinds "~/.config/emacs/keybinds.el")
-(load-file keybinds)
-
 ;;; init.el ends here
 

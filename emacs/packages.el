@@ -2,14 +2,78 @@
 ;;; Commentary:
 ;;; Code:
 
+(use-package evil
+  :ensure t
+  :config (evil-mode 1))
+
+(use-package general
+  :ensure t
+  :config
+  (general-evil-setup t)
+  (general-create-definer good-leader-key
+    :prefix "C-c")
+  (general-create-definer evil-leader-key
+    :prefix "SPC")
+
+  (general-define-key
+   "C-<return>" '(lambda () (interactive)
+                   (let ((oldpos (point)))
+                     (end-of-line)
+                     (newline-and-indent)))
+
+   "C-S-<return>" '(lambda () (interactive)
+                     (let ((oldpos (point)))
+                       (beginning-of-line)
+                       (newline)
+                       (previous-line)
+                       (indent-according-to-mode)))
+
+   "M-p" '(lambda () (interactive)
+            (transpose-lines 1)
+            (forward-line -2))
+
+   "M-n" '(lambda () (interactive)
+            (forward-line 1)
+            (transpose-lines 1)
+            (forward-line -1))
+
+   "C-l" '(lambda () (interactive)
+            (move-beginning-of-line 1)
+            (kill-line)
+            (yank)
+            (open-line 1)
+            (next-line 1)
+            (yank))
+   "C-," '(lambda () (interactive)
+            (recenter-top-bottom)))
+
+  (evil-leader-key
+   :keymaps 'normal
+   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
+   "e s" '(eshell :wk "Eshell")
+   "t v" '(vterm-toggle :wk "Toggle vterm")
+   "h f" '(describe-function :wk "Describe function")
+   "h v" '(describe-variable :wk "Describe variable")
+   "h r r" '((lambda () (interactive)
+               (load-file "~/.config/emacs/init.el")
+               (load-file "~/.config/emacs/init.el"))
+             :wk "Reload emacs config")
+   "l u" '(lsp-ui-imenu :wk "Show imenu entries"))
+
+  (general-nmap "gcc" '(comment-line :wk "Comment lines")))
+
+(use-package sudo-edit
+  :ensure t
+  :config
+  (evil-leader-key
+   :keymaps 'normal
+   "f u" '(sudo-edit-find-file :wk "Sudo find file")
+   "f U" '(sudo-edit :wk "Sudo edit file")))
+
 (use-package transient :ensure t)
 (use-package magit :ensure t)
 (use-package seq :ensure t)
 (use-package ripgrep :ensure t)
-
-(use-package evil
-  :ensure t
-  :config (evil-mode 1))
 
 (use-package cmake-mode
   :ensure t
@@ -79,13 +143,13 @@
 (use-package lsp-mode
   :ensure t
   :init
-  (setq lsp-keymap-prefix "C-c l")
+  (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
   :hook
   (;;(c-mode .lsp)
    ;;(c++-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
+  (evil-define-key 'normal lsp-mode-map (kbd "SPC l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
         lsp-enable-snippet nil
         lsp-inlay-hint-enable nil
@@ -106,9 +170,9 @@
   :ensure t
   :config (counsel-mode))
 
-(use-package corfu
-  :ensure t
-  :init (global-corfu-mode))
+;; (use-package corfu
+;;   :ensure t
+;;   :init (global-corfu-mode))
 
 (use-package emacs
   :custom
@@ -121,7 +185,7 @@
   :config
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/projects/" "~/playgrounds/"))
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
+  (evil-define-key 'normal projectile-mode-map (kbd "SPC p") 'projectile-command-map))
 
 (use-package multiple-cursors
   :ensure t
