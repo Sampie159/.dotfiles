@@ -12,7 +12,7 @@ vim.g.zenbones_darkness = "stark"
 vim.g.komau_bold = 0
 
 if vim.g.neovide then
-    vim.o.guifont = "FiraCode Nerd Font:h12"
+    vim.o.guifont = "Monaspace Radon:h12"
 end
 
 vim.o.background = "dark"

@@ -154,18 +154,18 @@ local plugins = {
     'mbbill/undotree',
 
     -- cyberdream
-    {
-        'scottmckendry/cyberdream.nvim',
-        config = function()
-            require("cyberdream").setup({
-                transparent = true,
-                italic_comments = true,
-                hide_fillchars = true,
-                borderless_telescope = false,
-                terminal_colors = true,
-            })
-        end,
-    },
+    -- {
+    --     'scottmckendry/cyberdream.nvim',
+    --     config = function()
+    --         require("cyberdream").setup({
+    --             transparent = true,
+    --             italic_comments = true,
+    --             hide_fillchars = true,
+    --             borderless_telescope = false,
+    --             terminal_colors = true,
+    --         })
+    --     end,
+    -- },
 
     -- miasma
     'xero/miasma.nvim',
@@ -223,7 +223,10 @@ local plugins = {
     },
 
     -- aquarium
-    'FrenzyExists/aquarium-vim',
+    {
+        'FrenzyExists/aquarium-vim',
+        branch = "develop",
+    },
 
     -- lazydev
     {
