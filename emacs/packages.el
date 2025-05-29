@@ -2,19 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(use-package evil
-  :ensure t
-  :config (evil-mode 1))
-
 (use-package general
   :ensure t
   :config
-  (general-evil-setup t)
   (general-create-definer good-leader-key
     :prefix "C-c")
-  (general-create-definer evil-leader-key
-    :prefix "SPC")
-
   (general-define-key
    "C-<return>" '(lambda () (interactive)
                    (let ((oldpos (point)))
@@ -47,8 +39,7 @@
    "C-," '(lambda () (interactive)
             (recenter-top-bottom)))
 
-  (evil-leader-key
-   :keymaps 'normal
+  (good-leader-key
    "f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
    "e s" '(eshell :wk "Eshell")
    "t v" '(vterm-toggle :wk "Toggle vterm")
@@ -58,15 +49,13 @@
                (load-file "~/.config/emacs/init.el")
                (load-file "~/.config/emacs/init.el"))
              :wk "Reload emacs config")
-   "l u" '(lsp-ui-imenu :wk "Show imenu entries"))
-
-  (general-nmap "gcc" '(comment-line :wk "Comment lines")))
+   "l u" '(lsp-ui-imenu :wk "Show imenu entries")
+   "c c" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
   :ensure t
   :config
-  (evil-leader-key
-   :keymaps 'normal
+  (good-leader-key
    "f u" '(sudo-edit-find-file :wk "Sudo find file")
    "f U" '(sudo-edit :wk "Sudo edit file")))
 
@@ -143,13 +132,13 @@
 (use-package lsp-mode
   :ensure t
   :init
-  (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
+  (setq lsp-keymap-prefix "C-c l")
   :hook
   (;;(c-mode .lsp)
    ;;(c++-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
-  (evil-define-key 'normal lsp-mode-map (kbd "SPC l f") #'lsp-format-buffer)
+  (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
         lsp-enable-snippet nil
         lsp-inlay-hint-enable nil
@@ -160,6 +149,12 @@
                     :server-id 'ols
                     :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
+                    :major-modes '(glsl-mode)
+                    :server-id 'glsl-analyzer
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
   :commands (lsp))
 
 (use-package lsp-ivy
@@ -170,9 +165,9 @@
   :ensure t
   :config (counsel-mode))
 
-;; (use-package corfu
-;;   :ensure t
-;;   :init (global-corfu-mode))
+(use-package corfu
+  :ensure t
+  :init (global-corfu-mode))
 
 (use-package emacs
   :custom
@@ -185,7 +180,7 @@
   :config
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/projects/" "~/playgrounds/"))
-  (evil-define-key 'normal projectile-mode-map (kbd "SPC p") 'projectile-command-map))
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package multiple-cursors
   :ensure t
@@ -203,7 +198,7 @@
 
 (use-package parchment-theme
   :ensure t)
-  ;; :config (load-theme 'parchment))
+;;  :config (load-theme 'parchment))
 
 (use-package kaolin-themes
   :ensure t

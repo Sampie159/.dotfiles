@@ -5,11 +5,12 @@ transparent_background_colors = true
 TERM = "xterm-256color"
 
 [font]
-size = 13
+size = 12
 
 [font.normal]
-family = "IosevkaTerm Nerd Font"
+# family = "IosevkaTerm Nerd Font"
 # family = "EnvyCodeR Nerd Font"
 # family = "FiraCode Nerd Font"
 # style = "Retina"
+family = "Monaspace Radon"
 style = "Regular"

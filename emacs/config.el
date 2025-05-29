@@ -10,7 +10,7 @@
           (lambda ()
             (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
-(set-frame-font "IosevkaTerm Nerd Font 13" nil t)
+(set-frame-font "Monaspace Radon 12" nil t)
 
 (setq-default indent-tabs-mode nil
               tab-width 4
@@ -55,5 +55,6 @@
       (previous-line 2))))
 
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
+(add-hook 'prog-mode-hook (lambda () (setq truncate-lines t)))
 
 ;;; config.el ends here
