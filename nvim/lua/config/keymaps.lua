@@ -3,3 +3,5 @@
 -- Add any additional keymaps here
 
 vim.keymap.set("n", "S", "cc", { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-e>", "<cmd>ClangdSwitchSourceHeader<CR>", { noremap = true, silent = true })
