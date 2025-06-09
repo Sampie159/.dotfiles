@@ -85,3 +85,4 @@ fish/conf.d/zoxide.fish
 /emacs/.cache/
 /emacs/%backup%~
 /emacs/recentf.eld
+lazynvim
