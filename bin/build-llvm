@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+cmake -S llvm -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_C_FLAGS="-march=native" \
+    -DCMAKE_CXX_FLAGS="-march=native" \
+    -DLLVM_ENABLE_PROJECTS=all \
+    -DLLVM_ENABLE_RUNTIMES=all \
+    -DLLVM_BUILD_LLVM_DYLIB=ON \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -G Ninja
+cmake --build build --parallel
