@@ -13,7 +13,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "mellifluous",
+            colorscheme = "zenbones",
         },
     },
 }
