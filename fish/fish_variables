@@ -40,7 +40,7 @@ SETUVAR fish_pager_color_description:yellow\x1e\x2di
 SETUVAR fish_pager_color_prefix:normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
 SETUVAR fish_pager_color_progress:brwhite\x1e\x2d\x2dbackground\x3dcyan
 SETUVAR fish_pager_color_selected_background:\x2dr
-SETUVAR --export fish_user_paths:/home/sampie/Downloads/roc_nightly\x2dlinux_x86_64\x2d2024\x2d05\x2d22\x2d3307528\x1e/home/sampie/\x2efly/bin\x1e/home/sampie/go/bin\x1e/home/sampie/deps/depot_tools/\x1e/home/sampie/\x2ezvm/bin\x1e/home/sampie/\x2ezvm/self\x1e/home/sampie/\x2elocal/bin
+SETUVAR --export fish_user_paths:/home/sampie/deps/depot_tools\x1e/home/sampie/Downloads/roc_nightly\x2dlinux_x86_64\x2d2024\x2d05\x2d22\x2d3307528\x1e/home/sampie/\x2efly/bin\x1e/home/sampie/go/bin\x1e/home/sampie/deps/depot_tools/\x1e/home/sampie/\x2ezvm/bin\x1e/home/sampie/\x2ezvm/self\x1e/home/sampie/\x2elocal/bin
 SETUVAR pure_begin_prompt_with_current_directory:true
 SETUVAR pure_check_for_new_release:false
 SETUVAR pure_color_at_sign:pure_color_mute
