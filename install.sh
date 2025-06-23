@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
 sudo sed -i "s/MODULES=\(\)/MODULES=\(nvidia nvidia_drm nvidia_modeset nvidia_uvm v4l2loopback\)" /etc/mkinitcpio.conf
-sudo echo "KERNEL==\"uinput\", MODE=\"0660\", GROUP=\"uinput\", OPTIONS+=\"static_node=uinput\"" > /lib/udev/rules.d/kmonad.rules
 sudo mkdir /etc/pacman.d/hooks/
 sudo echo "nvidia_drm.modeset=1" >> /boot/loader/entries/arch.conf
 sudo echo "nvidia_drm.fpdev" >> /boot/loader/entries/arch.conf
-sudo groupadd uinput
-sudo modprobe uinput
 sudo cp ./nvidia-hook /etc/pacman.d/hooks/
 ln -sf ~/.dotfiles/discord-flags.conf ~/.config/discord-flags.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -24,9 +21,9 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs="tmux screenkey pipewire pipewire-alse pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim neovide steam lutris btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal"
+programs="tmux pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim steam btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal"
 
-sudo pacman -S --needed $program --noconfirm
+sudo pacman -S --needed $programs --noconfirm
 
 directories=(.config .local/bin)
 
@@ -48,9 +45,9 @@ git clone https://aur.archlinux.org/paru.git && cd paru
 makepkg -si --noconfirm
 cd .. && rm -rf paru
 
-programs_aur="python-pywalfox hyprland-git swww xdg-desktop-portal-hyprland waybar wl-clipboard rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
+programs_aur="python-pywalfox swww xdg-desktop-portal-hyprland waybar wl-clipboard rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
 
-paru -S --needed $program --noconfirm
+paru -S --needed $programs_aur --noconfirm
 
 configs=(
     tmux
