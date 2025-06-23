@@ -2,9 +2,9 @@
     "layer": "top",
     "height": 30,
     "spacing": 4,
-    "margin-top": 10,
-    "margin-right": 10,
-    "margin-left": 10,
+    "margin-top": 8,
+    "margin-right": 8,
+    "margin-left": 8,
     // Choose the order of the modules
     "modules-left": ["hyprland/workspaces", "custom/media"],
     "modules-center": ["hyprland/window"],
