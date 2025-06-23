@@ -81,9 +81,10 @@
   :ensure t
   :hook ((lua-mode . lsp)))
 
-(use-package odin-mode
-  :ensure (:host sourcehut :repo "mgmarlow/odin-mode")
-  :hook ((odin-mode . lsp)))
+(use-package odin-ts-mode
+  :ensure (:host github :repo "Sampie159/odin-ts-mode")
+  :mode "\\.odin\\'"
+  :hook ((odin-ts-mode . lsp)))
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -144,11 +145,11 @@
         lsp-inlay-hint-enable nil
         lsp-diagnostics-provider :none)
   (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "~/.local/bin/ols")
-                    :major-modes '(odin-mode)
+   (make-lsp-client :new-connection (lsp-stdio-connection "ols")
+                    :major-modes '(odin-ts-mode)
                     :server-id 'ols
                     :multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
+  (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
                     :major-modes '(glsl-mode)
@@ -197,11 +198,18 @@
   :hook ((prog-mode . highlight-numbers-mode)))
 
 (use-package parchment-theme
-  :ensure t)
-;;  :config (load-theme 'parchment))
+  :ensure t
+  :config (load-theme 'parchment))
 
 (use-package kaolin-themes
+  :ensure t)
+;;  :config (load-theme 'kaolin-aurora))
+
+(use-package exec-path-from-shell
   :ensure t
-  :config (load-theme 'kaolin-aurora))
+  :init
+  (setq exec-path-from-shell-shell-name "/usr/bin/fish")
+  :config
+  (exec-path-from-shell-initialize))
 
 ;;; packages.el ends here

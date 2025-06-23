@@ -15,7 +15,8 @@
 
 (setq-default indent-tabs-mode nil
               tab-width 4
-              cursor-type 'hollow)
+              cursor-type 'hollow
+              treesit-font-lock-level 4)
 
 (setq display-buffer-alist
       '(("\\*compilation\\*"
@@ -57,5 +58,8 @@
 
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
 (add-hook 'prog-mode-hook (lambda () (setq truncate-lines t)))
+
+(defvar treesit-language-source-alist
+  '((odin "https://github.com/tree-sitter-grammars/tree-sitter-odin")))
 
 ;;; config.el ends here

@@ -299,15 +299,17 @@ local plugins = {
         dependencies = 'rktjmp/lush.nvim',
     },
 
+    'dgox16/oldworld.nvim',
+
+    'everviolet/nvim',
+
     {
-        'echasnovski/mini.animate',
+        'aliqyan-21/darkvoid.nvim',
         config = function()
-            require('mini.animate').setup({
-                cursor = {
-                    enable = false,
-                },
-            })
-        end
+            require('darkvoid').setup{
+                glow = true,
+            }
+        end,
     }
 }
 
