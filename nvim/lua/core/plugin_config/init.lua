@@ -8,11 +8,11 @@ require('core.plugin_config.lsp_config')
 require('core.plugin_config.luasnip_config')
 
 if vim.g.neovide then
-    vim.o.guifont = "Monaspace Radon:h12"
+    vim.o.guifont = "IosevkaTerm Nerd Font:h12"
 end
 
 vim.o.background = "dark"
-vim.cmd.colorscheme("darkvoid")
+vim.cmd.colorscheme("aquarium")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

@@ -61,7 +61,7 @@ lsp.clangd.setup {
         clangdFileStatus = true,
         usePlaceholders = true,
         completeUnimported = true,
-        semanticHighlighting = false,
+        semanticHighlighting = true,
     },
     root_dir = lsp.util.root_pattern('.clangd', '.clang-format', '.clang-tidy', '.clang=format', 'configure.ac',
         'compile_commands.json',
@@ -80,6 +80,8 @@ vim.lsp.enable("ols")
 vim.lsp.enable("omnisharp")
 
 vim.lsp.enable('neocmake')
+
+vim.lsp.enable('ocamllsp')
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()

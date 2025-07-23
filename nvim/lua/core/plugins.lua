@@ -85,17 +85,20 @@ local plugins = {
     -- Oxocarbon
     "nyoom-engineering/oxocarbon.nvim",
 
-    {
-        -- Set lualine as statusline
-        'nvim-lualine/lualine.nvim',
-        opts = {
-            options = {
-                icons_enabled = true,
-                component_separators = '|',
-                section_separators = '',
-            },
-        },
-    },
+    -- {
+    --     -- Set lualine as statusline
+    --     'nvim-lualine/lualine.nvim',
+    --     config = function()
+    --         require('lualine').setup({
+    --             options = {
+    --                 icons_enabled = true,
+    --                 component_separators = '|',
+    --                 section_separators = '',
+    --                 theme = 'auto',
+    --             },
+    --         })
+    --     end,
+    -- },
 
     -- "gc" to comment visual regions/lines
     { 'numToStr/Comment.nvim',         opts = {} },
@@ -136,7 +139,13 @@ local plugins = {
     'olivercederborg/poimandres.nvim',
 
     -- Gruvbox
-    'sainnhe/gruvbox-material',
+    {
+        'sainnhe/gruvbox-material',
+        config = function()
+            vim.g.gruvbox_material_background = 'hard'
+            vim.g.gruvbox_material_foreground = 'original'
+        end
+    },
 
     -- Parinfer
     'gpanders/nvim-parinfer',
@@ -225,7 +234,7 @@ local plugins = {
     -- aquarium
     {
         'FrenzyExists/aquarium-vim',
-        branch = "develop",
+        -- branch = "develop",
     },
 
     -- lazydev
@@ -280,14 +289,6 @@ local plugins = {
     -- quickmath
     'jbyuki/quickmath.nvim',
 
-    -- hex.nvim
-    {
-        'RaafatTurki/hex.nvim',
-        config = function()
-            require('hex').setup()
-        end,
-    },
-
     -- vacme
     'raphael-proust/vacme',
 
@@ -310,7 +311,15 @@ local plugins = {
                 glow = true,
             }
         end,
-    }
+    },
+
+    {
+        'letorbi/vim-colors-modern-borland',
+        config = function()
+            vim.g.BorlandStyle = 'classic'
+            vim.g.BorlandParen = 1
+        end,
+    },
 }
 
 require('lazy').setup(plugins, {})
