@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-sudo sed -i "s/MODULES=\(\)/MODULES=\(nvidia nvidia_drm nvidia_modeset nvidia_uvm v4l2loopback\)" /etc/mkinitcpio.conf
-sudo mkdir /etc/pacman.d/hooks/
-sudo echo "nvidia_drm.modeset=1" >> /boot/loader/entries/arch.conf
-sudo echo "nvidia_drm.fpdev" >> /boot/loader/entries/arch.conf
-sudo cp ./nvidia-hook /etc/pacman.d/hooks/
 ln -sf ~/.dotfiles/discord-flags.conf ~/.config/discord-flags.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ln -sf ~/.dotfiles/bin/* ~/.local/bin/

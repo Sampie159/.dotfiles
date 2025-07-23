@@ -83,8 +83,7 @@
 
 (use-package odin-ts-mode
   :ensure (:host github :repo "Sampie159/odin-ts-mode")
-  :mode "\\.odin\\'"
-  :hook ((odin-ts-mode . lsp)))
+  :mode "\\.odin\\'")
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -198,12 +197,12 @@
   :hook ((prog-mode . highlight-numbers-mode)))
 
 (use-package parchment-theme
-  :ensure t
-  :config (load-theme 'parchment))
+  :ensure t)
+;;  :config (load-theme 'parchment))
 
 (use-package kaolin-themes
-  :ensure t)
-;;  :config (load-theme 'kaolin-aurora))
+  :ensure t
+  :config (load-theme 'kaolin-aurora))
 
 (use-package exec-path-from-shell
   :ensure t

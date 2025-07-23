@@ -8,10 +8,5 @@ TERM = "xterm-256color"
 size = 11
 
 [font.normal]
-# family = "IosevkaTerm Nerd Font"
-# family = "EnvyCodeR Nerd Font"
-# family = "FiraCode Nerd Font"
-# style = "Retina"
-# family = "Monaspace Radon"
-family = "Monaspace Krypton"
+family = "CaskaydiaCove Nerd Font"
 style = "Regular"

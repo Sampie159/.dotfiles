@@ -10,8 +10,7 @@
           (lambda ()
             (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
-(set-frame-font "Monaspace Xenon 11" nil t)
-;; (set-frame-font "Monaspace Radon 11" nil t)
+(set-frame-font "Monaspace Argon 11" nil t)
 
 (setq-default indent-tabs-mode nil
               tab-width 4
