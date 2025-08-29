@@ -77,6 +77,24 @@ local plugins = {
         },
     },
 
+    {
+        'elixir-tools/elixir-tools.nvim',
+        version = '*',
+        event = { 'BufReadPre', 'BufNewFile' },
+        config = function()
+            local elixirls = require('elixir.elixirls')
+            require('elixir').setup({
+                elixirls = {
+                    enable = true,
+                    settings = elixirls.settings {
+                        dialyzerEnabled = false,
+                        enableTestLenses = false,
+                    },
+                }
+            })
+        end,
+    },
+
     -- Catppuccin
     {
         "catppuccin/nvim", name = "catppuccin"
@@ -85,20 +103,20 @@ local plugins = {
     -- Oxocarbon
     "nyoom-engineering/oxocarbon.nvim",
 
-    -- {
-    --     -- Set lualine as statusline
-    --     'nvim-lualine/lualine.nvim',
-    --     config = function()
-    --         require('lualine').setup({
-    --             options = {
-    --                 icons_enabled = true,
-    --                 component_separators = '|',
-    --                 section_separators = '',
-    --                 theme = 'auto',
-    --             },
-    --         })
-    --     end,
-    -- },
+    {
+        -- Set lualine as statusline
+        'nvim-lualine/lualine.nvim',
+        config = function()
+            require('lualine').setup({
+                options = {
+                    icons_enabled = true,
+                    component_separators = '|',
+                    section_separators = '',
+                    theme = 'auto',
+                },
+            })
+        end,
+    },
 
     -- "gc" to comment visual regions/lines
     { 'numToStr/Comment.nvim',         opts = {} },
@@ -231,12 +249,6 @@ local plugins = {
         lazy = false,
     },
 
-    -- aquarium
-    {
-        'FrenzyExists/aquarium-vim',
-        -- branch = "develop",
-    },
-
     -- lazydev
     {
         'folke/lazydev.nvim',
@@ -264,7 +276,7 @@ local plugins = {
     "miikanissi/modus-themes.nvim",
 
     -- flow
-    { 
+    {
         "0xstepit/flow.nvim",
         config = function()
             require('flow').setup{}
@@ -319,6 +331,19 @@ local plugins = {
             vim.g.BorlandStyle = 'classic'
             vim.g.BorlandParen = 1
         end,
+    },
+
+    'luisiacc/gruvbox-baby',
+
+    { 'bluz71/vim-nightfly-colors', name = 'nightfly' },
+
+    'savq/melange-nvim',
+
+    {
+        'https://gitlab.com/shmerl/neogotham.git',
+        config = function()
+            require('neogotham'):setup()
+        end
     },
 }
 

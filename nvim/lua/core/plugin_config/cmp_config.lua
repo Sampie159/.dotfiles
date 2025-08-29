@@ -2,7 +2,7 @@ local cmp = require 'cmp'
 
 cmp.setup {
     completion = {
-        autocomplete = false,
+        -- autocomplete = false,
         completeopt = "menu,menuone",
     },
     preselect = cmp.PreselectMode.None,
