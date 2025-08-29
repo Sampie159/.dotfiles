@@ -12,7 +12,6 @@ if vim.g.neovide then
 end
 
 vim.o.background = "dark"
-vim.cmd.colorscheme("aquarium")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.
@@ -93,9 +92,10 @@ require('todo-comments').setup {
     },
 }
 
--- Gruvbox config
+-- Gruvboxes configs
 vim.g.gruvbox_material_background = 'hard'
 vim.g.gruvbox_material_foreground = 'mix'
+vim.g.gruvbox_baby_background_color = 'dark'
 
 -- Catppuccin config
 require("catppuccin").setup {
@@ -105,3 +105,5 @@ require("catppuccin").setup {
     }
   }
 }
+
+vim.cmd.colorscheme("neogotham")

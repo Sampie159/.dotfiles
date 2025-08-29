@@ -83,6 +83,10 @@ vim.lsp.enable('neocmake')
 
 vim.lsp.enable('ocamllsp')
 
+vim.lsp.enable('asm_lsp')
+
+-- vim.lsp.enable('c3_lsp')
+
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 

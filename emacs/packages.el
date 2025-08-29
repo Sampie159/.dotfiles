@@ -81,9 +81,16 @@
   :ensure t
   :hook ((lua-mode . lsp)))
 
+(use-package zig-mode
+  :ensure t
+  :config
+  (setq zig-format-on-save nil)
+  :hook ((zig-mode . lsp)))
+
 (use-package odin-ts-mode
   :ensure (:host github :repo "Sampie159/odin-ts-mode")
-  :mode "\\.odin\\'")
+  :mode "\\.odin\\'"
+  :hook ((odin-ts-mode . lsp)))
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -134,8 +141,8 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  (;;(c-mode .lsp)
-   ;;(c++-mode . lsp)
+  ((c-mode .lsp)
+   (c++-mode . lsp)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
@@ -155,6 +162,12 @@
                     :server-id 'glsl-analyzer
                     :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "zls")
+                    :major-modes '(zig-mode)
+                    :server-id 'zls
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
   :commands (lsp))
 
 (use-package lsp-ivy
@@ -201,8 +214,8 @@
 ;;  :config (load-theme 'parchment))
 
 (use-package kaolin-themes
-  :ensure t
-  :config (load-theme 'kaolin-aurora))
+  :ensure t)
+;;  :config (load-theme 'kaolin-aurora))
 
 (use-package exec-path-from-shell
   :ensure t
