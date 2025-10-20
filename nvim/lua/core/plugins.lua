@@ -106,16 +106,6 @@ local plugins = {
     {
         -- Set lualine as statusline
         'nvim-lualine/lualine.nvim',
-        config = function()
-            require('lualine').setup({
-                options = {
-                    icons_enabled = true,
-                    component_separators = '|',
-                    section_separators = '',
-                    theme = 'auto',
-                },
-            })
-        end,
     },
 
     -- "gc" to comment visual regions/lines
@@ -231,7 +221,7 @@ local plugins = {
     -- text-case.nvim
     {
         'johmsalas/text-case.nvim',
-        config = function ()
+        config = function()
             require('textcase').setup({})
             require('telescope').load_extension('textcase')
         end,
@@ -261,7 +251,7 @@ local plugins = {
     },
 
     -- luvit (no idea)
-    { 'Bilal2453/luvit-meta', lazy = true },
+    { 'Bilal2453/luvit-meta',       lazy = true },
 
     -- c3
     'Sampie159/c3.vim',
@@ -279,12 +269,15 @@ local plugins = {
     {
         "0xstepit/flow.nvim",
         config = function()
-            require('flow').setup{}
+            require('flow').setup {}
         end,
     },
 
     -- lush
-    "rktjmp/lush.nvim",
+    {
+        "rktjmp/lush.nvim",
+        { dir = '/home/sampie/projects/samps', lazy = true },
+    },
 
     -- tokyonight
     "folke/tokyonight.nvim",
@@ -319,7 +312,7 @@ local plugins = {
     {
         'aliqyan-21/darkvoid.nvim',
         config = function()
-            require('darkvoid').setup{
+            require('darkvoid').setup {
                 glow = true,
             }
         end,
@@ -345,6 +338,25 @@ local plugins = {
             require('neogotham'):setup()
         end
     },
+
+    {
+        'nvim-mini/mini.pairs',
+        version = false,
+        config = function()
+            require('mini.pairs').setup()
+        end,
+    },
+
+    {
+        'Everblush/nvim',
+        name = 'everblush'
+    },
+
+    {
+        'rockerBOO/boo-colorscheme-nvim',
+    },
+
+    { 'datsfilipe/vesper.nvim', },
 }
 
 require('lazy').setup(plugins, {})
