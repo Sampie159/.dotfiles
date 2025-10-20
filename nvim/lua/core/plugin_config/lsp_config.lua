@@ -1,5 +1,3 @@
-local lsp = require('lspconfig')
-
 local on_attach = function(client, bufnr)
     -- client.server_capabilities.semanticTokensProvider = nil
     local nmap = function(keys, func, desc)
@@ -52,7 +50,7 @@ local servers = {
 vim.lsp.enable('gopls')
 
 -- C/C++ lsp config
-lsp.clangd.setup {
+local clangd_config = {
     capabilities = capabilities,
     on_attach = on_attach,
     cmd = { 'clangd', '--background-index', '--clang-tidy', '--completion-style=bundled', '--header-insertion=never', '--header-insertion-decorators=0' },
@@ -63,11 +61,15 @@ lsp.clangd.setup {
         completeUnimported = true,
         semanticHighlighting = true,
     },
-    root_dir = lsp.util.root_pattern('.clangd', '.clang-format', '.clang-tidy', '.clang=format', 'configure.ac',
+    root_markers = {
+        '.clangd', '.clang-format', '.clang-tidy', '.clang=format', 'configure.ac',
         'compile_commands.json',
         'compile_flags.txt', '.git'
-    ),
+    },
 }
+
+vim.lsp.config("clangd", clangd_config)
+vim.lsp.enable('clangd')
 
 vim.lsp.enable('rust_analyzer')
 
@@ -85,7 +87,16 @@ vim.lsp.enable('ocamllsp')
 
 vim.lsp.enable('asm_lsp')
 
--- vim.lsp.enable('c3_lsp')
+vim.lsp.config('c3lsp', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    cmd = { 'c3lsp', '-c3c-path', '/usr/local/bin/c3c' },
+    filetypes = { 'c3', },
+    root_markers = {
+        'project.json'
+    },
+})
+vim.lsp.enable('c3lsp')
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()

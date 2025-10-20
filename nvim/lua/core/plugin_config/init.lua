@@ -6,9 +6,10 @@ require('core.plugin_config.telescope_config')
 require('core.plugin_config.treesitter_config')
 require('core.plugin_config.lsp_config')
 require('core.plugin_config.luasnip_config')
+require('core.plugin_config.lualine_config')
 
 if vim.g.neovide then
-    vim.o.guifont = "IosevkaTerm Nerd Font:h12"
+    vim.o.guifont = "GoMono Nerd Font:h12"
 end
 
 vim.o.background = "dark"
@@ -106,4 +107,4 @@ require("catppuccin").setup {
   }
 }
 
-vim.cmd.colorscheme("neogotham")
+vim.cmd.colorscheme("radioactive_waste")
