@@ -13,7 +13,7 @@
 (set-frame-font "JetBrainsMono Nerd Font 11" nil t)
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
-(load-theme 'fleury t)
+;; (load-theme 'fleury t)
 
 (setq-default indent-tabs-mode nil
               tab-width 4
