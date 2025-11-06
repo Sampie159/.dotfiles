@@ -149,7 +149,8 @@
   (setq lsp-enable-on-type-formatting nil
         lsp-enable-snippet nil
         lsp-inlay-hint-enable nil
-        lsp-diagnostics-provider :none)
+        lsp-diagnostics-provider :none
+        lsp-semantic-tokens-enable t)
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "ols")
                     :major-modes '(odin-ts-mode)
@@ -223,5 +224,15 @@
   (setq exec-path-from-shell-shell-name "/usr/bin/fish")
   :config
   (exec-path-from-shell-initialize))
+
+(use-package modus-themes
+  :ensure t)
+
+(use-package ef-themes
+  :ensure t)
+
+(use-package doric-themes
+  :ensure t
+  :config(load-theme 'doric-valley))
 
 ;;; packages.el ends here
