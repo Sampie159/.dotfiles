@@ -14,6 +14,8 @@ local rep = require('luasnip.extras').rep
 local snippets, autosnippets = {}, {}
 
 local vcvars = s('vcvars', fmt([[
+set msvc26p=C:\Program Files\Microsoft Visual Studio\18\Professional
+set msvc26p=C:\Program Files\Microsoft Visual Studio\18\Community
 set msvc22p=C:\Program Files\Microsoft Visual Studio\2022\Professional
 set msvc22c=C:\Program Files\Microsoft Visual Studio\2022\Community
 set msvc19p=C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional
@@ -25,7 +27,9 @@ set msvc13=C:\Program Files (x86)\Microsoft Visual Studio 13.0
 set msvc12=C:\Program Files (x86)\Microsoft Visual Studio 12.0
 set msvc11=C:\Program Files (x86)\Microsoft Visual Studio 11.0
 set msvc10=C:\Program Files (x86)\Microsoft Visual Studio 10.0
-if exist "%msvc22p%" (
+if exist "%msvc26p%" (
+    call "%msvc26p%\VC\Auxiliary\Build\vcvarsall.bat" x64
+) else if exist "%msvc22p%" (
     call "%msvc22p%\VC\Auxiliary\Build\vcvarsall.bat" x64
 ) else if exist "%msvc22c%" (
     call "%msvc22c%\VC\Auxiliary\Build\vcvarsall.bat" x64
