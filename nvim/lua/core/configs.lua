@@ -76,3 +76,5 @@ vim.g.zig_fmt_autosave = 0
 
 vim.lsp.inlay_hint.enable(false)
 vim.diagnostic.enable(false)
+
+vim.opt.bomb = false

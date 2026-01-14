@@ -126,9 +126,6 @@ local plugins = {
     {
         -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
-        dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
-        },
         config = function()
             pcall(require('nvim-treesitter.install').update { with_sync = true })
         end,
@@ -339,13 +336,13 @@ local plugins = {
         end
     },
 
-    {
-        'nvim-mini/mini.pairs',
-        version = false,
-        config = function()
-            require('mini.pairs').setup()
-        end,
-    },
+    -- {
+    --     'nvim-mini/mini.pairs',
+    --     version = false,
+    --     config = function()
+    --         require('mini.pairs').setup()
+    --     end,
+    -- },
 
     {
         'Everblush/nvim',
@@ -357,6 +354,38 @@ local plugins = {
     },
 
     { 'datsfilipe/vesper.nvim', },
+
+    'Apeiros-46B/uiua.vim',
+
+    'pebeto/dookie.nvim',
+
+    'jpwol/thorn.nvim',
+
+    {
+        'everviolet/nvim', name = 'evergarden',
+        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+        opts = {
+            theme = {
+                variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
+                accent = 'green',
+            },
+            editor = {
+                transparent_background = false,
+                sign = { color = 'none' },
+                float = {
+                    color = 'mantle',
+                    solid_border = false,
+                },
+                completion = {
+                    color = 'surface0',
+                },
+            },
+        }
+    },
+
+    'neko-night/nvim',
+
+    'wtfox/jellybeans.nvim',
 }
 
 require('lazy').setup(plugins, {})

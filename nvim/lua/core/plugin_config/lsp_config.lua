@@ -68,8 +68,8 @@ local clangd_config = {
     },
 }
 
-vim.lsp.config("clangd", clangd_config)
-vim.lsp.enable('clangd')
+-- vim.lsp.config("clangd", clangd_config)
+-- vim.lsp.enable('clangd')
 
 vim.lsp.enable('rust_analyzer')
 
@@ -86,6 +86,10 @@ vim.lsp.enable('neocmake')
 vim.lsp.enable('ocamllsp')
 
 vim.lsp.enable('asm_lsp')
+
+vim.lsp.enable('uiua')
+
+vim.lsp.enable('fortls')
 
 vim.lsp.config('c3lsp', {
     capabilities = capabilities,
