@@ -49,7 +49,7 @@
                (load-file "~/.config/emacs/init.el")
                (load-file "~/.config/emacs/init.el"))
              :wk "Reload emacs config")
-   "l u" '(lsp-ui-imenu :wk "Show imenu entries")
+   ;; "l u" '(lsp-ui-imenu :wk "Show imenu entries")
    "c c" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
@@ -66,31 +66,41 @@
 
 (use-package cmake-mode
   :ensure t
-  :hook ((cmake-mode . lsp))
+  ;; :hook ((cmake-mode . lsp))
   :config (setq cmake-tab-width 4))
 
 (use-package glsl-mode
-  :ensure t
-  :hook ((glsl-mode . lsp)))
+  :ensure t)
+  ;; :hook ((glsl-mode . lsp)))
+
+(use-package slang-mode
+  :ensure (:host github :repo "K1ngst0m/slang-mode")
+  :mode (("\\.slang\\'" . slang-mode)
+         ("\\.sl\\'" . slang-mode)
+         ("\\.slangh\\'" . slang-mode)))
+
+(use-package go-mode
+  :ensure t)
+  ;; :hook ((go-mode . lsp)))
 
 (use-package rust-mode
-  :ensure t
-  :hook ((rust-mode . lsp)))
+  :ensure t)
+  ;; :hook ((rust-mode . lsp)))
 
 (use-package lua-mode
-  :ensure t
-  :hook ((lua-mode . lsp)))
+  :ensure t)
+  ;; :hook ((lua-mode . lsp)))
 
 (use-package zig-mode
   :ensure t
   :config
-  (setq zig-format-on-save nil)
-  :hook ((zig-mode . lsp)))
+  (setq zig-format-on-save nil))
+  ;; :hook ((zig-mode . lsp)))
 
-(use-package odin-ts-mode
-  :ensure (:host github :repo "Sampie159/odin-ts-mode")
-  :mode "\\.odin\\'"
-  :hook ((odin-ts-mode . lsp)))
+(use-package odin-mode
+  :ensure (:host github :repo "Sampie159/odin-mode")
+  :mode "\\.odin\\'")
+  ;; :hook ((odin-ts-mode . lsp)))
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -136,44 +146,44 @@
   (setq vterm-toggle-fullscreen-p nil
         vterm-toggle-scope 'project))
 
-(use-package lsp-mode
-  :ensure t
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :hook
-  ((c-mode .lsp)
-   (c++-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration))
-  :config
-  (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
-  (setq lsp-enable-on-type-formatting nil
-        lsp-enable-snippet nil
-        lsp-inlay-hint-enable nil
-        lsp-diagnostics-provider :none
-        lsp-semantic-tokens-enable t)
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "ols")
-                    :major-modes '(odin-ts-mode)
-                    :server-id 'ols
-                    :multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
-                    :major-modes '(glsl-mode)
-                    :server-id 'glsl-analyzer
-                    :multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "zls")
-                    :major-modes '(zig-mode)
-                    :server-id 'zls
-                    :multi-root t))
-  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
-  :commands (lsp))
+;; (use-package lsp-mode
+;;   :ensure t
+;;   :init
+;;   (setq lsp-keymap-prefix "C-c l")
+;;   :hook
+;;   ((c-mode .lsp)
+;;    (c++-mode . lsp)
+;;    (f90-mode . lsp)
+;;    (lsp-mode . lsp-enable-which-key-integration))
+;;   :config
+;;   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
+;;   (setq lsp-enable-on-type-formatting nil
+;;         lsp-enable-snippet nil
+;;         lsp-inlay-hint-enable nil
+;;         lsp-diagnostics-provider :none)
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-stdio-connection "ols")
+;;                     :major-modes '(odin-ts-mode)
+;;                     :server-id 'ols
+;;                     :multi-root t))
+;;   (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
+;;                     :major-modes '(glsl-mode)
+;;                     :server-id 'glsl-analyzer
+;;                     :multi-root t))
+;;   (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
+;;   (lsp-register-client
+;;    (make-lsp-client :new-connection (lsp-stdio-connection "zls")
+;;                     :major-modes '(zig-mode)
+;;                     :server-id 'zls
+;;                     :multi-root t))
+;;   (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+;;   :commands (lsp))
 
-(use-package lsp-ivy
-  :ensure t
-  :commands lsp-ivy-workspace-symbol)
+;; (use-package lsp-ivy
+;;   :ensure t
+;;   :commands lsp-ivy-workspace-symbol)
 
 (use-package counsel
   :ensure t
@@ -232,7 +242,27 @@
   :ensure t)
 
 (use-package doric-themes
+  :ensure t)
+  ;; :config (load-theme 'doric-valley))
+
+(use-package naysayer-theme
+  :ensure t)
+  ;; :config (load-theme 'naysayer))
+
+(use-package tao-theme
+  :ensure t)
+  ;; :config (load-theme 'tao-yin))
+
+(use-package almost-mono-themes
+  :ensure t)
+  ;; :config (load-theme 'almost-mono-white))
+
+(use-package plain-theme
+  :ensure t)
+  ;; :config (load-theme 'plain))
+
+(use-package nofrils-acme-theme
   :ensure t
-  :config(load-theme 'doric-valley))
+  :config (load-theme 'nofrils-dark))
 
 ;;; packages.el ends here

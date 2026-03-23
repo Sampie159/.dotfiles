@@ -45,3 +45,9 @@ vim.keymap.set("v", "<leader>s", ":sort<CR>")
 vim.keymap.set("v", "<leader>S", ":sort!<CR>")
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+vim.keymap.set("n", "<leader>pc", "<CMD>below Compile<CR>")
+vim.keymap.set("n", "<leader>pr", "<CMD>below Recompile<CR>")
+vim.keymap.set("n", "<leader>pk", "<CMD>CompileInterrupt<CR>")
+vim.keymap.set("n", "<leader>n", "<CMD>NextError<CR>")
+vim.keymap.set("n", "<leader>N", "<CMD>PrevError<CR>")
