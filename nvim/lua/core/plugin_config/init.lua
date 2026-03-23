@@ -9,11 +9,11 @@ require('core.plugin_config.luasnip_config')
 require('core.plugin_config.lualine_config')
 
 if vim.g.neovide then
-    vim.o.guifont = "GoMono Nerd Font:h12"
+    vim.o.guifont = "IosevkaTerm Nerd Font:h12"
 end
 
 vim.o.background = "dark"
-vim.cmd.colorscheme("evergarden")
+vim.cmd.colorscheme("fogbell_lite")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

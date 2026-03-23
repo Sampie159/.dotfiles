@@ -4,13 +4,19 @@
 
 (setq c-default-style "linux"
       c-basic-offset 4
+      lua-indent-level 4
       backup-directory-alist '(("." . "~/.trash")))
 
 (add-hook 'c-mode-common-hook
           (lambda ()
             (local-set-key (kbd "C-c o") 'ff-find-other-file)))
 
-(set-frame-font "JetBrainsMono Nerd Font 11" nil t)
+;; (set-frame-font "JetBrainsMono Nerd Font 11" nil t)
+;; (set-frame-font "InconsolataGo Nerd Font 13" nil t)
+(set-face-attribute 'default nil
+                    :family "InconsolataGo Nerd Font"
+                    :height 130
+                    :weight 'bold)
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 ;; (load-theme 'fleury t)

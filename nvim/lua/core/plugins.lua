@@ -123,17 +123,6 @@ local plugins = {
         end,
     },
 
-    {
-        -- Highlight, edit, and navigate code
-        'nvim-treesitter/nvim-treesitter',
-        config = function()
-            pcall(require('nvim-treesitter.install').update { with_sync = true })
-        end,
-    },
-
-    -- TreeSitter Context
-    'nvim-treesitter/nvim-treesitter-context',
-
     -- Web devicons
     'nvim-tree/nvim-web-devicons',
 
@@ -262,6 +251,32 @@ local plugins = {
     -- modus
     "miikanissi/modus-themes.nvim",
 
+{
+        "ej-shafran/compile-mode.nvim",
+        version = "^5.0.0",
+        dependencies = {
+            "m00qek/baleia.nvim",
+        },
+        config = function()
+            ---@module "compile-mode"
+            ---@type CompileModeOpts
+            vim.g.compile_mode = {
+                input_word_completion = true,
+                baleia_setup = true,
+                bang_expansion = true,
+                default_command = {
+                    c = "./build.sh",
+                    cpp = "./build.sh",
+                    odin = "./build.sh",
+                    rust = "cargo build",
+                    zig = "zig build",
+                    lua = "./build.sh",
+                },
+                focus_compilation_buffer = true,
+            }
+        end,
+    },
+
     -- flow
     {
         "0xstepit/flow.nvim",
@@ -336,14 +351,6 @@ local plugins = {
         end
     },
 
-    -- {
-    --     'nvim-mini/mini.pairs',
-    --     version = false,
-    --     config = function()
-    --         require('mini.pairs').setup()
-    --     end,
-    -- },
-
     {
         'Everblush/nvim',
         name = 'everblush'
@@ -362,7 +369,8 @@ local plugins = {
     'jpwol/thorn.nvim',
 
     {
-        'everviolet/nvim', name = 'evergarden',
+        'everviolet/nvim',
+        name = 'evergarden',
         priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
         opts = {
             theme = {
