@@ -86,3 +86,9 @@ fish/conf.d/zoxide.fish
 /emacs/%backup%~
 /emacs/recentf.eld
 lazynvim
+/bin/ols
+/bin/odinfmt
+/bin/odin
+/bin/focus
+/bin/c3lsp
+/bin/bunx
