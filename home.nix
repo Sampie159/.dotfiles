@@ -51,7 +51,7 @@
         wine
         winetricks
         qbittorrent
-        swww
+        awww
         pywalfox-native
         mako
         rofi

@@ -49,7 +49,7 @@
                (load-file "~/.config/emacs/init.el")
                (load-file "~/.config/emacs/init.el"))
              :wk "Reload emacs config")
-   ;; "l u" '(lsp-ui-imenu :wk "Show imenu entries")
+   "l s" '(lsp-ivy-workspace-symbol :wk "Search workspace symbols")
    "c c" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
@@ -66,41 +66,54 @@
 
 (use-package cmake-mode
   :ensure t
-  ;; :hook ((cmake-mode . lsp))
+  :hook ((cmake-mode . lsp))
   :config (setq cmake-tab-width 4))
 
 (use-package glsl-mode
-  :ensure t)
-  ;; :hook ((glsl-mode . lsp)))
+  :ensure t
+  :hook ((glsl-mode . lsp)))
 
 (use-package slang-mode
   :ensure (:host github :repo "K1ngst0m/slang-mode")
   :mode (("\\.slang\\'" . slang-mode)
          ("\\.sl\\'" . slang-mode)
-         ("\\.slangh\\'" . slang-mode)))
+         ("\\.slangh\\'" . slang-mode))
+  ;; slang-mode derives from c-mode, so c-mode-hook already fires here; this is
+  ;; explicit so slang keeps lsp if the c-mode hook ever goes away. Do NOT load
+  ;; the bundled slang-lsp.el -- it wires slangd to eglot, not lsp-mode.
+  :hook ((slang-mode . lsp)))
 
 (use-package go-mode
-  :ensure t)
-  ;; :hook ((go-mode . lsp)))
+  :ensure t
+  :hook ((go-mode . lsp)))
 
 (use-package rust-mode
-  :ensure t)
-  ;; :hook ((rust-mode . lsp)))
+  :ensure t
+  :hook ((rust-mode . lsp)))
 
 (use-package lua-mode
-  :ensure t)
-  ;; :hook ((lua-mode . lsp)))
+  :ensure t
+  :hook ((lua-mode . lsp)))
 
 (use-package zig-mode
   :ensure t
   :config
-  (setq zig-format-on-save nil))
-  ;; :hook ((zig-mode . lsp)))
+  (setq zig-format-on-save nil)
+  :hook ((zig-mode . lsp)))
 
 (use-package odin-mode
   :ensure (:host github :repo "Sampie159/odin-mode")
-  :mode "\\.odin\\'")
-  ;; :hook ((odin-ts-mode . lsp)))
+  :mode "\\.odin\\'"
+  :hook ((odin-mode . lsp)))
+
+(use-package treesit-auto
+  :ensure t
+  :custom
+  ;; asks before compiling a grammar instead of silently pulling one at startup
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 (use-package parinfer-rust-mode
   :ensure t
@@ -146,44 +159,62 @@
   (setq vterm-toggle-fullscreen-p nil
         vterm-toggle-scope 'project))
 
-;; (use-package lsp-mode
-;;   :ensure t
-;;   :init
-;;   (setq lsp-keymap-prefix "C-c l")
-;;   :hook
-;;   ((c-mode .lsp)
-;;    (c++-mode . lsp)
-;;    (f90-mode . lsp)
-;;    (lsp-mode . lsp-enable-which-key-integration))
-;;   :config
-;;   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
-;;   (setq lsp-enable-on-type-formatting nil
-;;         lsp-enable-snippet nil
-;;         lsp-inlay-hint-enable nil
-;;         lsp-diagnostics-provider :none)
-;;   (lsp-register-client
-;;    (make-lsp-client :new-connection (lsp-stdio-connection "ols")
-;;                     :major-modes '(odin-ts-mode)
-;;                     :server-id 'ols
-;;                     :multi-root t))
-;;   (add-to-list 'lsp-language-id-configuration '(odin-ts-mode . "odin"))
-;;   (lsp-register-client
-;;    (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
-;;                     :major-modes '(glsl-mode)
-;;                     :server-id 'glsl-analyzer
-;;                     :multi-root t))
-;;   (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
-;;   (lsp-register-client
-;;    (make-lsp-client :new-connection (lsp-stdio-connection "zls")
-;;                     :major-modes '(zig-mode)
-;;                     :server-id 'zls
-;;                     :multi-root t))
-;;   (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
-;;   :commands (lsp))
+(use-package lsp-mode
+  :ensure t
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook
+  ;; treesit-auto remaps these to their -ts-mode variants, which do NOT inherit
+  ;; the non-ts mode hooks -- both spellings needed or lsp stops attaching
+  ((c-mode . lsp)
+   (c-ts-mode . lsp)
+   (c++-mode . lsp)
+   (c++-ts-mode . lsp)
+   (cmake-ts-mode . lsp)
+   (go-ts-mode . lsp)
+   (rust-ts-mode . lsp)
+   (lua-ts-mode . lsp)
+   (f90-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration))
+  :config
+  (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
+  (setq lsp-enable-on-type-formatting nil
+        lsp-enable-snippet nil
+        lsp-inlay-hint-enable nil
+        lsp-diagnostics-provider :none
+        ;; corfu is the in-buffer completion UI here, not company
+        lsp-completion-provider :none
+        ;; server-driven highlighting layered on top of font-lock
+        lsp-semantic-tokens-enable t)
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "ols")
+                    :major-modes '(odin-mode)
+                    :server-id 'ols
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(odin-mode . "odin"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "glsl_analyzer")
+                    :major-modes '(glsl-mode)
+                    :server-id 'glsl-analyzer
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(glsl-mode . "glsl"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "zls")
+                    :major-modes '(zig-mode)
+                    :server-id 'zls
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "slangd")
+                    :major-modes '(slang-mode)
+                    :server-id 'slangd
+                    :multi-root t))
+  (add-to-list 'lsp-language-id-configuration '(slang-mode . "slang"))
+  :commands (lsp))
 
-;; (use-package lsp-ivy
-;;   :ensure t
-;;   :commands lsp-ivy-workspace-symbol)
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
 
 (use-package counsel
   :ensure t
@@ -203,7 +234,7 @@
   :ensure t
   :config
   (projectile-mode +1)
-  (setq projectile-project-search-path '("~/projects/" "~/playgrounds/"))
+  (setq projectile-project-search-path '("~/projects/" "~/projects/saiyans/" "~/playgrounds/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package multiple-cursors
@@ -262,7 +293,26 @@
   ;; :config (load-theme 'plain))
 
 (use-package nofrils-acme-theme
+  :ensure t)
+  ;; :config (load-theme 'nofrils-acme))
+
+(use-package base16-theme
   :ensure t
-  :config (load-theme 'nofrils-dark))
+  :config)
+  ;; (load-theme 'base16-charcoal-light))
+  ;; (load-theme 'base16-charcoal-dark))
+;; (load-theme 'base16-ascendancy))
+
+(use-package doom-themes
+  :ensure t
+  :custom
+  (doom-themes-enable-bold t)
+  :config
+  (load-theme 'doom-ayu-mirage)
+  (doom-themes-org-config))
+
+(use-package sql-indent
+  :ensure t
+  :hook ((sql-mode . sqlind-minor-mode)))
 
 ;;; packages.el ends here

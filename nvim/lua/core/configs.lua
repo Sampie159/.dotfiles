@@ -1,3 +1,5 @@
+require('vim._core.ui2').enable({})
+
 -- Leader as <space>confi
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -56,11 +58,11 @@ vim.o.scrolloff = 8
 -- [[ Highlight on yank ]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
 })
 
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
@@ -74,7 +76,17 @@ vim.opt.shell = "/bin/bash"
 
 vim.g.zig_fmt_autosave = 0
 
-vim.lsp.inlay_hint.enable(false)
-vim.diagnostic.enable(false)
+vim.lsp.inlay_hint.enable(true)
+vim.diagnostic.config({
+    -- virtual_text = {
+    --     prefix = "●",
+    -- },
+    -- signs = true,
+    -- underline = true,
+    -- update_in_insert = true,
+    -- severity_sort = true,
+    virtual_lines = true,
+})
+vim.diagnostic.enable(true)
 
 vim.opt.bomb = false
