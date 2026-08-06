@@ -79,19 +79,36 @@ local plugins = {
 
     {
         'elixir-tools/elixir-tools.nvim',
-        version = '*',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+        },
         event = { 'BufReadPre', 'BufNewFile' },
         config = function()
+            local elixir = require('elixir')
             local elixirls = require('elixir.elixirls')
-            require('elixir').setup({
+
+            elixir.setup({
+                nextls = {
+                    enable = false,
+                },
+
                 elixirls = {
                     enable = true,
-                    settings = elixirls.settings {
+
+                    settings = elixirls.settings({
                         dialyzerEnabled = false,
                         enableTestLenses = false,
-                    },
-                }
+                        fetchDeps = false,
+
+                        suggestSpecs = true,
+                    }),
+                },
+
+                projectionist = {
+                    enable = true,
+                },
             })
+
         end,
     },
 
@@ -109,7 +126,12 @@ local plugins = {
     },
 
     -- "gc" to comment visual regions/lines
-    { 'numToStr/Comment.nvim',         opts = {} },
+    {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end,
+    },
 
     -- Fuzzy Finder
     { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -237,7 +259,7 @@ local plugins = {
     },
 
     -- luvit (no idea)
-    { 'Bilal2453/luvit-meta',       lazy = true },
+    { 'Bilal2453/luvit-meta',          lazy = true },
 
     -- c3
     'Sampie159/c3.vim',
@@ -251,7 +273,7 @@ local plugins = {
     -- modus
     "miikanissi/modus-themes.nvim",
 
-{
+    {
         "ej-shafran/compile-mode.nvim",
         version = "^5.0.0",
         dependencies = {
@@ -271,6 +293,7 @@ local plugins = {
                     rust = "cargo build",
                     zig = "zig build",
                     lua = "./build.sh",
+                    go = "go build",
                 },
                 focus_compilation_buffer = true,
             }
@@ -394,6 +417,35 @@ local plugins = {
     'neko-night/nvim',
 
     'wtfox/jellybeans.nvim',
+
+    {
+        'kungfusheep/mfd.nvim',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.opt.guicursor = {
+                "n:block-CursorNormal",
+                "v:block-CursorVisual",
+                "i:block-CursorInsert",
+                "r-cr:block-CursorReplace",
+                "c:block-CursorCommand",
+            }
+
+            require('mfd').enable_cursor_sync()
+        end,
+    },
+
+    'nanotee/sqls.nvim',
+
+    -- Treesitter parser installer (main branch = install-only, no configs.setup;
+    -- highlighting/start still handled natively in treesitter_config.lua)
+    {
+        'nvim-treesitter/nvim-treesitter',
+        branch = 'main',
+        build = ':TSUpdate',
+    },
+
+    'sainnhe/everforest',
 }
 
 require('lazy').setup(plugins, {})
