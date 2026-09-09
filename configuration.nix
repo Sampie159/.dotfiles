@@ -8,7 +8,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+# boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
     boot.kernelModules = [ "v4l2loopback" ];
     boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -62,7 +62,8 @@
 
     # RX 9070 XT (RDNA4) - Mesa from git via Chaotic Nyx (binary cache), plus
     # current firmware blobs for Navi 48.
-    chaotic.mesa-git.enable = true;
+    # vm-test: option needs chaotic module; no RDNA4 GPU in QEMU
+    # chaotic.mesa-git.enable = true;
     hardware.enableRedistributableFirmware = true;
 
     fonts.packages = with pkgs; [

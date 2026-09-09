@@ -24,18 +24,19 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+        # vm-test: chaotic disabled for QEMU (no RDNA4 GPU, skips slow fetch)
+        # chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
         nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     };
 
-    outputs = inputs @ { nixpkgs, home-manager, chaotic, nixos-hardware, ... }: {
+    outputs = inputs @ { nixpkgs, home-manager, nixos-hardware, ... }: {
         nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = { inherit inputs; };
             modules = [
                 ./configuration.nix
-                chaotic.nixosModules.default
+                # vm-test: chaotic.nixosModules.default
                 nixos-hardware.nixosModules.common-cpu-amd
                 nixos-hardware.nixosModules.common-gpu-amd
                 nixos-hardware.nixosModules.common-pc-ssd
