@@ -8,24 +8,32 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "uinput" ];
+    boot.kernelPackages = pkgs.linuxPackages_cachyos;
+
+    boot.kernelModules = [ "v4l2loopback" ];
+    boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
 
     networking.hostName = "nixos";
     networking.networkmanager.enable = true;
 
-    time.timeZone = "Brazil/East";
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
+    zramSwap = {
+        enable = true;
+        algorithm = "zstd";
+        memoryPercent = 50;
+    };
+
+    time.timeZone = "America/Sao_Paulo";
     i18n.defaultLocale = "en_US.UTF-8";
+    console.keyMap = "br-abnt2";
 
     services = {
-        xserver = {
+        displayManager.ly = {
             enable = true;
-            videoDrivers = [ "nvidia" ];
-            displayManager.sddm = {
-                enable = true;
-                wayland.enable = true;
-            };
+            x11Support = false;
         };
+
         pipewire = {
             enable = true;
             alsa.enable = true;
@@ -33,69 +41,78 @@
             pulse.enable = true;
             jack.enable = true;
         };
-        pcscd.enable = true;
-        udev.extraRules = ''
-        KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput", GROUP="input", MODE="0660"
-        '';
-    };
 
-    sound.enable = true;
-
-    home-manager.users.sampie = {
-        home.stateVersion = "23.11";
+        udisks2.enable = true;
+        gvfs.enable = true;
     };
 
     users.users.sampie = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "uinput" ];
+        extraGroups = [ "wheel" "networkmanager" ];
         shell = pkgs.fish;
+        # bootstrap only - plaintext, world-readable in /nix/store.
+        # `passwd` on first login to replace it (mutableUsers stays true).
+        initialPassword = "changeme";
     };
 
-    hardware = {
-        opengl ={
-            enable = true;
-            driSupport = true;
-            driSupport32Bit = true;
-        };
+    hardware.graphics = {
+        enable = true;
+        enable32Bit = true;
+    };
 
-        nvidia = {
-            modesetting.enable = true;
-            nvidiaSettings = true;
-            package = config.boot.kernelPackages.nvidiaPackages.stable;
-        };
+    # RX 9070 XT (RDNA4) - Mesa from git via Chaotic Nyx (binary cache), plus
+    # current firmware blobs for Navi 48.
+    chaotic.mesa-git.enable = true;
+    hardware.enableRedistributableFirmware = true;
+
+    fonts.packages = with pkgs; [
+        noto-fonts
+        noto-fonts-color-emoji
+        noto-fonts-cjk-sans
+        liberation_ttf
+        google-fonts
+        nerd-fonts.fira-code
+        nerd-fonts.caskaydia-mono
+    ];
+
+    qt = {
+        enable = true;
+        platformTheme = "qt5ct";
+        style = "kvantum";
     };
 
     programs = {
-        fish = {
-            enable = true;
-        };
+        fish.enable = true;
+        dconf.enable = true;
+        nix-ld.enable = true;
 
         hyprland = {
             enable = true;
             package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+            portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
         };
-        
-        gnupg.agent = {
+
+        steam = {
             enable = true;
-            enableSSHSupport = true;
+            remotePlay.openFirewall = true;
         };
+
+        gamemode.enable = true;
     };
 
-    xdg.portal.wlr.enable = true;
     security = {
         polkit.enable = true;
         rtkit.enable = true;
     };
-    networking.firewall.enable = false;
 
     system.stateVersion = "23.11";
     nixpkgs.config.allowUnfree = true;
+
     nix = {
         settings = {
             experimental-features = [ "nix-command" "flakes" ];
             substituters = [ "https://hyprland.cachix.org" ];
             trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-            auto-optimise-store = true;
         };
         optimise.automatic = true;
         gc = {
@@ -105,4 +122,3 @@
         };
     };
 }
-

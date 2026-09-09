@@ -1,23 +1,23 @@
-{ config, pkgs, zig, ... }:
+{ config, pkgs, inputs, ... }:
 
+let
+    dots = "${config.home.homeDirectory}/.dotfiles";
+    link = path: config.lib.file.mkOutOfStoreSymlink "${dots}/${path}";
+in
 {
     home.username = "sampie";
     home.homeDirectory = "/home/sampie";
-    home.keyboard = {
-        model = "br,us";
-        variant = "abnt2,";
-        options = [ "grp:ctrls_toggle" ];
-    };
+    home.stateVersion = "23.11";
+
+    programs.home-manager.enable = true;
 
     fonts.fontconfig.enable = true;
+
     home.packages = with pkgs; [
-        neofetch
+        fastfetch
         tree
         killall
         pavucontrol
-        steam
-        gamemode
-        alacritty
         pyprland
         grim
         slurp
@@ -26,9 +26,7 @@
         python3
         wl-clipboard
         spotify
-        neovim
         wget
-        # gcc
         clang
         llvm
         rustup
@@ -38,27 +36,35 @@
         tree-sitter
         libtool
         pkg-config
+        sccache
+        unrar
+        p7zip
+        libnotify
         btop
-        vesktop
+        tmux
+        discord
         telegram-desktop
         protonup-qt
-        lutris
-        erlang
-        gleam
-        elixir
         aseprite
-        wine-staging
-        wine
+        obs-studio
+        nautilus
+        wineWowPackages.staging
         winetricks
         qbittorrent
         awww
         pywalfox-native
         mako
         rofi
+        waybar
+        ghostty
         playerctl
-        zig.packages."${pkgs.system}".master
 
-        (pkgs.nerdfonts.override { fonts = [ "FiraCode" "CascadiaMono" ]; })
+        # config.fish inits these directly
+        zoxide
+        starship
+
+        inputs.zig.packages.${pkgs.system}.master
+        inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
     ];
 
     programs = {
@@ -73,174 +79,82 @@
         gh.enable = true;
         pywal.enable = true;
         jq.enable = true;
-        emacs.enable = true;
-        tmux.enable = true;
         mangohud.enable = true;
         ripgrep.enable = true;
         password-store.enable = true;
-        waybar.enable = true;
         firefox.enable = true;
         lazygit.enable = true;
         neovide.enable = true;
 
+        emacs = {
+            enable = true;
+            package = pkgs.emacs-pgtk;
+        };
+
         irssi = {
             enable = true;
-            networks = {
-                clonk = {
-                    nick = "sampie";
-                    server = {
-                        address = "colonq.computer";
-                        port = 26697;
-                        autoConnect = true;
-                        ssl.enable = true;
-                        ssl.verify = true;
-                    };
+            networks.clonk = {
+                nick = "sampie";
+                server = {
+                    address = "colonq.computer";
+                    port = 26697;
+                    autoConnect = true;
+                    ssl.enable = true;
+                    ssl.verify = true;
                 };
             };
         };
 
-        fish = {
-            enable = true;
-            shellAbbrs = {
-                # General aliases
-                nv = "neovide &";
-                po = "poweroff";
-                rb = "reboot";
-                sd = "shutdown now";
-                hx = "helix";
-                ls = "eza";
-                cat = "bat";
-                hypr = "Hyprland";
-
-                # Git related
-                ga = "git add";
-                gaa = "git add .";
-                gc = "git commit -m";
-                gck = "git checkout";
-                gcb = "git checkout -b";
-                gf = "git fetch";
-                gm = "git merge";
-                gpl = "git pull";
-                gps = "git push";
-                gr = "git rebase";
-                gs = "git status";
-
-                ghrn = "gh repo create";
-                ghrc = "gh repo clone";
-
-                # Rust aliases
-                ca = "cargo add";
-                cb = "cargo build";
-                cbr = "cargo build --release";
-                cbp = "cargo build --profile";
-                cr = "cargo run";
-                crr = "cargo run --release";
-                crp = "cargo run --profile";
-                cw = "cargo watch -x";
-                cwb = "cargo watch -x build";
-                cwr = "cargo watch -x run";
-                cwt = "cargo watch -x test";
-
-                # Tmux aliases
-                t = "tmux";
-                ta = "tmux attach -t";
-                tns = "tmux new -s";
-                tks = "tmux kill-session";
-                tls = "tmux ls";
-
-                # Meson aliases
-                min = "meson init build";
-                ms = "meson setup build";
-                msw = "meson setup --wipe build";
-                mcb = "meson compile -C build";
-                mswcb = "meson setup --wipe build && meson compile -C build";
-
-                # CMake aliases
-                cmin = "cmake -S . -B debug -DCMAKE_BUILD_TYPE=Debug -G Ninja";
-                cmd = "cmake --build debug";
-                cmi = "sudo cmake --install release --prefix /usr/local";
-                cminr = "cmake -S . -B release -DCMAKE_BUILD_TYPE=Release -G Ninja";
-                cmr = "cmake --build release";
-
-                # Zig aliases
-                zb = "zig build -Doptimize=Debug";
-                zr = "zig build -Doptimize=Debug run";
-                zbr = "zig build -Doptimize=ReleaseFast";
-                zrr = "zig build -Doptimize=ReleaseFast run";
-            };
-            shellInit = ''
-            cat ~/.cache/wal/sequences
-            '';
-        };
-
         eza = {
             enable = true;
-            enableFishIntegration = true;
+            enableFishIntegration = false;
         };
 
         fzf = {
             enable = true;
-            enableFishIntegration = true;
+            enableFishIntegration = false;
+        };
+    };
+
+    gtk = {
+        enable = true;
+        theme = {
+            name = "Arc-Dark";
+            package = pkgs.arc-theme;
         };
     };
 
     services = {
         gpg-agent = {
             enable = true;
-            enableFishIntegration = true;
             enableSshSupport = true;
-            pinentryPackage = pkgs.pinentry-curses;
-        };
-        kmonad = {
-            enable = true;
-            keyboards = {
-                myKMonadOutput = {
-                    device = "/dev/input/by-id/usb-0c45_Teclado_Gamer_Husky_Blizzard-event-kbd";
-                    config = builtins.readFile ~/.dotfiles/kmonad/nix.kbd;
-                };
-            };
+            pinentry.package = pkgs.pinentry-curses;
         };
     };
 
+    # All config dirs symlink live to ~/.dotfiles (like the Arch install.sh
+    # model): edits apply on reload, no rebuild, and untracked files still
+    # show up.
     home.file = {
-        ".config/alacritty".source = ./alacritty;
-        ".config/hypr".source = ./hypr;
-        ".config/wal/templates".source = ./templates;
-        ".config/waybar" = {
-            recursive = true;
-            source = ./waybar;
-        };
-        ".config/nvim" = {
-            recursive = true;
-            source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
-        };
-        ".config/emacs" = {
-            recursive = true;
-            source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/emacs";
-        };
-        ".config/tmux" = {
-            recursive = true;
-            source = ./tmux;
-        };
-        ".config/rofi/config.rasi".text = ''
-        configuration {
-        font: "CaskaydiaMono Nerd Font 12";
-        }
-        @import "~/.cache/wal/colors-rofi-light"
-        '';
-        "Wallpapers" = {
-            recursive = true;
-            source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/Wallpapers";
-        };
-        ".local/state/nix/profile/bin" = {
-            recursive = true;
-            source = ./bin;
-        };
+        ".config/hypr".source = link "hypr";
+        ".config/waybar".source = link "waybar";
+        ".config/rofi".source = link "rofi";
+        ".config/ghostty".source = link "ghostty";
+        ".config/Kvantum".source = link "Kvantum";
+        ".config/tmux".source = link "tmux";
+        ".config/nvim".source = link "nvim";
+        ".config/emacs".source = link "emacs";
+        ".config/fish".source = link "fish";
+        ".config/wal/templates".source = link "templates";
+        ".local/bin".source = link "bin";
+        "Wallpapers".source = link "Wallpapers";
+        ".tmux/plugins/tpm".source = "${pkgs.tmuxPlugins.tpm}/share/tmux-plugins/tpm";
     };
 
     systemd.user.sessionVariables = {
         CC = "clang";
         CXX = "clang++";
         EDITOR = "nvim";
+        TERMINAL = "ghostty";
     };
 }

@@ -16,7 +16,7 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs="tmux pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-firmware lazygit alacritty git discord linux-headers nvidia-dkms firefox neovim steam btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal"
+programs="tmux pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-firmware lazygit ghostty git discord linux-headers firefox neovim steam btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal"
 
 sudo pacman -S --needed $programs --noconfirm
 
@@ -40,13 +40,13 @@ git clone https://aur.archlinux.org/paru.git && cd paru
 makepkg -si --noconfirm
 cd .. && rm -rf paru
 
-programs_aur="python-pywalfox swww xdg-desktop-portal-hyprland waybar wl-clipboard rar emacs-wayland vencord-desktop pyprland all-repository-fonts matugen-bin"
+programs_aur="python-pywalfox awww xdg-desktop-portal-hyprland waybar wl-clipboard rar emacs-wayland pyprland all-repository-fonts"
 
 paru -S --needed $programs_aur --noconfirm
 
 configs=(
     tmux
-    alacritty
+    ghostty
     hypr
     waybar
     nvim

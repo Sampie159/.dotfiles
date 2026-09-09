@@ -1,0 +1,47 @@
+[pyprland]
+plugins = [
+    "scratchpads",
+    "magnify",
+]
+
+# SUPER + Equal / Minus  ->  pypr zoom
+[magnify]
+factor = 2
+
+# ghostty scratchpads: --class sets the wayland app_id pyprland matches on,
+# --gtk-single-instance=false forces a fresh window instead of tabbing into
+# the running ghostty instance.
+
+[scratchpads.term]
+animation = "fromTop"
+command = "ghostty --class=term-scratch --gtk-single-instance=false"
+class = "term-scratch"
+size = "75% 60%"
+position = "12% 4%"
+lazy = true
+unfocus = "hide"
+
+[scratchpads.btop]
+animation = "fromTop"
+command = "ghostty --class=btop-scratch --gtk-single-instance=false -e btop"
+class = "btop-scratch"
+size = "80% 80%"
+position = "10% 10%"
+lazy = true
+
+[scratchpads.irssi]
+animation = "fromTop"
+command = "ghostty --class=irssi-scratch --gtk-single-instance=false -e irssi"
+class = "irssi-scratch"
+size = "80% 80%"
+position = "10% 10%"
+lazy = true
+
+[scratchpads.rofi]
+animation = "fromTop"
+command = "rofi -show drun"
+class = "rofi"
+size = "40% 50%"
+position = "30% 8%"
+lazy = true
+unfocus = "hide"

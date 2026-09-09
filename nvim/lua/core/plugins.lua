@@ -148,9 +148,6 @@ local plugins = {
     -- Web devicons
     'nvim-tree/nvim-web-devicons',
 
-    -- KMonad
-    'kmonad/kmonad-vim',
-
     -- Poimandres
     'olivercederborg/poimandres.nvim',
 

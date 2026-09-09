@@ -124,5 +124,4 @@ function build
 end
 
 zoxide init fish --cmd cd | source
-COMPLETE=fish jj | source
 starship init fish | source
