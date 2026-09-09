@@ -65,6 +65,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
+-- [[ Make :w behave like :w ++p -- create missing parent dirs ]]
+vim.api.nvim_create_autocmd('BufWritePre', {
+    callback = function(args)
+        if args.file:match('^%w+://') then return end
+        vim.fn.mkdir(vim.fn.fnamemodify(args.file, ':h'), 'p')
+    end,
+    group = vim.api.nvim_create_augroup('MkdirOnWrite', { clear = true }),
+    pattern = '*',
+})
+
 vim.cmd([[autocmd FileType * set formatoptions-=ro]])
 
 vim.o.autoread = true

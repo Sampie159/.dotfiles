@@ -7,7 +7,7 @@ restart_waybar () {
 }
 
 set_wallpaper () {
-  swww img "${1}" \
+  awww img "${1}" \
     --transition-fps=60 \
     --transition-step=1 \
     --transition-type=random

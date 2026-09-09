@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+CC=clang
+CXX=clang++
+
 cmake -S llvm -B build \
-    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_PREFIX=$1 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_C_FLAGS="-march=native -mtune=native -pipe" \
     -DCMAKE_CXX_FLAGS="-march=native -mtune=native -pipe" \
