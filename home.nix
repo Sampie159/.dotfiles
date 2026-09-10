@@ -7,7 +7,7 @@ in
 {
     home.username = "sampie";
     home.homeDirectory = "/home/sampie";
-    home.stateVersion = "23.11";
+    home.stateVersion = "26.05";
 
     programs.home-manager.enable = true;
 
@@ -48,7 +48,7 @@ in
         aseprite
         obs-studio
         nautilus
-        wineWowPackages.staging
+        wineWow64Packages.staging
         winetricks
         qbittorrent
         awww
@@ -63,15 +63,17 @@ in
         zoxide
         starship
 
-        inputs.zig.packages.${pkgs.system}.master
-        inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
+        inputs.zig.packages.${pkgs.stdenv.hostPlatform.system}.master
+        inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     programs = {
         git = {
             enable = true;
-            userName = "Sampie159";
-            userEmail = "38163547+Sampie159@users.noreply.github.com";
+            settings.user = {
+                name = "Sampie159";
+                email = "38163547+Sampie159@users.noreply.github.com";
+            };
         };
 
         mpv.enable = true;
@@ -148,7 +150,13 @@ in
         ".config/wal/templates".source = link "templates";
         ".local/bin".source = link "bin";
         "Wallpapers".source = link "Wallpapers";
-        ".tmux/plugins/tpm".source = "${pkgs.tmuxPlugins.tpm}/share/tmux-plugins/tpm";
+        ".tmux/plugins/tpm".source = pkgs.fetchFromGitHub {
+            owner = "tmux-plugins";
+            repo = "tpm";
+            rev = "v3.1.0";
+            # regen on rev bump: nix-hash --type sha256 --sri <unpacked tarball dir>
+            hash = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
+        };
     };
 
     systemd.user.sessionVariables = {
