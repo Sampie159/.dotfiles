@@ -12,21 +12,20 @@
 ;;   - audio/pipewire and login-manager wiring is left at %desktop-services
 ;;     defaults, not tuned to match the pipewire.jack/alsa32 setup in
 ;;     configuration.nix.
-;;   - dotfiles are NOT wired via anything like Nix's mkOutOfStoreSymlink -
-;;     there's no Guix Home config here. Run ./link-dotfiles.sh after
-;;     boot instead (same symlink list as install.sh, minus the Arch
-;;     package installs).
+;;
+;; Dotfiles are wired declaratively too - see home.scm (Guix Home), not a
+;; separate shell script.
 ;;
 ;; Build/run: guix system vm config.scm
 
 (use-modules (gnu)
              (gnu system nss)
+             (gnu packages)
+             (gnu packages shells)
              (nongnu packages linux)
              (nongnu system linux-initrd))
 
-(use-service-modules desktop networking)
-(use-package-modules wm shells version-control certs
-                      emacs emacs-xyz terminals fonts)
+(use-service-modules desktop networking linux)
 
 (operating-system
   (host-name "guix-vm")
@@ -57,16 +56,9 @@
                  '("wheel" "netdev" "audio" "video")))
                %base-user-accounts))
 
-  (packages (append (list fish
-                          hyprland
-                          waybar
-                          rofi
-                          mako
-                          foot
-                          git
-                          emacs-pgtk
-                          tmux
-                          nss-certs)
+  (packages (append (specifications->packages
+                      '("hyprland" "waybar" "rofi" "mako" "foot"
+                        "git" "emacs-pgtk" "tmux" "nss-certs"))
                     %base-packages))
 
   (services (append (list (service gdm-service-type)
