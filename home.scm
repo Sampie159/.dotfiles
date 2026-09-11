@@ -8,11 +8,10 @@
 ;; before they take effect. That's the real tradeoff of going Guix-only
 ;; instead of a plain symlink script.
 ;;
-;; bin/ carries symlinks that point outside the repo (codegraph, odin,
-;; c3lsp, ...) - those stay dangling in a fresh VM regardless of how
-;; they're provisioned, same as on the real machine. uv/uvx are glibc
-;; ELF binaries with a hardcoded /lib64/ld-linux-x86-64.so.2 interpreter,
-;; which Guix System doesn't provide at that path - they won't run as-is.
+;; bin/ mixes actual scripts with symlinks to outside the repo (codegraph,
+;; odin, c3lsp, ...) and committed glibc ELF binaries (uv, uvx). Only the
+;; bash scripts are linked below - the rest wouldn't resolve/run on a
+;; fresh Guix VM anyway.
 ;;
 ;; Build/run: guix home reconfigure home.scm
 
@@ -43,6 +42,12 @@
 
     (simple-service 'dotfiles-home-files
                      home-files-service-type
-                     `((".local/bin" ,(local-file "bin" #:recursive? #t))
+                     `((".local/bin/build-llvm" ,(local-file "bin/build-llvm" #:recursive? #t))
+                       (".local/bin/mkcf" ,(local-file "bin/mkcf" #:recursive? #t))
+                       (".local/bin/mko" ,(local-file "bin/mko" #:recursive? #t))
+                       (".local/bin/mywal" ,(local-file "bin/mywal" #:recursive? #t))
+                       (".local/bin/ofmt" ,(local-file "bin/ofmt" #:recursive? #t))
+                       (".local/bin/swank" ,(local-file "bin/swank" #:recursive? #t))
+                       (".local/bin/tms" ,(local-file "bin/tms" #:recursive? #t))
                        ("Wallpapers" ,(local-file "Wallpapers" #:recursive? #t))
                        (".gitconfig" ,(local-file ".gitconfig")))))))
