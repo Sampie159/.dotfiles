@@ -93,3 +93,4 @@ lazynvim
 /bin/c3lsp
 /bin/bunx
 /emacs/parinfer-rust/*.so
+/emacs/projectile-frecency.eld
