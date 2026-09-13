@@ -164,5 +164,6 @@ in
         CXX = "clang++";
         EDITOR = "nvim";
         TERMINAL = "ghostty";
+        RUSTC_WRAPPER = "sccache";
     };
 }
