@@ -7,7 +7,7 @@ flakes="--extra-experimental-features nix-command --extra-experimental-features 
 
 cp /etc/nixos/hardware-configuration.nix .
 
-nix $flakes flake update
+nix $flakes flake lock
 
 git add -A -- \
     hardware-configuration.nix \
