@@ -30,10 +30,23 @@ hl.env("XCURSOR_SIZE", "24")
 --- hl.env("QT_IM_MODULE", "fcitx")
 --- hl.env("XMODIFIERS", "@im=fcitx")
 
+-- Dark mode was never actually wired up - GTK_THEME/QT_STYLE_OVERRIDE were
+-- never set, so Qt apps ignored the installed Kvantum(KvArcDark) style and
+-- fell back to Qt's default light Fusion style, and GTK3 apps only got
+-- Arc-Dark if dconf still had install.sh's one-time `gsettings set` (never
+-- guaranteed on a fresh session/user).
+hl.env("GTK_THEME", "Arc-Dark")
+hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("QT_STYLE_OVERRIDE", "kvantum")
+
 -----------------------------------------------------------------------
 -- Autostart (old exec-once). One hl.exec_cmd per line, in the hyprland.start event.
 -----------------------------------------------------------------------
 hl.on("hyprland.start", function()
+  -- GTK4/libadwaita apps (Nautilus, etc.) ignore GTK_THEME entirely and only
+  -- follow this dconf key - env vars can't set it, and there's no
+  -- gnome-settings-daemon on Hyprland to apply it any other way.
+  hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
   hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
   hl.exec_cmd("xdph.sh")
   hl.exec_cmd("pypr")
