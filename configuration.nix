@@ -5,6 +5,11 @@
         ./hardware-configuration.nix
     ];
 
+    nix.settings = {
+        max-jobs = "auto";
+        cores = 0;
+    };
+
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
