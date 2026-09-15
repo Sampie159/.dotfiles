@@ -68,6 +68,10 @@ in
         tmux
         rofi
         ghostty
+        # scratchpad terminal for pyprland.toml (term/btop/irssi) - ghostty's
+        # GTK single-instance activation collapses a scratchpad launch into
+        # an already-running ghostty window, alacritty has no such daemon.
+        alacritty
         waybar
         zoxide
         starship

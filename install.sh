@@ -16,7 +16,7 @@ width=500"
 mkdir ~/.config/mako
 echo "$mako_example" > ~/.config/mako/config
 
-programs="tmux pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-firmware lazygit ghostty git discord linux-headers firefox neovim steam btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal dconf gsettings-desktop-schemas"
+programs="tmux pipewire pipewire-alsa pipewire-jack pipewire-pulse alsa-firmware lazygit ghostty alacritty git discord linux-headers firefox neovim steam btop fzf ripgrep gamemode mpv mangohud lib32-mangohud rofi mako pass slurp grim zoxide qt6ct qt5ct kvantum kvantum-qt5 sccache v4l2loopback-dkms python-pywal dconf gsettings-desktop-schemas"
 
 sudo pacman -S --needed $programs --noconfirm
 

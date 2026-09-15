@@ -8,13 +8,14 @@ plugins = [
 [magnify]
 factor = 2
 
-# ghostty scratchpads: --class sets the wayland app_id pyprland matches on,
-# --gtk-single-instance=false forces a fresh window instead of tabbing into
-# the running ghostty instance.
+# alacritty scratchpads: --class sets the wayland app_id pyprland matches
+# on. Not ghostty - its GTK single-instance activation collapses a new
+# launch into an already-running ghostty window instead of spawning a
+# fresh one, breaking class matching and pypr's process tracking.
 
 [scratchpads.term]
 animation = "fromTop"
-command = "ghostty --class=term-scratch --gtk-single-instance=false"
+command = "alacritty --class=term-scratch"
 class = "term-scratch"
 size = "75% 60%"
 position = "12% 4%"
@@ -23,7 +24,7 @@ unfocus = "hide"
 
 [scratchpads.btop]
 animation = "fromTop"
-command = "ghostty --class=btop-scratch --gtk-single-instance=false -e btop"
+command = "alacritty --class=btop-scratch -e btop"
 class = "btop-scratch"
 size = "80% 80%"
 position = "10% 10%"
@@ -31,7 +32,7 @@ lazy = true
 
 [scratchpads.irssi]
 animation = "fromTop"
-command = "ghostty --class=irssi-scratch --gtk-single-instance=false -e irssi"
+command = "alacritty --class=irssi-scratch -e irssi"
 class = "irssi-scratch"
 size = "80% 80%"
 position = "10% 10%"
