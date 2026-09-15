@@ -53,14 +53,7 @@
         gvfs.enable = true;
     };
 
-    users.users.sampie = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" ];
-        shell = pkgs.fish;
-        # bootstrap only - plaintext, world-readable in /nix/store.
-        # `passwd` on first login to replace it (mutableUsers stays true).
-        initialPassword = "changeme";
-    };
+    # user "sampie" created manually post-install, not declared here.
 
     hardware.graphics = {
         enable = true;
@@ -89,6 +82,10 @@
         platformTheme = "qt5ct";
         style = "kvantum";
     };
+
+    # bare-install bootstrap: home-manager's programs.git is user-scoped
+    # and only takes effect after a rebuild - root needs git on PATH too.
+    environment.systemPackages = [ pkgs.git ];
 
     programs = {
         fish.enable = true;
