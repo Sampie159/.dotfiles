@@ -53,7 +53,14 @@
         gvfs.enable = true;
     };
 
-    # user "sampie" created manually post-install, not declared here.
+    users.users.sampie = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" "networkmanager" ];
+        shell = pkgs.fish;
+        # bootstrap only - plaintext, world-readable in /nix/store.
+        # `passwd` on first login to replace it (mutableUsers stays true).
+        initialPassword = "changeme";
+    };
 
     hardware.graphics = {
         enable = true;
