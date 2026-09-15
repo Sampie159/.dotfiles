@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 restart_waybar () {
-  killall waybar
-  while pgrep -x waybar > /dev/null; do sleep 0.05; done
+  pkill -f waybar
+  while pgrep -f waybar > /dev/null; do sleep 0.05; done
   waybar &
   echo "resetted waybar"
 }
@@ -37,7 +37,7 @@ while getopts ri: flag
 do
   case "${flag}" in
     i) wal -i "${OPTARG}"
-       if pgrep -x waybar > /dev/null; then
+       if pgrep -f waybar > /dev/null; then
          restart_waybar
        fi
 
@@ -54,7 +54,7 @@ do
         echo "1"
        source ${HOME}/.cache/wal/colors.sh
        echo $wallpaper
-       if pgrep -x waybar > /dev/null; then
+       if pgrep -f waybar > /dev/null; then
          restart_waybar
        fi
 
