@@ -161,6 +161,7 @@ in
         ".config/tmux".source = link "tmux";
         ".config/ghostty".source = link "ghostty";
         ".config/hypr".source = link "hypr";
+".config/pypr".source = link "pypr";
         ".config/waybar".source = link "waybar";
         ".config/rofi".source = link "rofi";
         ".config/fish".source = link "fish";

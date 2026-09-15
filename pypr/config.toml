@@ -38,11 +38,20 @@ size = "80% 80%"
 position = "10% 10%"
 lazy = true
 
+# rofi's spawned pid exits before pypr's wait-for-client match fires, and
+# pypr's process_tracking path bails out the instant the pid dies without
+# even trying a class match on that last check - reports "is it already
+# running?" on the very first launch. process_tracking=false routes
+# through the pid-agnostic path instead, which keeps retrying the class
+# match regardless of whether the spawned pid is still alive.
 [scratchpads.rofi]
 animation = "fromTop"
 command = "rofi -show drun"
 class = "rofi"
+match_by = "class"
+process_tracking = false
 size = "40% 50%"
 position = "30% 8%"
 lazy = true
 unfocus = "hide"
+close_on_hide = true

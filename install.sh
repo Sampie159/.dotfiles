@@ -48,6 +48,7 @@ configs=(
     tmux
     ghostty
     hypr
+    pypr
     waybar
     nvim
     rofi
