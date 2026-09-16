@@ -34,6 +34,7 @@ in
         spotify
         wget
         clang
+        clang-tools
         llvm
         rustup
         cmake
