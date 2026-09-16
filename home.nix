@@ -23,6 +23,7 @@ in
         tree
         killall
         pavucontrol
+        alsa-utils
         pyprland
         grim
         slurp
@@ -59,22 +60,14 @@ in
         pywalfox-native
         mako
         playerctl
-
-        # No dedicated program module for these - system already covers
-        # fish/hyprland/kvantum's package+integration (configuration.nix's
-        # programs.fish/hyprland and qt.style), so these four just need the
-        # binary on PATH. Real config for all of them comes from the
-        # symlinks below, not Nix.
         tmux
         rofi
         ghostty
-        # scratchpad terminal for pyprland.toml (term/btop/irssi) - ghostty's
-        # GTK single-instance activation collapses a scratchpad launch into
-        # an already-running ghostty window, alacritty has no such daemon.
         alacritty
         waybar
         zoxide
         starship
+        gnupg
 
         inputs.zig.packages.${pkgs.stdenv.hostPlatform.system}.master
     ];

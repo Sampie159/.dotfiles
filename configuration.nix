@@ -62,8 +62,6 @@
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         shell = pkgs.fish;
-        # bootstrap only - plaintext, world-readable in /nix/store.
-        # `passwd` on first login to replace it (mutableUsers stays true).
         initialPassword = "changeme";
     };
 
@@ -72,12 +70,9 @@
         enable32Bit = true;
     };
 
-    # RX 9070 XT (RDNA4) - Mesa from git via Chaotic Nyx (binary cache), plus
-    # current firmware blobs for Navi 48. chaotic.mesa-git.enable itself is
-    # set in flake.nix (only for the real-hardware host - the option doesn't
-    # exist at all unless chaotic.nixosModules.default is imported, so it
-    # can't just be mkIf'd from here on the vm host).
     hardware.enableRedistributableFirmware = true;
+
+    hardware.alsa.enablePersistence = true;
 
     fonts.packages = with pkgs; [
         noto-fonts
@@ -87,6 +82,8 @@
         google-fonts
         nerd-fonts.fira-code
         nerd-fonts.caskaydia-mono
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.symbols-only
     ];
 
     qt = {
@@ -95,8 +92,6 @@
         style = "kvantum";
     };
 
-    # bare-install bootstrap: home-manager's programs.git is user-scoped
-    # and only takes effect after a rebuild - root needs git on PATH too.
     environment.systemPackages = [ pkgs.git ];
 
     programs = {

@@ -94,3 +94,4 @@ lazynvim
 /bin/bunx
 /emacs/parinfer-rust/*.so
 /emacs/projectile-frecency.eld
+/hardware-configuration.nix

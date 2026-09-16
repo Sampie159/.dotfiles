@@ -305,12 +305,6 @@ local plugins = {
         end,
     },
 
-    -- lush
-    {
-        "rktjmp/lush.nvim",
-        { dir = '/home/sampie/projects/samps', lazy = true },
-    },
-
     -- tokyonight
     "folke/tokyonight.nvim",
 
@@ -411,8 +405,6 @@ local plugins = {
         }
     },
 
-    'neko-night/nvim',
-
     'wtfox/jellybeans.nvim',
 
     {
@@ -445,4 +437,4 @@ local plugins = {
     'sainnhe/everforest',
 }
 
-require('lazy').setup(plugins, {})
+require('lazy').setup(plugins, { rocks = { enabled = false } })
