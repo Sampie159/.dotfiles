@@ -69,6 +69,7 @@ in
         zoxide
         starship
         gnupg
+        vulkan-tools
 
         inputs.zig.packages.${pkgs.stdenv.hostPlatform.system}.master
     ];
