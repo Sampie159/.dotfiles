@@ -70,6 +70,7 @@ in
         starship
         gnupg
         vulkan-tools
+        dropbox
 
         inputs.zig.packages.${pkgs.stdenv.hostPlatform.system}.master
     ];
