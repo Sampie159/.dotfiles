@@ -4,15 +4,20 @@
 -- `hl` is an auto-injected global (no require needed).
 
 -----------------------------------------------------------------------
--- Pywal colors. The old config did `source = ~/.cache/wal/colors-hyprland.conf`,
--- which Lua cannot do (require's package.path is the hypr config dir only, and a
--- .lua config cannot source a hyprlang .conf). Instead, pywal renders the template
--- templates/colors-hyprland.lua -> ~/.cache/wal/colors-hyprland.lua (a Lua table),
--- which we dofile by absolute path. pcall-guarded so a missing/broken cache file
--- can never crash the whole config.
+-- Pywal colors. pywal renders templates/colors-hyprland.lua ->
+-- ~/.cache/wal/colors-hyprland.lua (a Lua table).
+--
+-- This MUST be pulled in with require(), not dofile(). Hyprland's require() hook
+-- resolves explicit ~/ and / paths itself and adds them to the inotify config
+-- watch list, so pywal rewriting the file auto-reloads the config - the same
+-- behaviour `source = ~/.cache/wal/colors-hyprland.conf` used to give. dofile()
+-- is a plain Lua call the watcher never sees, so the border stayed pinned to
+-- whatever colors happened to be cached when Hyprland started, one wallpaper
+-- behind forever. pcall-guarded so a missing/broken cache file can't crash the
+-- whole config.
 -----------------------------------------------------------------------
 local function load_wal()
-  local ok, t = pcall(dofile, os.getenv("HOME") .. "/.cache/wal/colors-hyprland.lua")
+  local ok, t = pcall(require, "~/.cache/wal/colors-hyprland.lua")
   if ok and type(t) == "table" then return t end
   return { color11 = "rgb(5056AB)" } -- fallback (last-known value) if pywal hasn't run
 end
