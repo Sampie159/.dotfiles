@@ -132,6 +132,30 @@ vim.lsp.config('c3lsp', {
 })
 vim.lsp.enable('c3lsp')
 
+vim.lsp.config('nixd', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        nixd = {
+            nixpkgs = {
+                expr = 'import (builtins.getFlake "/home/sampie/.dotfiles").inputs.nixpkgs { }',
+            },
+            formatting = {
+                command = { 'nixfmt' },
+            },
+            options = {
+                nixos = {
+                    expr = '(builtins.getFlake "/home/sampie/.dotfiles").nixosConfigurations.nixos.options',
+                },
+                home_manager = {
+                    expr = '(builtins.getFlake "/home/sampie/.dotfiles").nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []',
+                },
+            },
+        },
+    },
+})
+vim.lsp.enable('nixd')
+
 -- Setup mason so it can manage external tooling
 require('mason').setup()
 

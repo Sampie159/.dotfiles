@@ -64,6 +64,8 @@ in
         gnupg
         vulkan-tools
         dropbox
+        nixd
+        nixfmt-rfc-style
     ];
 
     programs = {
