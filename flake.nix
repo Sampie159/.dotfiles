@@ -9,11 +9,6 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        zig = {
-            url = "github:mitchellh/zig-overlay";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-
         neovim-nightly-overlay = {
             url = "github:nix-community/neovim-nightly-overlay";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -77,5 +72,13 @@
             # chaotic/mesa-git is skipped (also skips its slow fetch), stock
             # kernel instead of cachyos.
             nixosConfigurations.vm = mkHost { isVM = true; };
+
+            # nix flake init -t ~/.dotfiles#<name>
+            templates = rec {
+                c = { path = ./flake-templates/c; description = "C/C++ dev shell (clang, cmake, meson)"; };
+                zig = { path = ./flake-templates/zig; description = "Zig dev shell (zig-overlay)"; };
+                rust = { path = ./flake-templates/rust; description = "Rust dev shell (rust-overlay + rust-toolchain.toml)"; };
+                default = c;
+            };
         };
 }

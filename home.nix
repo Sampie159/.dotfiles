@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 let
     dots = "${config.home.homeDirectory}/.dotfiles";
@@ -27,22 +27,15 @@ in
         pyprland
         grim
         slurp
-        meson
-        ninja
         python3
         wl-clipboard
         spotify
         wget
         clang
         clang-tools
-        llvm
-        rustup
-        cmake
         gnumake
         nodejs
         tree-sitter
-        libtool
-        pkg-config
         sccache
         unrar
         p7zip
@@ -71,8 +64,6 @@ in
         gnupg
         vulkan-tools
         dropbox
-
-        inputs.zig.packages.${pkgs.stdenv.hostPlatform.system}.master
     ];
 
     programs = {
@@ -119,6 +110,12 @@ in
             enable = true;
             enableFishIntegration = false;
         };
+
+        direnv = {
+            enable = true;
+            enableFishIntegration = true;
+            nix-direnv.enable = true;
+        };
     };
 
     gtk = {
@@ -127,6 +124,14 @@ in
             name = "Arc-Dark";
             package = pkgs.arc-theme;
         };
+    };
+
+    home.pointerCursor = {
+        enable = true;
+        package = pkgs.adwaita-icon-theme;
+        name = "Adwaita";
+        size = 24;
+        gtk.enable = true;
     };
 
     # GTK4/libadwaita apps (Nautilus, etc.) don't read gtk.theme.name or
@@ -157,12 +162,20 @@ in
         ".config/tmux".source = link "tmux";
         ".config/ghostty".source = link "ghostty";
         ".config/hypr".source = link "hypr";
-".config/pypr".source = link "pypr";
+        ".config/pypr".source = link "pypr";
         ".config/waybar".source = link "waybar";
         ".config/rofi".source = link "rofi";
         ".config/fish".source = link "fish";
         ".config/Kvantum".source = link "Kvantum";
     };
+
+    # Sourced by tmux/tmux.conf; can't live inside ~/.config/tmux (symlinked to the repo)
+    xdg.configFile."tmux-plugins.conf".text = with pkgs.tmuxPlugins; ''
+        run-shell ${sensible.rtp}
+        run-shell ${vim-tmux-navigator.rtp}
+        run-shell ${yank.rtp}
+        run-shell ${power-theme.rtp}
+    '';
 
     systemd.user.sessionVariables = {
         CC = "clang";

@@ -146,10 +146,14 @@
         enable-recursive-minibuffers t)
   (ivy-mode))
 
+;; vterm comes from nix (home-manager/emacs.nix); keep elpaca from pulling it in for vterm-toggle
+(with-eval-after-load 'elpaca
+  (add-to-list 'elpaca-ignored-dependencies 'vterm))
+
 (use-package vterm
-  :ensure t
+  :ensure nil
   :config
-  (setq shell-file-name "/bin/bash"
+  (setq shell-file-name (executable-find "bash")
         vterm-max-scrollback 5000))
 
 (use-package vterm-toggle

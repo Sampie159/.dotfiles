@@ -32,6 +32,7 @@ hl.monitor({ output = "", mode = "2560x1440@180.00", position = "auto", scale = 
 -- Environment variables
 -----------------------------------------------------------------------
 hl.env("XCURSOR_SIZE", "24")
+hl.env("XCURSOR_THEME", "Adwaita")
 --- hl.env("QT_IM_MODULE", "fcitx")
 --- hl.env("XMODIFIERS", "@im=fcitx")
 
