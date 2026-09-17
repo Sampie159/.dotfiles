@@ -27,25 +27,15 @@
     outputs = inputs @ { nixpkgs, home-manager, chaotic, nixos-hardware, ... }:
         let
             lib = nixpkgs.lib;
-
-            # isVM is threaded into configuration.nix as a specialArg to gate the
-            # handful of settings that only make sense on real hardware (cachyos
-            # kernel, RDNA4 mesa-git). chaotic.mesa-git.enable can't just be
-            # `lib.mkIf (!isVM)`'d from inside configuration.nix - the option
-            # doesn't exist at all unless chaotic.nixosModules.default is
-            # imported, so that whole module (and its one setting) is only
-            # appended for the real-hardware host.
-            mkHost = { isVM }: lib.nixosSystem {
+        in
+        {
+            nixosConfigurations.nixos = lib.nixosSystem {
                 system = "x86_64-linux";
-                specialArgs = { inherit inputs isVM; };
+                specialArgs = { inherit inputs; };
                 modules = [
                     ./configuration.nix
-                ]
-                ++ lib.optionals (!isVM) [
                     chaotic.nixosModules.default
                     { chaotic.mesa-git.enable = true; }
-                ]
-                ++ [
                     nixos-hardware.nixosModules.common-cpu-amd
                     nixos-hardware.nixosModules.common-gpu-amd
                     nixos-hardware.nixosModules.common-pc-ssd
@@ -63,15 +53,6 @@
                     }
                 ];
             };
-        in
-        {
-            # Real hardware: RX 9070 XT (RDNA4) via Chaotic Nyx mesa-git, cachyos kernel.
-            nixosConfigurations.nixos = mkHost { isVM = false; };
-
-            # `nixos-rebuild ... --flake .#vm`: QEMU test build - no RDNA4 GPU, so
-            # chaotic/mesa-git is skipped (also skips its slow fetch), stock
-            # kernel instead of cachyos.
-            nixosConfigurations.vm = mkHost { isVM = true; };
 
             # nix flake init -t ~/.dotfiles#<name>
             templates = rec {

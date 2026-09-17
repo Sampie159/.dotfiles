@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, isVM, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
     imports = [
@@ -13,8 +13,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    # unset (stock kernel) on the vm host - cachyos targets real hardware.
-    boot.kernelPackages = lib.mkIf (!isVM) pkgs.linuxPackages_cachyos;
+    boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
     # FAT32 has no Unix permission bits, so the ESP always mounts world-
     # readable regardless of dir perms elsewhere - bootctl warns the random
