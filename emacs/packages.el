@@ -266,7 +266,7 @@
 (use-package exec-path-from-shell
   :ensure t
   :init
-  (setq exec-path-from-shell-shell-name "/usr/bin/fish")
+  (setq exec-path-from-shell-shell-name (executable-find "fish"))
   :config
   (exec-path-from-shell-initialize))
 
@@ -279,10 +279,6 @@
 (use-package doric-themes
   :ensure t)
   ;; :config (load-theme 'doric-valley))
-
-(use-package naysayer-theme
-  :ensure t)
-  ;; :config (load-theme 'naysayer))
 
 (use-package tao-theme
   :ensure t)
