@@ -100,6 +100,7 @@
 
   programs = {
     fish.enable = true;
+    bash.enable = true;
     dconf.enable = true;
     nix-ld.enable = true;
 

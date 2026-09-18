@@ -65,7 +65,7 @@ in
     vulkan-tools
     dropbox
     nixd
-    nixfmt-rfc-style
+    nixfmt
   ];
 
   programs = {
