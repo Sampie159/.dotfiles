@@ -21,6 +21,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
+  boot.kernelParams = [ "zswap.enabled=0" ];
+
   fileSystems."/boot".options = [ "umask=0077" ];
 
   boot.kernelModules = [
@@ -28,6 +30,10 @@
     "ntsync"
   ];
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+  boot.extraModprobeConfig = ''
+    options v4l2loopback exclusive_caps=1 card_label="OBS Virtual Camera"
+  '';
 
   services.udev.extraRules = ''
     KERNEL=="ntsync", MODE="0660", TAG+="uaccess"
@@ -64,6 +70,21 @@
 
     udisks2.enable = true;
     gvfs.enable = true;
+
+    dbus.implementation = "broker";
+
+    scx = {
+      enable = true;
+      scheduler = "scx_lavd";
+    };
+
+    ananicy = {
+      enable = true;
+      package = pkgs.ananicy-cpp;
+      rulesProvider = pkgs.ananicy-rules-cachyos;
+    };
+
+    lact.enable = true;
   };
 
   users.users.sampie = {
@@ -82,6 +103,8 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  hardware.amdgpu.overdrive.enable = true;
 
   hardware.alsa.enablePersistence = true;
 
@@ -122,9 +145,16 @@
     steam = {
       enable = true;
       remotePlay.openFirewall = true;
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
+      protontricks.enable = true;
     };
 
     gamemode.enable = true;
+
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
   };
 
   security = {
@@ -141,8 +171,8 @@
         "nix-command"
         "flakes"
       ];
-      substituters = [ "https://hyprland.cachix.org" ];
-      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+      extra-substituters = [ "https://hyprland.cachix.org" ];
+      extra-trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
     };
     optimise.automatic = true;
     gc = {
