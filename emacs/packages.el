@@ -66,12 +66,12 @@
 
 (use-package cmake-mode
   :ensure t
-  :hook ((cmake-mode . lsp))
+  :hook ((cmake-mode . lsp-deferred))
   :config (setq cmake-tab-width 4))
 
 (use-package glsl-mode
   :ensure t
-  :hook ((glsl-mode . lsp)))
+  :hook ((glsl-mode . lsp-deferred)))
 
 (use-package slang-mode
   :ensure (:host github :repo "K1ngst0m/slang-mode")
@@ -81,30 +81,30 @@
   ;; slang-mode derives from c-mode, so c-mode-hook already fires here; this is
   ;; explicit so slang keeps lsp if the c-mode hook ever goes away. Do NOT load
   ;; the bundled slang-lsp.el -- it wires slangd to eglot, not lsp-mode.
-  :hook ((slang-mode . lsp)))
+  :hook ((slang-mode . lsp-deferred)))
 
 (use-package go-mode
   :ensure t
-  :hook ((go-mode . lsp)))
+  :hook ((go-mode . lsp-deferred)))
 
 (use-package rust-mode
   :ensure t
-  :hook ((rust-mode . lsp)))
+  :hook ((rust-mode . lsp-deferred)))
 
 (use-package lua-mode
   :ensure t
-  :hook ((lua-mode . lsp)))
+  :hook ((lua-mode . lsp-deferred)))
 
 (use-package zig-mode
   :ensure t
   :config
   (setq zig-format-on-save nil)
-  :hook ((zig-mode . lsp)))
+  :hook ((zig-mode . lsp-deferred)))
 
 (use-package odin-mode
   :ensure (:host github :repo "Sampie159/odin-mode")
   :mode "\\.odin\\'"
-  :hook ((odin-mode . lsp)))
+  :hook ((odin-mode . lsp-deferred)))
 
 (use-package treesit-auto
   :ensure t
@@ -170,15 +170,15 @@
   :hook
   ;; treesit-auto remaps these to their -ts-mode variants, which do NOT inherit
   ;; the non-ts mode hooks -- both spellings needed or lsp stops attaching
-  ((c-mode . lsp)
-   (c-ts-mode . lsp)
-   (c++-mode . lsp)
-   (c++-ts-mode . lsp)
-   (cmake-ts-mode . lsp)
-   (go-ts-mode . lsp)
-   (rust-ts-mode . lsp)
-   (lua-ts-mode . lsp)
-   (f90-mode . lsp)
+  ((c-mode . lsp-deferred)
+   (c-ts-mode . lsp-deferred)
+   (c++-mode . lsp-deferred)
+   (c++-ts-mode . lsp-deferred)
+   (cmake-ts-mode . lsp-deferred)
+   (go-ts-mode . lsp-deferred)
+   (rust-ts-mode . lsp-deferred)
+   (lua-ts-mode . lsp-deferred)
+   (f90-mode . lsp-deferred)
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
@@ -214,7 +214,7 @@
                     :server-id 'slangd
                     :multi-root t))
   (add-to-list 'lsp-language-id-configuration '(slang-mode . "slang"))
-  :commands (lsp))
+  :commands (lsp lsp-deferred))
 
 (use-package lsp-ivy
   :ensure t
@@ -314,5 +314,11 @@
 (use-package sql-indent
   :ensure t
   :hook ((sql-mode . sqlind-minor-mode)))
+
+;; envrc must be the last global mode enabled, so its buffer-local env wins
+;; over every other mode's -- lsp-mode included, which spawns servers from PATH
+(use-package envrc
+  :ensure t
+  :hook (elpaca-after-init . envrc-global-mode))
 
 ;;; packages.el ends here

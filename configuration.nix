@@ -23,8 +23,15 @@
 
   fileSystems."/boot".options = [ "umask=0077" ];
 
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot.kernelModules = [
+    "v4l2loopback"
+    "ntsync"
+  ];
   boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+
+  services.udev.extraRules = ''
+    KERNEL=="ntsync", MODE="0660", TAG+="uaccess"
+  '';
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
@@ -86,6 +93,7 @@
     google-fonts
     nerd-fonts.fira-code
     nerd-fonts.caskaydia-mono
+    nerd-fonts.inconsolata
     nerd-fonts.jetbrains-mono
     nerd-fonts.symbols-only
   ];

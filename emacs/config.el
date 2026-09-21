@@ -34,7 +34,7 @@
 ;; (set-frame-font "JetBrainsMono Nerd Font 11" nil t)
 ;; (set-frame-font "InconsolataGo Nerd Font 13" nil t)
 (set-face-attribute 'default nil
-                    :family "Judson"
+                    :family "Inconsolata Nerd Font"
                     :height 120
                     :weight 'bold)
 

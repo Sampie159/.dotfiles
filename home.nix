@@ -27,6 +27,7 @@ in
     pyprland
     grim
     slurp
+    wf-recorder
     python3
     wl-clipboard
     spotify
@@ -66,6 +67,8 @@ in
     dropbox
     nixd
     nixfmt
+    moreutils
+    pince
   ];
 
   programs = {
