@@ -28,16 +28,13 @@ in
     grim
     slurp
     wf-recorder
-    python3
     wl-clipboard
-    spotify
     wget
     clang
     clang-tools
     gnumake
     nodejs
     tree-sitter
-    sccache
     unrar
     p7zip
     libnotify
@@ -174,10 +171,7 @@ in
   '';
 
   systemd.user.sessionVariables = {
-    CC = "clang";
-    CXX = "clang++";
     EDITOR = "nvim";
     TERMINAL = "ghostty";
-    RUSTC_WRAPPER = "sccache";
   };
 }
