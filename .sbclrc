@@ -1,2 +1,0 @@
-;; Quicklisp
-(load "~/quicklisp/setup.lisp")
