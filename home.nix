@@ -15,6 +15,7 @@ in
     ./home-manager/emacs.nix
     ./home-manager/waybar.nix
     ./home-manager/fish.nix
+    ./home-manager/hyprland.nix
   ];
 
   home.username = "sampie";
@@ -228,8 +229,6 @@ in
 
     ".config/nvim".source = link "nvim";
     ".config/emacs".source = link "emacs";
-    ".config/hypr".source = link "hypr";
-    ".config/pypr".source = link "pypr";
   };
 
   systemd.user.sessionVariables = {
