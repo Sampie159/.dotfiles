@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -13,7 +12,7 @@ in
   imports = [
     ./home-manager/nvim.nix
     ./home-manager/emacs.nix
-    ./home-manager/waybar.nix
+    ./home-manager/quickshell.nix
     ./home-manager/fish.nix
     ./home-manager/hyprland.nix
   ];
@@ -147,12 +146,6 @@ in
     lazygit.enable = true;
     neovide.enable = true;
 
-    rofi = {
-      enable = true;
-      settings.font = "CaskaydiaMono Nerd Font 12";
-      theme = lib.mkForce { "@import" = "${config.xdg.cacheHome}/wal/colors-rofi-light.rasi"; };
-    };
-
     irssi = {
       enable = true;
       networks.clonk = {
@@ -205,16 +198,6 @@ in
   xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=KvArcDark\n";
 
   services = {
-    mako = {
-      enable = true;
-      settings = {
-        border-radius = 8;
-        default-timeout = 5000;
-        width = 500;
-        include = "${config.xdg.cacheHome}/wal/colors-mako";
-      };
-    };
-
     gpg-agent = {
       enable = true;
       enableSshSupport = true;

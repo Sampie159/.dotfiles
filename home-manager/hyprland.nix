@@ -33,9 +33,8 @@ let
   autostart = [
     "pypr"
     "awww-daemon"
-    "mywal -r" # before waybar/mako, they read ~/.cache/wal
-    "waybar"
-    "mako"
+    "mywal -r"
+    "quickshell"
     "discord --enable-wayland-ime"
     "dropbox"
   ];
@@ -233,7 +232,7 @@ in
         (scratch "${mod} + Return" "term")
         (exec "${mod} + E" "nautilus")
         (exec "${mod} + B" "firefox")
-        (scratch "${mod} + SHIFT + Return" "rofi")
+        (exec "${mod} + SHIFT + Return" "qs ipc call launcher toggle")
         (scratch "${mod} + SHIFT + B" "btop")
         (exec "${mod} + W" "mywal -r")
         (exec "${mod} + SHIFT + P" "hyprpicker -a -f hex")
@@ -314,16 +313,6 @@ in
         class = "irssi-scratch";
         size = "80% 80%";
         position = "10% 10%";
-      };
-      # rofi's pid exits before pypr matches it, so match by class without process tracking
-      rofi = scratchpad "rofi -show drun" // {
-        class = "rofi";
-        match_by = "class";
-        process_tracking = false;
-        size = "40% 50%";
-        position = "30% 8%";
-        unfocus = "hide";
-        close_on_hide = true;
       };
     };
   };
