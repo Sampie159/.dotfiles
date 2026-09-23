@@ -14,6 +14,7 @@ in
     ./home-manager/nvim.nix
     ./home-manager/emacs.nix
     ./home-manager/waybar.nix
+    ./home-manager/fish.nix
   ];
 
   home.username = "sampie";
@@ -58,8 +59,6 @@ in
     pywalfox-native
     playerctl
     alacritty
-    zoxide
-    starship
     gnupg
     vulkan-tools
     dropbox
@@ -149,7 +148,7 @@ in
 
     rofi = {
       enable = true;
-      font = "CaskaydiaMono Nerd Font 12";
+      settings.font = "CaskaydiaMono Nerd Font 12";
       theme = lib.mkForce { "@import" = "${config.xdg.cacheHome}/wal/colors-rofi-light.rasi"; };
     };
 
@@ -202,6 +201,8 @@ in
 
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
+  xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=KvArcDark\n";
+
   services = {
     mako = {
       enable = true;
@@ -229,8 +230,6 @@ in
     ".config/emacs".source = link "emacs";
     ".config/hypr".source = link "hypr";
     ".config/pypr".source = link "pypr";
-    ".config/fish".source = link "fish";
-    ".config/Kvantum".source = link "Kvantum";
   };
 
   systemd.user.sessionVariables = {
