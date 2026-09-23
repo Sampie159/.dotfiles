@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   dots = "${config.home.homeDirectory}/.dotfiles";
@@ -8,6 +13,7 @@ in
   imports = [
     ./home-manager/nvim.nix
     ./home-manager/emacs.nix
+    ./home-manager/waybar.nix
   ];
 
   home.username = "sampie";
@@ -50,11 +56,8 @@ in
     qbittorrent
     awww
     pywalfox-native
-    mako
     playerctl
-    rofi
     alacritty
-    waybar
     zoxide
     starship
     gnupg
@@ -144,6 +147,12 @@ in
     lazygit.enable = true;
     neovide.enable = true;
 
+    rofi = {
+      enable = true;
+      font = "CaskaydiaMono Nerd Font 12";
+      theme = lib.mkForce { "@import" = "${config.xdg.cacheHome}/wal/colors-rofi-light.rasi"; };
+    };
+
     irssi = {
       enable = true;
       networks.clonk = {
@@ -194,6 +203,16 @@ in
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   services = {
+    mako = {
+      enable = true;
+      settings = {
+        border-radius = 8;
+        default-timeout = 5000;
+        width = 500;
+        include = "${config.xdg.cacheHome}/wal/colors-mako";
+      };
+    };
+
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
@@ -210,8 +229,6 @@ in
     ".config/emacs".source = link "emacs";
     ".config/hypr".source = link "hypr";
     ".config/pypr".source = link "pypr";
-    ".config/waybar".source = link "waybar";
-    ".config/rofi".source = link "rofi";
     ".config/fish".source = link "fish";
     ".config/Kvantum".source = link "Kvantum";
   };
