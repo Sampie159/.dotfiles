@@ -227,7 +227,6 @@ in
     ".local/bin".source = link "bin";
     "Wallpapers".source = link "Wallpapers";
 
-    ".config/nvim".source = link "nvim";
   };
 
   systemd.user.sessionVariables = {

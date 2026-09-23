@@ -1,440 +1,123 @@
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system {
-        'git',
-        'clone',
-        '--filter=blob:none',
-        'https://github.com/folke/lazy.nvim.git',
-        '--branch=stable', -- latest stable release
-        lazypath,
-    }
-end
-vim.opt.rtp:prepend(lazypath)
+-- Plugins are installed by home-manager (home-manager/nvim.nix); this only sets them up.
 
-local plugins = {
-    -- Todo Comments
-    'travisvroman/todo-comments.nvim',
+-- Git
+require('git-conflict').setup()
 
-    -- Ouroboros (C/C++ Source/Header Switching)
-    'Sampie159/ouroboros.nvim',
-
-    -- Lazygit
-    'kdheepak/lazygit.nvim',
-
-    -- Neogit
-    {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "sindrets/diffview.nvim",
-        },
-        config = true,
+require('gitsigns').setup {
+    signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
     },
-
-    -- git-conflict.nvim
-    { 'akinsho/git-conflict.nvim', version = "*", config = true },
-
-    -- Harpoon
-    {
-        'ThePrimeagen/harpoon',
-        branch = "harpoon2",
-    },
-
-    {
-        -- LSP Configuration & Plugins
-        'neovim/nvim-lspconfig',
-        dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-
-            { 'j-hui/fidget.nvim', opts = {}, tag = 'legacy' },
-        },
-    },
-
-    -- Plenary
-    'nvim-lua/plenary.nvim',
-
-    {
-        -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-buffer' },
-    },
-
-    -- Which key
-    { 'folke/which-key.nvim',      opts = {} },
-
-    {
-        -- Adds git releated signs to the gutter, as well as utilities for managing changes
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-            },
-        },
-    },
-
-    {
-        'elixir-tools/elixir-tools.nvim',
-        dependencies = {
-            'nvim-lua/plenary.nvim',
-        },
-        event = { 'BufReadPre', 'BufNewFile' },
-        config = function()
-            local elixir = require('elixir')
-            local elixirls = require('elixir.elixirls')
-
-            elixir.setup({
-                nextls = {
-                    enable = false,
-                },
-
-                elixirls = {
-                    enable = true,
-
-                    settings = elixirls.settings({
-                        dialyzerEnabled = false,
-                        enableTestLenses = false,
-                        fetchDeps = false,
-
-                        suggestSpecs = true,
-                    }),
-                },
-
-                projectionist = {
-                    enable = true,
-                },
-            })
-
-        end,
-    },
-
-    -- Catppuccin
-    {
-        "catppuccin/nvim", name = "catppuccin"
-    },
-
-    -- Oxocarbon
-    "nyoom-engineering/oxocarbon.nvim",
-
-    {
-        -- Set lualine as statusline
-        'nvim-lualine/lualine.nvim',
-    },
-
-    -- "gc" to comment visual regions/lines
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end,
-    },
-
-    -- Fuzzy Finder
-    { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
-    'nvim-telescope/telescope-ui-select.nvim',
-
-    {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-            return vim.fn.executable 'make' == 1
-        end,
-    },
-
-    -- Web devicons
-    'nvim-tree/nvim-web-devicons',
-
-    -- Poimandres
-    'olivercederborg/poimandres.nvim',
-
-    -- Gruvbox
-    {
-        'sainnhe/gruvbox-material',
-        config = function()
-            vim.g.gruvbox_material_background = 'hard'
-            vim.g.gruvbox_material_foreground = 'original'
-        end
-    },
-
-    -- Parinfer
-    'gpanders/nvim-parinfer',
-
-    -- Yuck.vim
-    'elkowar/yuck.vim',
-
-    -- nvim-spectre
-    'nvim-pack/nvim-spectre',
-
-    -- kanagawa.nvim
-    'rebelot/kanagawa.nvim',
-
-    -- undotree
-    'mbbill/undotree',
-
-    -- cyberdream
-    -- {
-    --     'scottmckendry/cyberdream.nvim',
-    --     config = function()
-    --         require("cyberdream").setup({
-    --             transparent = true,
-    --             italic_comments = true,
-    --             hide_fillchars = true,
-    --             borderless_telescope = false,
-    --             terminal_colors = true,
-    --         })
-    --     end,
-    -- },
-
-    -- miasma
-    'xero/miasma.nvim',
-
-    -- night-owl
-    'oxfist/night-owl.nvim',
-
-    -- oil.nvim
-    {
-        'stevearc/oil.nvim',
-        config = function()
-            require("oil").setup({
-                skip_confirm_for_simple_edits = true,
-            })
-            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-        end,
-    },
-
-    -- komau
-    'ntk148v/komau.vim',
-
-    -- Mies
-    'jaredgorski/Mies.vim',
-
-    -- fogbell
-    'Sampie159/fogbell.vim',
-
-    -- lsp_signature
-    {
-        'ray-x/lsp_signature.nvim',
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts) require 'lsp_signature'.setup(opts) end,
-    },
-
-    -- text-case.nvim
-    {
-        'johmsalas/text-case.nvim',
-        config = function()
-            require('textcase').setup({})
-            require('telescope').load_extension('textcase')
-        end,
-        keys = {
-            "ga",
-            { "ga.", "<cmd>TextCaseOpenTelescope<CR>", mode = { "n", "x" }, desc = "Telescope" },
-        },
-        cmd = {
-            "Subs",
-            "TextCaseOpenTelescope",
-            "TextCaseOpenTelescopeQuickChange",
-            "TextCaseOpenTelescopeLSPChange",
-            "TextCaseStartReplacingCommand",
-        },
-        lazy = false,
-    },
-
-    -- lazydev
-    {
-        'folke/lazydev.nvim',
-        ft = 'lua',
-        opts = {
-            library = {
-                { path = 'luvit-meta/library', words = { 'vim%.uv' } },
-            },
-        },
-    },
-
-    -- luvit (no idea)
-    { 'Bilal2453/luvit-meta',          lazy = true },
-
-    -- c3
-    'Sampie159/c3.vim',
-
-    -- dadbox
-    'tpope/vim-dadbod',
-
-    -- sweetie
-    "NTBBloodbath/sweetie.nvim",
-
-    -- modus
-    "miikanissi/modus-themes.nvim",
-
-    {
-        "ej-shafran/compile-mode.nvim",
-        version = "^5.0.0",
-        dependencies = {
-            "m00qek/baleia.nvim",
-        },
-        config = function()
-            ---@module "compile-mode"
-            ---@type CompileModeOpts
-            vim.g.compile_mode = {
-                input_word_completion = true,
-                baleia_setup = true,
-                bang_expansion = true,
-                default_command = {
-                    c = "./build.sh",
-                    cpp = "./build.sh",
-                    odin = "./build.sh",
-                    rust = "cargo build",
-                    zig = "zig build",
-                    lua = "./build.sh",
-                    go = "go build",
-                },
-                focus_compilation_buffer = true,
-            }
-        end,
-    },
-
-    -- flow
-    {
-        "0xstepit/flow.nvim",
-        config = function()
-            require('flow').setup {}
-        end,
-    },
-
-    -- tokyonight
-    "folke/tokyonight.nvim",
-
-    -- mellifluous
-    "ramojus/mellifluous.nvim",
-
-    -- deepwhite
-    'Verf/deepwhite.nvim',
-
-    -- minimal
-    'Yazeed1s/minimal.nvim',
-
-    -- quickmath
-    'jbyuki/quickmath.nvim',
-
-    -- vacme
-    'raphael-proust/vacme',
-
-    -- nightfox
-    'EdenEast/nightfox.nvim',
-
-    {
-        'zenbones-theme/zenbones.nvim',
-        dependencies = 'rktjmp/lush.nvim',
-    },
-
-    'dgox16/oldworld.nvim',
-
-    'everviolet/nvim',
-
-    {
-        'aliqyan-21/darkvoid.nvim',
-        config = function()
-            require('darkvoid').setup {
-                glow = true,
-            }
-        end,
-    },
-
-    {
-        'letorbi/vim-colors-modern-borland',
-        config = function()
-            vim.g.BorlandStyle = 'classic'
-            vim.g.BorlandParen = 1
-        end,
-    },
-
-    'luisiacc/gruvbox-baby',
-
-    { 'bluz71/vim-nightfly-colors', name = 'nightfly' },
-
-    'savq/melange-nvim',
-
-    {
-        'https://gitlab.com/shmerl/neogotham.git',
-        config = function()
-            require('neogotham'):setup()
-        end
-    },
-
-    {
-        'Everblush/nvim',
-        name = 'everblush'
-    },
-
-    {
-        'rockerBOO/boo-colorscheme-nvim',
-    },
-
-    { 'datsfilipe/vesper.nvim', },
-
-    'Apeiros-46B/uiua.vim',
-
-    'pebeto/dookie.nvim',
-
-    'jpwol/thorn.nvim',
-
-    {
-        'everviolet/nvim',
-        name = 'evergarden',
-        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
-        opts = {
-            theme = {
-                variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
-                accent = 'green',
-            },
-            editor = {
-                transparent_background = false,
-                sign = { color = 'none' },
-                float = {
-                    color = 'mantle',
-                    solid_border = false,
-                },
-                completion = {
-                    color = 'surface0',
-                },
-            },
-        }
-    },
-
-    'wtfox/jellybeans.nvim',
-
-    {
-        'kungfusheep/mfd.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.opt.guicursor = {
-                "n:block-CursorNormal",
-                "v:block-CursorVisual",
-                "i:block-CursorInsert",
-                "r-cr:block-CursorReplace",
-                "c:block-CursorCommand",
-            }
-
-            require('mfd').enable_cursor_sync()
-        end,
-    },
-
-    'nanotee/sqls.nvim',
-
-    -- Treesitter parser installer (main branch = install-only, no configs.setup;
-    -- highlighting/start still handled natively in treesitter_config.lua)
-    {
-        'nvim-treesitter/nvim-treesitter',
-        branch = 'main',
-        build = ':TSUpdate',
-    },
-
-    'sainnhe/everforest',
 }
 
-require('lazy').setup(plugins, { rocks = { enabled = false } })
+-- LSP helpers
+require('fidget').setup {}
+require('lsp_signature').setup {}
+require('lazydev').setup {
+    library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+    },
+}
+
+require('which-key').setup {}
+
+require('Comment').setup()
+
+do
+    local elixir = require('elixir')
+    local elixirls = require('elixir.elixirls')
+
+    elixir.setup({
+        nextls = {
+            enable = false,
+        },
+
+        elixirls = {
+            enable = true,
+
+            settings = elixirls.settings({
+                dialyzerEnabled = false,
+                enableTestLenses = false,
+                fetchDeps = false,
+
+                suggestSpecs = true,
+            }),
+        },
+
+        projectionist = {
+            enable = true,
+        },
+    })
+end
+
+require("oil").setup({
+    skip_confirm_for_simple_edits = true,
+})
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+require('textcase').setup({})
+require('telescope').load_extension('textcase')
+vim.keymap.set({ "n", "x" }, "ga.", "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })
+
+---@module "compile-mode"
+---@type CompileModeOpts
+vim.g.compile_mode = {
+    input_word_completion = true,
+    baleia_setup = true,
+    bang_expansion = true,
+    default_command = {
+        c = "./build.sh",
+        cpp = "./build.sh",
+        odin = "./build.sh",
+        rust = "cargo build",
+        zig = "zig build",
+        lua = "./build.sh",
+        go = "go build",
+    },
+    focus_compilation_buffer = true,
+}
+
+-- Colorschemes
+vim.g.gruvbox_material_background = 'hard'
+vim.g.gruvbox_material_foreground = 'original'
+
+vim.g.BorlandStyle = 'classic'
+vim.g.BorlandParen = 1
+
+require('flow').setup {}
+
+require('darkvoid').setup {
+    glow = true,
+}
+
+require('neogotham'):setup()
+
+require('evergarden').setup {
+    theme = {
+        variant = 'winter', -- 'winter'|'fall'|'spring'|'summer'
+        accent = 'green',
+    },
+    editor = {
+        transparent_background = false,
+        sign = { color = 'none' },
+        float = {
+            color = 'mantle',
+            solid_border = false,
+        },
+        completion = {
+            color = 'surface0',
+        },
+    },
+}
+
+vim.opt.guicursor = {
+    "n:block-CursorNormal",
+    "v:block-CursorVisual",
+    "i:block-CursorInsert",
+    "r-cr:block-CursorReplace",
+    "c:block-CursorCommand",
+}
+require('mfd').enable_cursor_sync()
