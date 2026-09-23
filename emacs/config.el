@@ -15,7 +15,9 @@
 ;; setopt, not setq -- this var's :set handler is what re-fontifies live buffers
 (setopt treesit-font-lock-level 4)
 (setq c-ts-mode-indent-style 'linux
-      c-ts-mode-indent-offset 4)
+      c-ts-mode-indent-offset 4
+      go-ts-mode-indent-offset 4
+      cmake-ts-mode-indent-offset 4)
 
 (with-eval-after-load 'cc-mode
   (add-hook 'c++-mode-hook

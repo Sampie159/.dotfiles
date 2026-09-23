@@ -228,7 +228,6 @@ in
     "Wallpapers".source = link "Wallpapers";
 
     ".config/nvim".source = link "nvim";
-    ".config/emacs".source = link "emacs";
   };
 
   systemd.user.sessionVariables = {

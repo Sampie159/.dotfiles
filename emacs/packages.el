@@ -3,7 +3,6 @@
 ;;; Code:
 
 (use-package general
-  :ensure t
   :config
   (general-create-definer good-leader-key
     :prefix "C-c")
@@ -40,7 +39,7 @@
             (recenter-top-bottom)))
 
   (good-leader-key
-   "f c" '((lambda () (interactive) (find-file "~/.config/emacs/init.el")) :wk "Edit emacs config")
+   "f c" '((lambda () (interactive) (find-file "~/.dotfiles/emacs/init.el")) :wk "Edit emacs config")
    "e s" '(eshell :wk "Eshell")
    "t v" '(vterm-toggle :wk "Toggle vterm")
    "h f" '(describe-function :wk "Describe function")
@@ -53,28 +52,24 @@
    "c c" '(comment-line :wk "Comment lines")))
 
 (use-package sudo-edit
-  :ensure t
   :config
   (good-leader-key
    "f u" '(sudo-edit-find-file :wk "Sudo find file")
    "f U" '(sudo-edit :wk "Sudo edit file")))
 
-(use-package transient :ensure t)
-(use-package magit :ensure t)
-(use-package seq :ensure t)
-(use-package ripgrep :ensure t)
+(use-package transient)
+(use-package magit)
+(use-package seq)
+(use-package ripgrep)
 
 (use-package cmake-mode
-  :ensure t
   :hook ((cmake-mode . lsp-deferred))
   :config (setq cmake-tab-width 4))
 
 (use-package glsl-mode
-  :ensure t
   :hook ((glsl-mode . lsp-deferred)))
 
 (use-package slang-mode
-  :ensure (:host github :repo "K1ngst0m/slang-mode")
   :mode (("\\.slang\\'" . slang-mode)
          ("\\.sl\\'" . slang-mode)
          ("\\.slangh\\'" . slang-mode))
@@ -84,30 +79,24 @@
   :hook ((slang-mode . lsp-deferred)))
 
 (use-package go-mode
-  :ensure t
   :hook ((go-mode . lsp-deferred)))
 
 (use-package rust-mode
-  :ensure t
   :hook ((rust-mode . lsp-deferred)))
 
 (use-package lua-mode
-  :ensure t
   :hook ((lua-mode . lsp-deferred)))
 
 (use-package zig-mode
-  :ensure t
   :config
   (setq zig-format-on-save nil)
   :hook ((zig-mode . lsp-deferred)))
 
 (use-package odin-mode
-  :ensure (:host github :repo "Sampie159/odin-mode")
   :mode "\\.odin\\'"
   :hook ((odin-mode . lsp-deferred)))
 
 (use-package treesit-auto
-  :ensure t
   :custom
   ;; asks before compiling a grammar instead of silently pulling one at startup
   (treesit-auto-install 'prompt)
@@ -116,13 +105,11 @@
   (global-treesit-auto-mode))
 
 (use-package parinfer-rust-mode
-  :ensure t
   :config (setq parinfer-rust-preferred-mode 'smart)
   :hook (emacs-lisp-mode)
   :init (setq parinfer-rust-auto-download t))
 
 (use-package which-key
-  :ensure t
   :init
   (which-key-mode 1)
   :config
@@ -140,15 +127,11 @@
         which-key-separator " -> "))
 
 (use-package ivy
-  :ensure t
   :config
   (setq ivy-use-virtual-buffers t
         enable-recursive-minibuffers t)
   (ivy-mode))
 
-;; vterm comes from nix (home-manager/emacs.nix); keep elpaca from pulling it in for vterm-toggle
-(with-eval-after-load 'elpaca
-  (add-to-list 'elpaca-ignored-dependencies 'vterm))
 
 (use-package vterm
   :ensure nil
@@ -157,14 +140,12 @@
         vterm-max-scrollback 5000))
 
 (use-package vterm-toggle
-  :ensure t
   :after vterm
   :config
   (setq vterm-toggle-fullscreen-p nil
         vterm-toggle-scope 'project))
 
 (use-package lsp-mode
-  :ensure t
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
@@ -217,15 +198,12 @@
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ivy
-  :ensure t
   :commands lsp-ivy-workspace-symbol)
 
 (use-package counsel
-  :ensure t
   :config (counsel-mode))
 
 (use-package corfu
-  :ensure t
   :init (global-corfu-mode))
 
 (use-package emacs
@@ -235,14 +213,12 @@
   (read-extend-command-predicate #'command-completion-default-include-p))
 
 (use-package projectile
-  :ensure t
   :config
   (projectile-mode +1)
   (setq projectile-project-search-path '("~/projects/" "~/projects/saiyans/" "~/playgrounds/"))
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
 
 (use-package multiple-cursors
-  :ensure t
   :config
   (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
@@ -252,59 +228,46 @@
   (global-set-key (kbd "C-:") 'mc/skip-to-previous-like-this))
 
 (use-package highlight-numbers
-  :ensure t
   :hook ((prog-mode . highlight-numbers-mode)))
 
-(use-package parchment-theme
-  :ensure t)
+(use-package parchment-theme)
 ;;  :config (load-theme 'parchment))
 
-(use-package kaolin-themes
-  :ensure t)
+(use-package kaolin-themes)
 ;;  :config (load-theme 'kaolin-aurora))
 
 (use-package exec-path-from-shell
-  :ensure t
   :init
   (setq exec-path-from-shell-shell-name (executable-find "fish"))
   :config
   (exec-path-from-shell-initialize))
 
-(use-package modus-themes
-  :ensure t)
+(use-package modus-themes)
 
-(use-package ef-themes
-  :ensure t)
+(use-package ef-themes)
 
-(use-package doric-themes
-  :ensure t)
+(use-package doric-themes)
   ;; :config (load-theme 'doric-valley))
 
-(use-package tao-theme
-  :ensure t)
+(use-package tao-theme)
   ;; :config (load-theme 'tao-yin))
 
-(use-package almost-mono-themes
-  :ensure t)
+(use-package almost-mono-themes)
   ;; :config (load-theme 'almost-mono-white))
 
-(use-package plain-theme
-  :ensure t)
+(use-package plain-theme)
   ;; :config (load-theme 'plain))
 
-(use-package nofrils-acme-theme
-  :ensure t)
+(use-package nofrils-acme-theme)
   ;; :config (load-theme 'nofrils-acme))
 
 (use-package base16-theme
-  :ensure t
   :config)
   ;; (load-theme 'base16-charcoal-light))
   ;; (load-theme 'base16-charcoal-dark))
 ;; (load-theme 'base16-ascendancy))
 
 (use-package doom-themes
-  :ensure t
   :custom
   (doom-themes-enable-bold t)
   :config
@@ -312,13 +275,11 @@
   (doom-themes-org-config))
 
 (use-package sql-indent
-  :ensure t
   :hook ((sql-mode . sqlind-minor-mode)))
 
 ;; envrc must be the last global mode enabled, so its buffer-local env wins
 ;; over every other mode's -- lsp-mode included, which spawns servers from PATH
 (use-package envrc
-  :ensure t
-  :hook (elpaca-after-init . envrc-global-mode))
+  :hook (after-init . envrc-global-mode))
 
 ;;; packages.el ends here

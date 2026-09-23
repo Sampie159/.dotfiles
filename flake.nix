@@ -22,6 +22,16 @@
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    odin-mode = {
+      url = "github:Sampie159/odin-mode";
+      flake = false;
+    };
+
+    slang-mode = {
+      url = "github:K1ngst0m/slang-mode";
+      flake = false;
+    };
   };
 
   outputs =

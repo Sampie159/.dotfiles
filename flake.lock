@@ -566,6 +566,22 @@
         "type": "github"
       }
     },
+    "odin-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1705352585,
+        "narHash": "sha256-z+cKljKocUnOb9Bj2RrBEwit+vOz4YJdjULCFpFnnSo=",
+        "owner": "Sampie159",
+        "repo": "odin-mode",
+        "rev": "a63ceef89f18a651f66fe34f3d78406358db214f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Sampie159",
+        "repo": "odin-mode",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -595,7 +611,25 @@
         "hyprland": "hyprland",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_3",
+        "odin-mode": "odin-mode",
+        "slang-mode": "slang-mode"
+      }
+    },
+    "slang-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751038542,
+        "narHash": "sha256-zxxOM6QZLlai1vvn/AVKNp3hZUavW2m6zXxn/ObPrFg=",
+        "owner": "K1ngst0m",
+        "repo": "slang-mode",
+        "rev": "ca4c48112ec12e353c7c700b9e9ed851d28c416c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "K1ngst0m",
+        "repo": "slang-mode",
+        "type": "github"
       }
     },
     "systems": {
