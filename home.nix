@@ -52,9 +52,7 @@ in
     pywalfox-native
     mako
     playerctl
-    tmux
     rofi
-    ghostty
     alacritty
     waybar
     zoxide
@@ -71,15 +69,72 @@ in
   programs = {
     git = {
       enable = true;
-      settings.user = {
-        name = "Sampie159";
-        email = "38163547+Sampie159@users.noreply.github.com";
+      lfs.enable = true;
+      settings = {
+        user = {
+          name = "Sampie159";
+          email = "38163547+Sampie159@users.noreply.github.com";
+        };
+        init.defaultBranch = "master";
+        rerere.enabled = true;
+        alias.wccc = "-w -C -C -C";
+        column.ui = "auto";
+        branch.sort = "-committerdate";
+        core.editor = "nvim";
       };
+    };
+
+    ghostty = {
+      enable = true;
+      settings = {
+        font-family = "JetBrainsMono Nerd Font";
+        font-style = "Medium";
+        font-size = 13;
+        font-feature = "ss01,ss02,ss03,ss04,ss05,ss06,ss07,ss08,ss09,ss10,liga,calt";
+        cursor-invert-fg-bg = true;
+        adjust-cursor-thickness = 2;
+      };
+    };
+
+    tmux = {
+      enable = true;
+      prefix = "C-Space";
+      mouse = true;
+      baseIndex = 1;
+      escapeTime = 0;
+      historyLimit = 50000;
+      terminal = "screen-256color";
+      plugins = with pkgs.tmuxPlugins; [
+        sensible
+        vim-tmux-navigator
+        yank
+        {
+          plugin = power-theme;
+          extraConfig = "set -g @tmux_power_theme 'moon'";
+        }
+      ];
+      extraConfig = ''
+        set -ag terminal-overrides ",xterm-256color:RGB"
+        set -g renumber-windows on
+
+        bind -n M-H previous-window
+        bind -n M-L next-window
+
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+        bind '"' split-window -v -c "#{pane_current_path}"
+        bind % split-window -h -c "#{pane_current_path}"
+      '';
     };
 
     mpv.enable = true;
     bat.enable = true;
-    gh.enable = true;
+    gh = {
+      enable = true;
+      gitCredentialHelper.enable = false;
+    };
     pywal.enable = true;
     jq.enable = true;
     mangohud.enable = true;
@@ -153,8 +208,6 @@ in
 
     ".config/nvim".source = link "nvim";
     ".config/emacs".source = link "emacs";
-    ".config/tmux".source = link "tmux";
-    ".config/ghostty".source = link "ghostty";
     ".config/hypr".source = link "hypr";
     ".config/pypr".source = link "pypr";
     ".config/waybar".source = link "waybar";
@@ -162,13 +215,6 @@ in
     ".config/fish".source = link "fish";
     ".config/Kvantum".source = link "Kvantum";
   };
-
-  xdg.configFile."tmux-plugins.conf".text = with pkgs.tmuxPlugins; ''
-    run-shell ${sensible.rtp}
-    run-shell ${vim-tmux-navigator.rtp}
-    run-shell ${yank.rtp}
-    run-shell ${power-theme.rtp}
-  '';
 
   systemd.user.sessionVariables = {
     EDITOR = "nvim";
