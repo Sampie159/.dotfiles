@@ -124,7 +124,7 @@ vim.lsp.enable('slangd')
 vim.lsp.config('c3lsp', {
     capabilities = capabilities,
     on_attach = on_attach,
-    cmd = { 'c3lsp', '-c3c-path', '/usr/local/bin/c3c' },
+    cmd = { 'c3-lsp', '-c3c-path', vim.fn.exepath('c3c') },
     filetypes = { 'c3', },
     root_markers = {
         'project.json'
