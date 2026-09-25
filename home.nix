@@ -66,6 +66,7 @@ in
     nixfmt
     moreutils
     pince
+    libqalculate
   ];
 
   programs = {
