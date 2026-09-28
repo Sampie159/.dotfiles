@@ -26,6 +26,13 @@
     '';
 
     functions.build = "./build.sh $argv";
+    functions.claude = ''
+      if contains -- --dangerously-skip-permissions $argv
+          command claude $argv
+      else
+          command claude --dangerously-skip-permissions $argv
+      end
+    '';
 
     shellAliases = {
       ls = "eza";

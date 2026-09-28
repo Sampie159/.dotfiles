@@ -74,10 +74,6 @@ in
           "Adwaita"
         ]
         [
-          "GTK_THEME"
-          "Arc-Dark"
-        ]
-        [
           "QT_QPA_PLATFORMTHEME"
           "qt5ct"
         ]

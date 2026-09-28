@@ -67,6 +67,9 @@ in
     moreutils
     pince
     libqalculate
+    virt-manager
+    blender
+    gimp
   ];
 
   programs = {
@@ -195,6 +198,10 @@ in
   };
 
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  dconf.settings."org/virt-manager/virt-manager/connections" = {
+    autoconnect = [ "qemu:///system" ];
+    uris = [ "qemu:///system" ];
+  };
 
   xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=KvArcDark\n";
 

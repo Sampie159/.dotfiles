@@ -88,11 +88,17 @@
     lact.enable = true;
   };
 
+  virtualisation.libvirtd = {
+      enable = true;
+      qemu.vhostUserPackages = [ pkgs.virtiofsd ];
+  };
+
   users.users.sampie = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
+      "libvirtd"
     ];
     shell = pkgs.fish;
     initialPassword = "changeme";
@@ -162,6 +168,8 @@
       capSysNice = true;
     };
   };
+
+  documentation.dev.enable = true;
 
   security = {
     polkit.enable = true;
