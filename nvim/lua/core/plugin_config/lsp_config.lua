@@ -75,7 +75,6 @@ vim.lsp.enable('clangd')
 vim.lsp.config("rust_analyzer", {
     settings = {
         ["rust-analyzer"] = {
-            checkOnSave = false,
             check = {
                 command = "clippy",
                 extraArgs = {

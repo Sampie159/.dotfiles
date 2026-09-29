@@ -70,6 +70,7 @@ in
     virt-manager
     blender
     gimp
+    devenv
   ];
 
   programs = {
