@@ -38,10 +38,6 @@ end)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
-vim.lsp.enable('lua_ls')
-
-vim.lsp.enable('gopls')
-
 -- C/C++ lsp config
 local clangd_config = {
     capabilities = capabilities,
@@ -70,7 +66,6 @@ local clangd_config = {
 }
 
 vim.lsp.config("clangd", clangd_config)
-vim.lsp.enable('clangd')
 
 vim.lsp.config("rust_analyzer", {
     settings = {
@@ -91,27 +86,6 @@ vim.lsp.config("rust_analyzer", {
         },
     },
 })
-vim.lsp.enable('rust_analyzer')
-
-vim.lsp.enable("zls")
-
-vim.lsp.enable('glsl_analyzer')
-
-vim.lsp.enable("ols")
-
-vim.lsp.enable("omnisharp")
-
-vim.lsp.enable('neocmake')
-
-vim.lsp.enable('ocamllsp')
-
-vim.lsp.enable('asm_lsp')
-
-vim.lsp.enable('uiua')
-
-vim.lsp.enable('fortls')
-
-vim.lsp.enable('slangd')
 
 vim.lsp.config('c3lsp', {
     capabilities = capabilities,
@@ -146,4 +120,19 @@ vim.lsp.config('nixd', {
         },
     },
 })
-vim.lsp.enable('nixd')
+
+-- Enable every lspconfig server whose binary is on PATH (devenv decides per project).
+-- Servers with a function `cmd` (ts_ls, eslint, html, ...) can't be checked; enable those by hand.
+local generic = { node = 1, npx = 1, python = 1, python3 = 1, java = 1, dotnet = 1, perl = 1, nc = 1, R = 1, julia = 1, racket = 1, swipl = 1 }
+-- Deferred: scanning ~400 configs costs ~50ms; enable() attaches already-open buffers.
+vim.schedule(function()
+    local names = {}
+    for _, file in ipairs(vim.api.nvim_get_runtime_file('lsp/*.lua', true)) do
+        local ok, config = pcall(dofile, file)
+        local cmd = ok and type(config) == 'table' and config.cmd
+        if type(cmd) == 'table' and type(cmd[1]) == 'string' and not generic[cmd[1]] and vim.fn.executable(cmd[1]) == 1 then
+            table.insert(names, vim.fn.fnamemodify(file, ':t:r'))
+        end
+    end
+    vim.lsp.enable(names)
+end)
