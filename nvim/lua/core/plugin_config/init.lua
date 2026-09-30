@@ -41,16 +41,6 @@ vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search(
     desc = "Search on current file"
 })
 
-vim.g.haskell_tools = {
-    hls = {
-        settings = {
-            haskell = {
-                formattingProvider = "stylish-haskell"
-            }
-        }
-    }
-}
-
 require'nvim-web-devicons'.get_icons()
 
 require('todo-comments').setup {

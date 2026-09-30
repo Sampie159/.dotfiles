@@ -98,6 +98,14 @@ vim.lsp.config('c3lsp', {
 })
 vim.lsp.enable('c3lsp')
 
+vim.lsp.config('hls', {
+    settings = {
+        haskell = {
+            formattingProvider = "stylish-haskell",
+        },
+    },
+})
+
 vim.lsp.config('nixd', {
     capabilities = capabilities,
     on_attach = on_attach,
