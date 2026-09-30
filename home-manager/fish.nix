@@ -26,7 +26,7 @@
       devenv hook fish | source
     '';
 
-    functions.build = "./build.sh $argv";
+    functions.b = "./build.sh $argv";
     functions.claude = ''
       if contains -- --dangerously-skip-permissions $argv
           command claude $argv
@@ -36,7 +36,6 @@
     '';
 
     shellAliases = {
-      ls = "eza";
       cat = "bat";
     };
 

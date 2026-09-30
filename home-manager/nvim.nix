@@ -33,6 +33,7 @@ in
         cmp_luasnip
         cmp-nvim-lsp
         comment-nvim
+        conjure
         deepwhite-nvim
         diffview-nvim
         elixir-tools-nvim

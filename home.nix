@@ -167,7 +167,13 @@ in
 
     eza = {
       enable = true;
-      enableFishIntegration = false;
+      icons = "auto";
+      git = true;
+      colors = "auto";
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
     };
 
     fzf = {
