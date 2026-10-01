@@ -24,6 +24,9 @@ require('lazydev').setup {
 
 require('which-key').setup {}
 
+-- Conjure defaults include python/lua/rust/sql/etc, keep it to lisps
+vim.g['conjure#filetypes'] = { 'clojure', 'fennel', 'janet', 'hy', 'racket', 'scheme', 'lisp' }
+
 require('Comment').setup()
 
 do
