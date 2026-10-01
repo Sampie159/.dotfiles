@@ -17,6 +17,8 @@ in
     ./home-manager/hyprland.nix
   ];
 
+  _module.args.link = link;
+
   home.username = "sampie";
   home.homeDirectory = "/home/sampie";
   home.stateVersion = "26.05";
@@ -91,17 +93,7 @@ in
       };
     };
 
-    ghostty = {
-      enable = true;
-      settings = {
-        font-family = "JetBrainsMono Nerd Font";
-        font-style = "Medium";
-        font-size = 13;
-        font-feature = "ss01,ss02,ss03,ss04,ss05,ss06,ss07,ss08,ss09,ss10,liga,calt";
-        cursor-invert-fg-bg = true;
-        adjust-cursor-thickness = 2;
-      };
-    };
+    ghostty.enable = true;
 
     tmux = {
       enable = true;
@@ -212,6 +204,7 @@ in
   };
 
   xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=KvArcDark\n";
+  xdg.configFile."ghostty/config".source = link "ghostty/config";
 
   services = {
     gpg-agent = {

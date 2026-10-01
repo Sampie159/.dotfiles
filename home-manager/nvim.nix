@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  link,
   ...
 }:
 let
@@ -88,8 +89,5 @@ in
     ];
   };
 
-  xdg.configFile.nvim = {
-    source = ../nvim;
-    recursive = true;
-  };
+  xdg.configFile.nvim.source = link "nvim";
 }

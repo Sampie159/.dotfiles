@@ -1,4 +1,10 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  link,
+  ...
+}:
 let
   # packages missing from nixpkgs, pinned by flake.lock
   fromInput =
@@ -67,9 +73,16 @@ in
       ];
   };
 
-  # recursive: runtime files (custom-file.el, caches) stay writable next to these
-  xdg.configFile.emacs = {
-    source = ../emacs;
-    recursive = true;
-  };
+  # per entry, not the whole dir: runtime files (custom-file.el, caches) stay out of the repo
+  xdg.configFile =
+    lib.genAttrs
+      [
+        "emacs/init.el"
+        "emacs/config.el"
+        "emacs/packages.el"
+        "emacs/themes"
+      ]
+      (path: {
+        source = link path;
+      });
 }

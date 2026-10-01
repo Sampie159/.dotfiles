@@ -119,10 +119,11 @@
     noto-fonts
     noto-fonts-color-emoji
     noto-fonts-cjk-sans
+    monaspace
     liberation_ttf
     google-fonts
     nerd-fonts.fira-code
-    nerd-fonts.caskaydia-mono
+    nerd-fonts.caskaydia-cove
     nerd-fonts.inconsolata
     nerd-fonts.jetbrains-mono
     nerd-fonts.symbols-only
