@@ -140,8 +140,36 @@ in
     ripgrep.enable = true;
     password-store.enable = true;
     firefox.enable = true;
-    lazygit.enable = true;
     neovide.enable = true;
+
+    lazygit = {
+      enable = true;
+      settings.customCommands = [
+        {
+          key = "G";
+          context = "global";
+          description = "Create GitHub repo and push";
+          prompts = [
+            {
+              type = "input";
+              title = "Repo name";
+              key = "Name";
+            }
+            {
+              type = "menu";
+              title = "Visibility";
+              key = "Visibility";
+              options = [
+                { value = "private"; }
+                { value = "public"; }
+              ];
+            }
+          ];
+          command = "gh repo create {{.Form.Name}} --{{.Form.Visibility}} --source=. --remote=origin --push";
+          output = "terminal";
+        }
+      ];
+    };
 
     irssi = {
       enable = true;
@@ -218,7 +246,6 @@ in
     ".config/wal/templates".source = link "templates";
     ".local/bin".source = link "bin";
     "Wallpapers".source = link "Wallpapers";
-
   };
 
   systemd.user.sessionVariables = {
