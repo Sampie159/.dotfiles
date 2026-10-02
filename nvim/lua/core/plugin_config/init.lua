@@ -13,8 +13,8 @@ if vim.g.neovide then
 end
 
 vim.o.background = "dark"
-vim.g.everforest_background = "hard" -- darkest variant: hard > medium > soft
-vim.cmd.colorscheme("everforest")
+vim.g.everforest_background = "hard"
+vim.cmd.colorscheme("jellybeans")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll
 -- just put them all here. I'll try to keep it organized, though.

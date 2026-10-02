@@ -130,12 +130,17 @@ vim.lsp.config('nixd', {
 local generic = { node = 1, npx = 1, python = 1, python3 = 1, java = 1, dotnet = 1, perl = 1, nc = 1, R = 1, julia = 1, racket = 1, swipl = 1 }
 -- Deferred: scanning ~400 configs costs ~50ms; enable() attaches already-open buffers.
 vim.schedule(function()
-    local names = {}
+    local names, seen = {}, {}
     for _, file in ipairs(vim.api.nvim_get_runtime_file('lsp/*.lua', true)) do
         local ok, config = pcall(dofile, file)
         local cmd = ok and type(config) == 'table' and config.cmd
         if type(cmd) == 'table' and type(cmd[1]) == 'string' and not generic[cmd[1]] and vim.fn.executable(cmd[1]) == 1 then
-            table.insert(names, vim.fn.fnamemodify(file, ':t:r'))
+            -- Symlinked aliases (Swift-MesonLSP -> mesonlsp) would start the same server twice.
+            local bin = vim.fn.resolve(vim.fn.exepath(cmd[1]))
+            if not seen[bin] then
+                seen[bin] = true
+                table.insert(names, vim.fn.fnamemodify(file, ':t:r'))
+            end
         end
     end
     vim.lsp.enable(names)
