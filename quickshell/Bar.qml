@@ -133,7 +133,7 @@ PanelWindow {
         visible: text !== ""
         text: Hyprland.activeToplevel?.title ?? initial
         maxTextWidth: bar.width / 3
-        label.font.family: "FiraCode Nerd Font"
+        label.font.family: Wal.font
         label.font.bold: true
 
         Connections {

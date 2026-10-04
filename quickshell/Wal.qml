@@ -15,7 +15,7 @@ Singleton {
     readonly property color color10: colors.color10 ?? "#9d9ba6"
     readonly property color color11: colors.color11 ?? "#c4b6bf"
     readonly property color color14: colors.color14 ?? "#e6e4f4"
-    readonly property string font: "CaskaydiaMono Nerd Font Propo"
+    readonly property string font: "Monaspace Neon NF"
 
     FileView {
         path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
