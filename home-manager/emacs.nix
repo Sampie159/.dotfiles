@@ -16,6 +16,15 @@ let
     };
 in
 {
+  imports = [ inputs.nix-doom-emacs-unstraightened.homeModule ];
+
+  programs.doom-emacs = {
+    enable = true;
+    emacs = pkgs.emacs-pgtk;
+    doomDir = ../doom;
+    provideEmacs = false;
+  };
+
   programs.emacs = {
     enable = true;
     package = pkgs.emacs-pgtk;

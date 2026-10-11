@@ -102,6 +102,21 @@ vim.lsp.config('hls', {
     },
 })
 
+-- autotools-language-server always runs its make server: configure.ac gets make completions and bogus
+-- parse errors on every M4 quote. The package's autoconf server has no binary, so run it as a module.
+vim.lsp.config('autotools_ls', { filetypes = { 'automake', 'make' } })
+vim.lsp.config('autoconf_ls', {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    -- relies on the nix devshell exporting PYTHONPATH with the package
+    cmd = { 'python3', '-m', 'autoconf_language_server' },
+    filetypes = { 'config' },
+    root_markers = { 'configure.ac', 'configure.in' },
+})
+if vim.fn.executable('autotools-language-server') == 1 then
+    vim.lsp.enable('autoconf_ls')
+end
+
 vim.lsp.config('nixd', {
     capabilities = capabilities,
     on_attach = on_attach,

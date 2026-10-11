@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-doom-emacs-unstraightened = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -109,7 +114,7 @@
     };
 
     vimplugin-neogotham = {
-      url = "gitlab:shmerl/neogotham";
+      url = "git+https://gitlab.com/shmerl/neogotham.git";
       flake = false;
     };
 
