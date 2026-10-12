@@ -73,6 +73,7 @@ in
     blender
     gimp
     devenv
+    cdesktopenv
   ];
 
   programs = {
@@ -94,6 +95,7 @@ in
     };
 
     ghostty.enable = true;
+    kitty.enable = true;
 
     tmux = {
       enable = true;

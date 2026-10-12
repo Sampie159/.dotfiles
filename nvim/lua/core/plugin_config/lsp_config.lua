@@ -117,6 +117,11 @@ if vim.fn.executable('autotools-language-server') == 1 then
     vim.lsp.enable('autoconf_ls')
 end
 
+-- lspconfig's csharp_ls cmd is a function, so the PATH scan below skips it
+if vim.fn.executable('csharp-ls') == 1 then
+    vim.lsp.enable('csharp_ls')
+end
+
 vim.lsp.config('nixd', {
     capabilities = capabilities,
     on_attach = on_attach,

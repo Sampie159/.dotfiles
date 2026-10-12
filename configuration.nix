@@ -43,6 +43,8 @@
   networking.networkmanager.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # mesa panfrost ICD fails enumeration and breaks Vulkan for every app
+  environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE = "*panfrost_icd*";
   environment.variables.EDITOR = "nvim";
 
   zramSwap = {
