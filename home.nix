@@ -42,6 +42,7 @@ in
     clang
     clang-tools
     gnumake
+    gdb
     nodejs
     tree-sitter
     unrar
@@ -73,7 +74,6 @@ in
     blender
     gimp
     devenv
-    cdesktopenv
   ];
 
   programs = {

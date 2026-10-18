@@ -88,6 +88,8 @@
     };
 
     lact.enable = true;
+
+    nixseparatedebuginfod2.enable = true;
   };
 
   virtualisation.libvirtd = {
