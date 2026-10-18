@@ -31,7 +31,7 @@ PanelWindow {
 
     function launch(app) {
         if (app.runInTerminal)
-            Quickshell.execDetached(["ghostty", "-e", ...app.command]);
+            Quickshell.execDetached(["kitty", ...app.command]);
         else
             app.execute();
         visible = false;

@@ -82,7 +82,7 @@ local function locked(key, cmd)
   hl.bind(key, hl.dsp.exec_cmd(cmd), { locked = true })
 end
 
-exec(mod .. " + CTRL + Return", "ghostty")
+exec(mod .. " + CTRL + Return", "kitty")
 scratch(mod .. " + Return", "term")
 exec(mod .. " + E", "nautilus")
 exec(mod .. " + B", "firefox")

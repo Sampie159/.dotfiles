@@ -61,7 +61,6 @@ in
     awww
     pywalfox-native
     playerctl
-    alacritty
     gnupg
     vulkan-tools
     dropbox
@@ -94,8 +93,10 @@ in
       };
     };
 
-    ghostty.enable = true;
-    kitty.enable = true;
+    kitty = {
+      enable = true;
+      extraConfig = "include main.conf";
+    };
 
     tmux = {
       enable = true;
@@ -234,7 +235,7 @@ in
   };
 
   xdg.configFile."Kvantum/kvantum.kvconfig".text = "theme=KvArcDark\n";
-  xdg.configFile."ghostty/config".source = link "ghostty/config";
+  xdg.configFile."kitty/main.conf".source = link "kitty/kitty.conf";
 
   services = {
     gpg-agent = {
@@ -252,6 +253,6 @@ in
 
   systemd.user.sessionVariables = {
     EDITOR = "nvim";
-    TERMINAL = "ghostty";
+    TERMINAL = "kitty";
   };
 }

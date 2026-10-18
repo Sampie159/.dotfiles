@@ -115,11 +115,6 @@ if vim.fn.executable('autotools-language-server') == 1 then
     vim.lsp.enable('autoconf_ls')
 end
 
--- lspconfig's csharp_ls cmd is a function, so the PATH scan below skips it
-if vim.fn.executable('csharp-ls') == 1 then
-    vim.lsp.enable('csharp_ls')
-end
-
 vim.lsp.config('nixd', {
     settings = {
         nixd = {
@@ -141,8 +136,16 @@ vim.lsp.config('nixd', {
     },
 })
 
+-- A function `cmd` (ts_ls, eslint, html, ...) hides its binary; read it from the function's source.
+-- ponytail: pattern match on lspconfig's idioms, configs that build the command differently are skipped
+local function function_cmd_bin(file)
+    local body = table.concat(vim.fn.readfile(file), '\n'):match('cmd = function(.-)\n  end,')
+    return body and (body:match("local [%w_]+ = ['\"]([^'\"]+)['\"]")
+        or body:match("local [%w_]+ = {%s*['\"]([^'\"]+)['\"]")
+        or body:match("rpc%.start%(%s*{%s*['\"]([^'\"]+)['\"]"))
+end
+
 -- Enable every lspconfig server whose binary is on PATH (devenv decides per project).
--- Servers with a function `cmd` (ts_ls, eslint, html, ...) can't be checked; enable those by hand.
 local generic = { node = 1, npx = 1, python = 1, python3 = 1, java = 1, dotnet = 1, perl = 1, nc = 1, R = 1, julia = 1, racket = 1, swipl = 1 }
 -- Deferred: scanning ~400 configs costs ~50ms; enable() attaches already-open buffers.
 vim.schedule(function()
@@ -150,6 +153,9 @@ vim.schedule(function()
     for _, file in ipairs(vim.api.nvim_get_runtime_file('lsp/*.lua', true)) do
         local ok, config = pcall(dofile, file)
         local cmd = ok and type(config) == 'table' and config.cmd
+        if type(cmd) == 'function' then
+            cmd = { function_cmd_bin(file) }
+        end
         if type(cmd) == 'table' and type(cmd[1]) == 'string' and not generic[cmd[1]] and vim.fn.executable(cmd[1]) == 1 then
             -- Symlinked aliases (Swift-MesonLSP -> mesonlsp) would start the same server twice.
             local bin = vim.fn.resolve(vim.fn.exepath(cmd[1]))
