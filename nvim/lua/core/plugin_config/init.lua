@@ -14,6 +14,22 @@ end
 
 vim.o.background = "dark"
 vim.g.everforest_background = "hard"
+local function term_send(seq)
+    if vim.env.TMUX then seq = "\027Ptmux;" .. seq:gsub("\027", "\027\027") .. "\027\\" end
+    vim.api.nvim_ui_send(seq)
+end
+vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+        local bg = vim.api.nvim_get_hl(0, { name = "Normal" }).bg
+        if bg then term_send(string.format("\027]11;#%06x\007", bg)) end
+        for _, group in ipairs({ "Normal", "NormalNC", "SignColumn", "EndOfBuffer" }) do
+            vim.api.nvim_set_hl(0, group, vim.tbl_extend("force", vim.api.nvim_get_hl(0, { name = group }), { bg = "NONE" }))
+        end
+    end,
+})
+vim.api.nvim_create_autocmd("VimLeavePre", {
+    callback = function() term_send("\027]111\007") end,
+})
 vim.cmd.colorscheme("jellybeans")
 
 -- I got tired of creating separate files for each plugin configuration, so I'll

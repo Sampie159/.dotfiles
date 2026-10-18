@@ -116,6 +116,7 @@ in
         }
       ];
       extraConfig = ''
+        set -g allow-passthrough on
         set -ag terminal-overrides ",xterm-256color:RGB"
         set -g renumber-windows on
 
