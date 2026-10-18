@@ -31,7 +31,6 @@ in
         boo-colorscheme-nvim
         catppuccin-nvim
         cmp-buffer
-        cmp_luasnip
         cmp-nvim-lsp
         comment-nvim
         conjure

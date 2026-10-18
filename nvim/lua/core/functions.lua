@@ -60,11 +60,7 @@ if exist "%msvc22p%" (
     vim.api.nvim_buf_set_text(buf, line, 0, line, 0, lines)
 end
 
-function begin_command(cmd)
-    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>:" .. cmd .. " ", true, false, true), 'n', false)
-end
-
-function search_copen(word)
+local function search_copen(word)
     vim.cmd('silent grep ' .. word.args)
     vim.defer_fn(function()
         vim.cmd('copen')
@@ -74,4 +70,4 @@ end
 vim.api.nvim_create_user_command('Label', label, { nargs = "*" })
 vim.api.nvim_create_user_command('Vcvars', vcvars, {})
 vim.api.nvim_create_user_command('Search', search_copen, { nargs = 1 })
-vim.keymap.set('i', '<M-l>', '<CMD>lua begin_command("Label")<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<M-l>', '<Esc>:Label ')

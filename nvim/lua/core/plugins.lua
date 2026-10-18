@@ -84,9 +84,6 @@ vim.g.compile_mode = {
 }
 
 -- Colorschemes
-vim.g.gruvbox_material_background = 'hard'
-vim.g.gruvbox_material_foreground = 'original'
-
 vim.g.BorlandStyle = 'classic'
 vim.g.BorlandParen = 1
 

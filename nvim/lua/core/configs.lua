@@ -42,12 +42,10 @@ vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
 vim.o.updatetime = 250
-vim.o.timeout = true
 vim.o.timeoutlen = 300
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menu,menuone"
-vim.opt.completeopt = "menu,menuone"
 
 -- Set termguicolors
 vim.o.termguicolors = true
@@ -75,14 +73,19 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = '*',
 })
 
-vim.cmd([[autocmd FileType * set formatoptions-=ro]])
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function()
+        vim.opt_local.formatoptions:remove({ 'r', 'o' })
+    end,
+    group = vim.api.nvim_create_augroup('NoCommentContinue', { clear = true }),
+})
 
 vim.o.autoread = true
 
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
 
-vim.opt.shell = "/bin/bash"
+vim.opt.shell = "bash"
 
 vim.g.zig_fmt_autosave = 0
 
@@ -97,6 +100,3 @@ vim.diagnostic.config({
     -- severity_sort = true,
     virtual_lines = true,
 })
-vim.diagnostic.enable(true)
-
-vim.opt.bomb = false

@@ -23,7 +23,6 @@ end
 vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-vim.keymap.set('n', 'gr', require('telescope.builtin').lsp_references)
 vim.keymap.set('n', 'gI', vim.lsp.buf.implementation)
 -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition)
 -- vim.keymap.set('n', '<leader>ds', require('telescope.builtin').lsp_document_symbols)
@@ -37,11 +36,14 @@ end)
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+vim.lsp.config('*', { capabilities = capabilities })
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args) on_attach(nil, args.buf) end,
+    group = vim.api.nvim_create_augroup('LspAttachKeys', { clear = true }),
+})
 
 -- C/C++ lsp config
 local clangd_config = {
-    capabilities = capabilities,
-    on_attach = on_attach,
     cmd = {
         'clangd',
         '--background-index',
@@ -84,8 +86,6 @@ vim.lsp.config("rust_analyzer", {
 })
 
 vim.lsp.config('c3lsp', {
-    capabilities = capabilities,
-    on_attach = on_attach,
     cmd = { 'c3-lsp', '-c3c-path', vim.fn.exepath('c3c') },
     filetypes = { 'c3', },
     root_markers = {
@@ -106,8 +106,6 @@ vim.lsp.config('hls', {
 -- parse errors on every M4 quote. The package's autoconf server has no binary, so run it as a module.
 vim.lsp.config('autotools_ls', { filetypes = { 'automake', 'make' } })
 vim.lsp.config('autoconf_ls', {
-    capabilities = capabilities,
-    on_attach = on_attach,
     -- relies on the nix devshell exporting PYTHONPATH with the package
     cmd = { 'python3', '-m', 'autoconf_language_server' },
     filetypes = { 'config' },
@@ -123,8 +121,6 @@ if vim.fn.executable('csharp-ls') == 1 then
 end
 
 vim.lsp.config('nixd', {
-    capabilities = capabilities,
-    on_attach = on_attach,
     settings = {
         nixd = {
             nixpkgs = {

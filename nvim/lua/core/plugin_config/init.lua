@@ -41,8 +41,6 @@ vim.keymap.set('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search(
     desc = "Search on current file"
 })
 
-require'nvim-web-devicons'.get_icons()
-
 require('todo-comments').setup {
     keywords = {
         TODO = { 
