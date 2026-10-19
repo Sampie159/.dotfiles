@@ -57,6 +57,7 @@ in
     nautilus
     wineWow64Packages.staging
     winetricks
+    umu-launcher
     qbittorrent
     awww
     pywalfox-native
