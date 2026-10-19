@@ -34,8 +34,8 @@
 ;; (set-frame-font "JetBrainsMono Nerd Font 11" nil t)
 ;; (set-frame-font "InconsolataGo Nerd Font 13" nil t)
 (set-face-attribute 'default nil
-                    :family "Inconsolata Nerd Font"
-                    :height 120
+                    :family "Monaspace Krypton Var"
+                    :height 110
                     :weight 'bold)
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))

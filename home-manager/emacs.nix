@@ -45,6 +45,7 @@ in
         magit
         modus-themes
         multiple-cursors
+        nix-ts-mode
         nofrils-acme-theme
         parchment-theme
         parinfer-rust-mode
@@ -64,6 +65,7 @@ in
         zig-mode
         (treesit-grammars.with-grammars (g: [
           g.tree-sitter-go
+          g.tree-sitter-nix
           g.tree-sitter-rust
         ]))
       ]

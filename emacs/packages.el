@@ -60,38 +60,31 @@
 (use-package ripgrep)
 
 (use-package cmake-mode
-  :hook ((cmake-mode . lsp-deferred))
   :config (setq cmake-tab-width 4))
 
-(use-package glsl-mode
-  :hook ((glsl-mode . lsp-deferred)))
+(use-package glsl-mode)
 
+;; Do NOT load the bundled slang-lsp.el -- it wires slangd to eglot, not lsp-mode
 (use-package slang-mode
   :mode (("\\.slang\\'" . slang-mode)
          ("\\.sl\\'" . slang-mode)
-         ("\\.slangh\\'" . slang-mode))
-  ;; slang-mode derives from c-mode, so c-mode-hook already fires here; this is
-  ;; explicit so slang keeps lsp if the c-mode hook ever goes away. Do NOT load
-  ;; the bundled slang-lsp.el -- it wires slangd to eglot, not lsp-mode.
-  :hook ((slang-mode . lsp-deferred)))
+         ("\\.slangh\\'" . slang-mode)))
 
-(use-package go-mode
-  :hook ((go-mode . lsp-deferred)))
+(use-package go-mode)
 
-(use-package rust-mode
-  :hook ((rust-mode . lsp-deferred)))
+(use-package rust-mode)
 
-(use-package lua-mode
-  :hook ((lua-mode . lsp-deferred)))
+(use-package lua-mode)
 
 (use-package zig-mode
   :config
-  (setq zig-format-on-save nil)
-  :hook ((zig-mode . lsp-deferred)))
+  (setq zig-format-on-save nil))
 
 (use-package odin-mode
-  :mode "\\.odin\\'"
-  :hook ((odin-mode . lsp-deferred)))
+  :mode "\\.odin\\'")
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'")
 
 (use-package treesit-auto
   :custom
@@ -146,21 +139,17 @@
   :init
   (setq lsp-keymap-prefix "C-c l")
   :hook
-  ;; treesit-auto remaps these to their -ts-mode variants, which do NOT inherit
-  ;; the non-ts mode hooks -- both spellings needed or lsp stops attaching
-  ((c-mode . lsp-deferred)
-   (c-ts-mode . lsp-deferred)
-   (c++-mode . lsp-deferred)
-   (c++-ts-mode . lsp-deferred)
-   (cmake-ts-mode . lsp-deferred)
-   (go-ts-mode . lsp-deferred)
-   (rust-ts-mode . lsp-deferred)
-   (lua-ts-mode . lsp-deferred)
-   (f90-mode . lsp-deferred)
+  ;; every file buffer tries lsp; it only starts servers whose binary is on PATH
+  ;; (envrc's buffer-local one by the time the deferred start runs), so a server
+  ;; from a devshell attaches without its language being listed here
+  (((prog-mode text-mode conf-mode) . (lambda () (when buffer-file-name (lsp-deferred))))
    (lsp-mode . lsp-enable-which-key-integration))
   :config
   (define-key lsp-mode-map (kbd "C-c l f") #'lsp-format-buffer)
   (setq lsp-enable-on-type-formatting nil
+        ;; buffers with no server on PATH stay quiet: no download prompt, no warning
+        lsp-enable-suggest-server-download nil
+        lsp-warn-no-matched-clients nil
         lsp-enable-snippet nil
         lsp-inlay-hint-enable nil
         lsp-diagnostics-provider :none
