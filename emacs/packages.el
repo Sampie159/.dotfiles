@@ -8,16 +8,14 @@
     :prefix "C-c")
   (general-define-key
    "C-<return>" '(lambda () (interactive)
-                   (let ((oldpos (point)))
-                     (end-of-line)
-                     (newline-and-indent)))
+                   (end-of-line)
+                   (newline-and-indent))
 
    "C-S-<return>" '(lambda () (interactive)
-                     (let ((oldpos (point)))
-                       (beginning-of-line)
-                       (newline)
-                       (previous-line)
-                       (indent-according-to-mode)))
+                     (beginning-of-line)
+                     (newline)
+                     (forward-line -1)
+                     (indent-according-to-mode))
 
    "M-p" '(lambda () (interactive)
             (transpose-lines 1)
@@ -33,7 +31,7 @@
             (kill-line)
             (yank)
             (open-line 1)
-            (next-line 1)
+            (forward-line 1)
             (yank))
    "C-," '(lambda () (interactive)
             (recenter-top-bottom)))
@@ -45,7 +43,6 @@
    "h f" '(describe-function :wk "Describe function")
    "h v" '(describe-variable :wk "Describe variable")
    "h r r" '((lambda () (interactive)
-               (load-file "~/.config/emacs/init.el")
                (load-file "~/.config/emacs/init.el"))
              :wk "Reload emacs config")
    "l s" '(lsp-ivy-workspace-symbol :wk "Search workspace symbols")
@@ -272,6 +269,10 @@
   (doom-themes-enable-bold t)
   :config
   (load-theme 'doom-ayu-mirage)
+  ;; ayu-mirage paints ivy's selected candidate with the default bg, hiding it
+  (custom-theme-set-faces
+   'doom-ayu-mirage
+   `(ivy-current-match ((t (:background ,(doom-color 'region) :extend t)))))
   (doom-themes-org-config))
 
 (use-package sql-indent

@@ -6,8 +6,6 @@
       c-basic-offset 4
       lua-indent-level 4
       sql-indent-offset 4
-      tab-width 4
-      indent-tabs-mode nil
       backup-directory-alist '(("." . "~/.trash")))
 
 ;; treesit ignores `font-lock-maximum-decoration'; 4 is its max and the only
@@ -82,7 +80,8 @@
       (insert ";;; Commentary:\n")
       (insert ";;; Code:\n")
       (insert (concat ";;; " filename " ends here"))
-      (previous-line 2))))
+      (forward-line -2)
+      (end-of-line))))
 
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
 (add-hook 'prog-mode-hook (lambda () (setq truncate-lines t)))
