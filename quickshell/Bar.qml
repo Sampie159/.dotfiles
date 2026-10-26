@@ -313,8 +313,13 @@ PanelWindow {
         Divider {}
 
         Pill {
-            property bool showDate: false
-            text: Qt.formatDateTime(clock.date, showDate ? "dd-MM-yyyy" : "hh:mm")
+            id: clockPill
+            text: Qt.formatDateTime(clock.date, "hh:mm")
+            label.color: calendar.visible ? Wal.accent : Wal.textColor
+            color: clockMouse.containsMouse || calendar.visible ? Wal.selection : "transparent"
+            Accessible.role: Accessible.Button
+            Accessible.name: "Calendar"
+            Accessible.onPressAction: calendar.visible = !calendar.visible
 
             SystemClock {
                 id: clock
@@ -322,8 +327,18 @@ PanelWindow {
             }
 
             MouseArea {
+                id: clockMouse
                 anchors.fill: parent
-                onClicked: parent.showDate = !parent.showDate
+                hoverEnabled: true
+                cursorShape: Qt.PointingHandCursor
+                onClicked: calendar.visible = !calendar.visible
+            }
+
+            CalendarPopup {
+                id: calendar
+                screen: bar.screen
+                margins.top: bar.margins.top + bar.height + 8
+                margins.right: bar.margins.right
             }
         }
 
