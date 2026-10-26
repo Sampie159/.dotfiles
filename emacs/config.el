@@ -34,9 +34,11 @@
 ;; (set-frame-font "JetBrainsMono Nerd Font 11" nil t)
 ;; (set-frame-font "InconsolataGo Nerd Font 13" nil t)
 (set-face-attribute 'default nil
-                    :family "Monaspace Krypton Var"
+                    :family "Monaspace Neon Var"
                     :height 110
                     :weight 'bold)
+
+(add-to-list 'default-frame-alist '(alpha-background . 90))
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
 
