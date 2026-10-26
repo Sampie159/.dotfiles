@@ -19,7 +19,7 @@ Singleton {
     readonly property color textColor: "#d4d7dc"
     readonly property color muted: "#a0a5af"
     readonly property color outline: "#3b4048"
-    readonly property color accent: "#ddb274"
+    readonly property color accent: colors.color14 ?? "#ddb274"
     readonly property color selection: Qt.alpha(accent, 0.12)
     readonly property string font: "Monaspace Neon NF"
 
