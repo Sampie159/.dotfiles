@@ -15,11 +15,13 @@ Singleton {
     readonly property color color10: colors.color10 ?? "#9d9ba6"
     readonly property color color11: colors.color11 ?? "#c4b6bf"
     readonly property color color14: colors.color14 ?? "#e6e4f4"
-    readonly property color surface: Qt.alpha(Qt.tint(background, "#0dffffff"), 0.97)
-    readonly property color outline: Qt.alpha(foreground, 0.16)
-    readonly property color muted: Qt.alpha(foreground, 0.8)
-    readonly property color hover: Qt.alpha(foreground, 0.08)
-    readonly property color selection: Qt.alpha(color14, 0.16)
+    readonly property color surface: Qt.alpha("#181a1d", 0.97)
+    readonly property color textColor: "#d4d7dc"
+    readonly property color outline: Qt.alpha(textColor, 0.16)
+    readonly property color muted: Qt.alpha(textColor, 0.8)
+    readonly property color hover: Qt.alpha(textColor, 0.08)
+    readonly property color accent: colors.color14 ?? "#ddb274"
+    readonly property color selection: Qt.alpha(accent, 0.16)
     readonly property string font: "Monaspace Neon NF"
 
     FileView {

@@ -60,7 +60,7 @@ PopupWindow {
                 text: entry.label
                 width: Math.min(implicitWidth, entry.width - 56)
                 elide: Text.ElideRight
-                color: Wal.foreground
+                color: Wal.textColor
                 font.family: Wal.font
                 font.pixelSize: 13
             }

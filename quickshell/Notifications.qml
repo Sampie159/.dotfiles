@@ -48,7 +48,7 @@ Scope {
                 color: Wal.surface
                 border {
                     width: 1
-                    color: card.modelData?.urgency === NotificationUrgency.Critical ? Wal.color11 : Wal.outline
+                    color: card.modelData?.urgency === NotificationUrgency.Critical ? Wal.accent : Wal.outline
                 }
 
                 Timer {
@@ -95,7 +95,7 @@ Scope {
                             width: parent.width
                             text: card.modelData.summary
                             elide: Text.ElideRight
-                            color: Wal.foreground
+                            color: Wal.textColor
                             font.family: Wal.font
                             font.pixelSize: 13
                             font.bold: true
@@ -131,7 +131,7 @@ Scope {
                                         id: actionText
                                         anchors.centerIn: parent
                                         text: parent.modelData.text
-                                        color: Wal.foreground
+                                        color: Wal.textColor
                                         font.family: Wal.font
                                         font.pixelSize: 12
                                     }

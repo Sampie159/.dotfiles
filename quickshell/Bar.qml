@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
 import Quickshell.Networking
-import Quickshell.Services.Mpris
 import Quickshell.Services.Pipewire
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
@@ -51,7 +50,7 @@ PanelWindow {
             anchors.centerIn: parent
             width: Math.min(implicitWidth, parent.maxTextWidth)
             elide: Text.ElideRight
-            color: Wal.foreground
+            color: Wal.textColor
             font {
                 family: Wal.font
                 pixelSize: 13
@@ -94,7 +93,7 @@ PanelWindow {
                                 id: ws
                                 anchors.centerIn: parent
                                 text: parent.modelData.name
-                                color: parent.modelData.focused ? Wal.color14 : Wal.muted
+                                color: parent.modelData.focused ? Wal.accent : Wal.muted
                                 font.family: Wal.font
                                 font.pixelSize: 13
                             }
@@ -112,41 +111,36 @@ PanelWindow {
             }
 
             Rectangle {
-                visible: media.visible || title.visible
+                visible: title.visible
                 implicitWidth: 1
                 implicitHeight: 14
                 color: Wal.outline
             }
 
             Pill {
-                id: media
-                readonly property MprisPlayer player: Mpris.players.values.find(p => p.identity.toLowerCase().includes("spotify")) ?? null
-                readonly property string track: player ? `${player.trackArtist} - ${player.trackTitle}` : ""
-
-                visible: player !== null
-                text: "  " + track
-                maxTextWidth: Math.max(0, Math.min(320, bar.width / 2 - workspaces.width - clockIsland.width / 2 - 40))
-                color: mediaMouse.containsMouse ? Wal.hover : "transparent"
-
-                MouseArea {
-                    id: mediaMouse
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: media.player.togglePlaying()
-                }
-            }
-
-            Pill {
                 id: title
+                property string eventText: ""
+                property bool eventWarning: false
+
+                function announce(message, warning = false) {
+                    eventText = message;
+                    eventWarning = warning;
+                    eventTimeout.restart();
+                }
 
                 // Hyprland (lua config) only reports the active window after the first focus change
                 property string initial: ""
 
-                visible: !media.visible && text !== ""
-                text: Hyprland.activeToplevel?.title ?? initial
-                maxTextWidth: media.maxTextWidth
-                label.color: Wal.muted
+                visible: text !== ""
+                text: eventText || (Hyprland.activeToplevel?.title ?? initial)
+                maxTextWidth: Math.max(0, Math.min(320, bar.width / 2 - workspaces.width - clockIsland.width / 2 - 40))
+                label.color: eventText ? (eventWarning ? Wal.accent : Wal.textColor) : Wal.muted
+
+                Timer {
+                    id: eventTimeout
+                    interval: 3000
+                    onTriggered: title.eventText = ""
+                }
 
                 Connections {
                     target: Hyprland
@@ -179,9 +173,12 @@ PanelWindow {
             id: clockLabel
             anchors.fill: parent
             anchors.margins: 4
-            property bool showDate: false
-            text: Qt.formatDateTime(clock.date, showDate ? "dd-MM-yyyy" : "hh:mm")
-            color: clockMouse.containsMouse ? Wal.hover : "transparent"
+            text: Qt.formatDateTime(clock.date, "hh:mm")
+            label.color: calendar.visible ? Wal.accent : Wal.textColor
+            color: clockMouse.containsMouse || calendar.visible ? Wal.hover : "transparent"
+            Accessible.role: Accessible.Button
+            Accessible.name: "Calendar"
+            Accessible.onPressAction: calendar.visible = !calendar.visible
 
             SystemClock {
                 id: clock
@@ -193,7 +190,13 @@ PanelWindow {
                 anchors.fill: parent
                 hoverEnabled: true
                 cursorShape: Qt.PointingHandCursor
-                onClicked: clockLabel.showDate = !clockLabel.showDate
+                onClicked: calendar.visible = !calendar.visible
+            }
+
+            CalendarPopup {
+                id: calendar
+                screen: bar.screen
+                margins.top: bar.margins.top + bar.height + 8
             }
         }
     }
@@ -216,6 +219,27 @@ PanelWindow {
 
                 PwObjectTracker {
                     objects: [volume.sink, volume.source]
+                }
+
+                Connections {
+                    target: volume.sink?.ready ? volume.sink.audio : null
+                    function onVolumeChanged() {
+                        const audio = volume.sink.audio;
+                        if (!audio.muted)
+                            title.announce(`AUDIO / OUTPUT ${Math.round(audio.volume * 100)}%`);
+                    }
+                    function onMutedChanged() {
+                        const muted = volume.sink.audio.muted;
+                        title.announce(muted ? "AUDIO / OUTPUT MUTED" : "AUDIO / OUTPUT UNMUTED", muted);
+                    }
+                }
+
+                Connections {
+                    target: volume.source?.ready ? volume.source.audio : null
+                    function onMutedChanged() {
+                        const muted = volume.source.audio.muted;
+                        title.announce(muted ? "AUDIO / MICROPHONE MUTED" : "AUDIO / MICROPHONE UNMUTED", muted);
+                    }
                 }
 
                 text: {
@@ -242,15 +266,21 @@ PanelWindow {
 
             Pill {
                 readonly property bool online: Networking.devices.values.some(d => d.connected)
+                property bool initialized: false
+                Component.onCompleted: initialized = true
+                onOnlineChanged: {
+                    if (initialized)
+                        title.announce(online ? "NETWORK / CONNECTED" : "NETWORK / DISCONNECTED", !online);
+                }
                 text: online ? "" : ""
-                label.color: online ? Wal.muted : Wal.color11
+                label.color: online ? Wal.muted : Wal.accent
                 Accessible.name: online ? "Network connected" : "Network disconnected"
             }
 
             Pill {
                 id: stats
                 text: ""
-                label.color: statsPopup.visible ? Wal.color14 : Wal.muted
+                label.color: statsPopup.visible ? Wal.accent : Wal.muted
                 color: statsMouse.containsMouse || statsPopup.visible ? Wal.hover : "transparent"
                 Accessible.role: Accessible.Button
                 Accessible.name: "System usage"
@@ -264,102 +294,13 @@ PanelWindow {
                     onClicked: statsPopup.visible = !statsPopup.visible
                 }
 
-                PopupWindow {
+                SystemMonitor {
                     id: statsPopup
                     anchor.item: stats
-                    anchor.edges: Edges.Bottom | Edges.Right
-                    anchor.gravity: Edges.Bottom | Edges.Left
                     anchor.rect {
                         y: 12
                         width: stats.width
                         height: stats.height
-                    }
-                    implicitWidth: 220
-                    implicitHeight: statsColumn.implicitHeight + 32
-                    color: "transparent"
-
-                    HyprlandFocusGrab {
-                        windows: [statsPopup]
-                        active: statsPopup.backingWindowVisible
-                        onCleared: statsPopup.visible = false
-                    }
-
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 10
-                        color: Wal.surface
-                        border.width: 1
-                        border.color: Wal.outline
-                        focus: true
-                        Keys.onEscapePressed: statsPopup.visible = false
-
-                        Column {
-                            id: statsColumn
-                            anchors.fill: parent
-                            anchors.margins: 16
-                            spacing: 12
-
-                            Text {
-                                text: "System"
-                                color: Wal.muted
-                                font.family: Wal.font
-                                font.pixelSize: 12
-                            }
-
-                            Text {
-                                id: cpu
-                                property real lastIdle: 0
-                                property real lastTotal: 0
-                                property int usage: 0
-                                text: `CPU   ${usage}%`
-                                color: Wal.foreground
-                                font.family: Wal.font
-                                font.pixelSize: 13
-
-                                FileView {
-                                    id: stat
-                                    path: "/proc/stat"
-                                    onLoaded: {
-                                        const f = text().split("\n")[0].trim().split(/\s+/).slice(1).map(Number);
-                                        const idle = f[3] + f[4];
-                                        const total = f.reduce((a, b) => a + b, 0);
-                                        if (cpu.lastTotal > 0 && total > cpu.lastTotal)
-                                            cpu.usage = Math.round(100 * (1 - (idle - cpu.lastIdle) / (total - cpu.lastTotal)));
-                                        cpu.lastIdle = idle;
-                                        cpu.lastTotal = total;
-                                    }
-                                }
-                            }
-
-                            Text {
-                                id: mem
-                                property int usage: 0
-                                text: `RAM   ${usage}%`
-                                color: Wal.foreground
-                                font.family: Wal.font
-                                font.pixelSize: 13
-
-                                FileView {
-                                    id: meminfo
-                                    path: "/proc/meminfo"
-                                    onLoaded: {
-                                        const kb = key => Number(text().match(new RegExp(`${key}:\\s+(\\d+)`))[1]);
-                                        mem.usage = Math.round(100 * (1 - kb("MemAvailable") / kb("MemTotal")));
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Timer {
-                        running: true
-                        repeat: true
-                        triggeredOnStart: true
-                        interval: 2000
-                        onTriggered: {
-                            stat.reload();
-                            meminfo.reload();
-                        }
                     }
                 }
             }

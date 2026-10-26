@@ -76,9 +76,9 @@ PanelWindow {
             TextInput {
                 id: input
                 width: parent.width
-                color: Wal.foreground
+                color: Wal.textColor
                 selectionColor: Wal.selection
-                selectedTextColor: Wal.foreground
+                selectedTextColor: Wal.textColor
                 font.family: Wal.font
                 font.pixelSize: 16
                 onTextChanged: list.currentIndex = 0
@@ -137,7 +137,7 @@ PanelWindow {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: parent.parent.modelData.name
-                            color: Wal.foreground
+                            color: Wal.textColor
                             font.family: Wal.font
                             font.pixelSize: 14
                         }
