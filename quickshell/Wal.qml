@@ -15,6 +15,12 @@ Singleton {
     readonly property color color10: colors.color10 ?? "#9d9ba6"
     readonly property color color11: colors.color11 ?? "#c4b6bf"
     readonly property color color14: colors.color14 ?? "#e6e4f4"
+    readonly property color surface: "#181a1d"
+    readonly property color textColor: "#d4d7dc"
+    readonly property color muted: "#a0a5af"
+    readonly property color outline: "#3b4048"
+    readonly property color accent: "#ddb274"
+    readonly property color selection: Qt.alpha(accent, 0.12)
     readonly property string font: "Monaspace Neon NF"
 
     FileView {

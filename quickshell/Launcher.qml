@@ -12,8 +12,8 @@ PanelWindow {
     visible: false
     anchors.top: true
     margins.top: screen.height * 0.08
-    implicitWidth: screen.width * 0.4
-    implicitHeight: screen.height * 0.5
+    implicitWidth: Math.min(600, screen.width - 32)
+    implicitHeight: Math.min(440, screen.height * 0.5)
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -61,11 +61,11 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        radius: 8
-        color: Wal.foreground
+        radius: 2
+        color: Wal.surface
         border {
-            width: 2
-            color: Wal.color0
+            width: 1
+            color: Wal.outline
         }
 
         Column {
@@ -76,7 +76,9 @@ PanelWindow {
             TextInput {
                 id: input
                 width: parent.width
-                color: Wal.background
+                color: Wal.textColor
+                selectionColor: Wal.accent
+                selectedTextColor: Wal.surface
                 font.family: Wal.font
                 font.pixelSize: 16
                 onTextChanged: list.currentIndex = 0
@@ -98,9 +100,8 @@ PanelWindow {
 
                 Text {
                     visible: !input.text
-                    text: "drun:"
-                    color: Wal.color0
-                    opacity: 0.6
+                    text: "> find application"
+                    color: Wal.muted
                     font: input.font
                 }
             }
@@ -113,8 +114,13 @@ PanelWindow {
                 model: root.apps
                 highlightMoveDuration: 0
                 highlight: Rectangle {
-                    radius: 6
-                    color: Wal.color10
+                    radius: 0
+                    color: Wal.selection
+                    Rectangle {
+                        width: 2
+                        height: parent.height
+                        color: Wal.accent
+                    }
                 }
 
                 delegate: Item {
@@ -129,14 +135,14 @@ PanelWindow {
                         spacing: 10
 
                         IconImage {
-                            implicitSize: 22
+                            implicitSize: 18
                             source: Quickshell.iconPath(parent.parent.modelData.icon, true)
                         }
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: parent.parent.modelData.name
-                            color: Wal.background
+                            color: Wal.textColor
                             font.family: Wal.font
                             font.pixelSize: 14
                         }

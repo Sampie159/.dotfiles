@@ -23,7 +23,7 @@ Scope {
             top: 8
             right: 8
         }
-        implicitWidth: 500
+        implicitWidth: 400
         implicitHeight: list.contentHeight
         exclusiveZone: 0
         color: "transparent"
@@ -44,11 +44,11 @@ Scope {
 
                 width: list.width
                 height: content.implicitHeight + 20
-                radius: 8
-                color: Qt.rgba(Wal.background.r, Wal.background.g, Wal.background.b, 0x89 / 255)
+                radius: 2
+                color: Wal.surface
                 border {
-                    width: 2
-                    color: Wal.color11
+                    width: 1
+                    color: card.modelData?.urgency === NotificationUrgency.Critical ? Wal.accent : Wal.outline
                 }
 
                 Timer {
@@ -83,7 +83,7 @@ Scope {
                         id: icon
                         readonly property string src: card.modelData.image || card.modelData.appIcon
                         visible: src !== ""
-                        implicitSize: 48
+                        implicitSize: 28
                         source: src.includes("/") ? src : Quickshell.iconPath(src, true)
                     }
 
@@ -95,7 +95,7 @@ Scope {
                             width: parent.width
                             text: card.modelData.summary
                             elide: Text.ElideRight
-                            color: Wal.foreground
+                            color: Wal.textColor
                             font.family: Wal.font
                             font.pixelSize: 13
                             font.bold: true
@@ -109,7 +109,7 @@ Scope {
                             wrapMode: Text.Wrap
                             maximumLineCount: 6
                             elide: Text.ElideRight
-                            color: Wal.foreground
+                            color: Wal.muted
                             font.family: Wal.font
                             font.pixelSize: 13
                         }
@@ -124,14 +124,14 @@ Scope {
                                     required property NotificationAction modelData
                                     width: actionText.implicitWidth + 16
                                     height: actionText.implicitHeight + 8
-                                    radius: 6
-                                    color: Wal.color11
+                                    radius: 2
+                                    color: Wal.selection
 
                                     Text {
                                         id: actionText
                                         anchors.centerIn: parent
                                         text: parent.modelData.text
-                                        color: Wal.background
+                                        color: Wal.accent
                                         font.family: Wal.font
                                         font.pixelSize: 12
                                     }

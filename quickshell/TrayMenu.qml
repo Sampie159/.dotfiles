@@ -41,8 +41,8 @@ PopupWindow {
 
         width: column.width
         height: 28
-        radius: 6
-        color: enabled && mouse.containsMouse ? Wal.color14 : "transparent"
+        radius: 0
+        color: enabled && mouse.containsMouse ? Wal.selection : "transparent"
         opacity: enabled ? 1 : 0.5
 
         Row {
@@ -60,7 +60,7 @@ PopupWindow {
                 text: entry.label
                 width: Math.min(implicitWidth, entry.width - 56)
                 elide: Text.ElideRight
-                color: Wal.color0
+                color: Wal.textColor
                 font.family: Wal.font
                 font.pixelSize: 13
             }
@@ -71,7 +71,7 @@ PopupWindow {
             anchors.rightMargin: 8
             anchors.verticalCenter: parent.verticalCenter
             text: entry.trailing
-            color: Wal.color0
+            color: Wal.muted
             font.family: Wal.font
             font.pixelSize: 13
         }
@@ -86,11 +86,11 @@ PopupWindow {
 
     Rectangle {
         anchors.fill: parent
-        radius: 8
-        color: Wal.color10
+        radius: 2
+        color: Wal.surface
         border {
-            width: 2
-            color: Wal.color0
+            width: 1
+            color: Wal.outline
         }
 
         Column {
@@ -120,8 +120,7 @@ PopupWindow {
                         anchors.centerIn: parent
                         width: parent.width - 8
                         height: 1
-                        color: Wal.color0
-                        opacity: 0.4
+                        color: Wal.outline
                     }
 
                     Entry {
