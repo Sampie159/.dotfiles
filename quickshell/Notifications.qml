@@ -23,7 +23,7 @@ Scope {
             top: 8
             right: 8
         }
-        implicitWidth: 500
+        implicitWidth: 380
         implicitHeight: list.contentHeight
         exclusiveZone: 0
         color: "transparent"
@@ -43,12 +43,12 @@ Scope {
                 required property Notification modelData
 
                 width: list.width
-                height: content.implicitHeight + 20
-                radius: 8
-                color: Qt.rgba(Wal.background.r, Wal.background.g, Wal.background.b, 0x89 / 255)
+                height: content.implicitHeight + 28
+                radius: 10
+                color: Wal.surface
                 border {
-                    width: 2
-                    color: Wal.color11
+                    width: 1
+                    color: card.modelData?.urgency === NotificationUrgency.Critical ? Wal.color11 : Wal.outline
                 }
 
                 Timer {
@@ -74,16 +74,16 @@ Scope {
 
                 Row {
                     id: content
-                    x: 10
-                    y: 10
-                    width: parent.width - 20
-                    spacing: 10
+                    x: 14
+                    y: 14
+                    width: parent.width - 28
+                    spacing: 12
 
                     IconImage {
                         id: icon
                         readonly property string src: card.modelData.image || card.modelData.appIcon
                         visible: src !== ""
-                        implicitSize: 48
+                        implicitSize: 32
                         source: src.includes("/") ? src : Quickshell.iconPath(src, true)
                     }
 
@@ -109,7 +109,7 @@ Scope {
                             wrapMode: Text.Wrap
                             maximumLineCount: 6
                             elide: Text.ElideRight
-                            color: Wal.foreground
+                            color: Wal.muted
                             font.family: Wal.font
                             font.pixelSize: 13
                         }
@@ -125,13 +125,13 @@ Scope {
                                     width: actionText.implicitWidth + 16
                                     height: actionText.implicitHeight + 8
                                     radius: 6
-                                    color: Wal.color11
+                                    color: Wal.selection
 
                                     Text {
                                         id: actionText
                                         anchors.centerIn: parent
                                         text: parent.modelData.text
-                                        color: Wal.background
+                                        color: Wal.foreground
                                         font.family: Wal.font
                                         font.pixelSize: 12
                                     }

@@ -12,8 +12,8 @@ PanelWindow {
     visible: false
     anchors.top: true
     margins.top: screen.height * 0.08
-    implicitWidth: screen.width * 0.4
-    implicitHeight: screen.height * 0.5
+    implicitWidth: Math.min(560, screen.width - 32)
+    implicitHeight: Math.min(460, screen.height * 0.5)
     exclusionMode: ExclusionMode.Ignore
     color: "transparent"
     WlrLayershell.layer: WlrLayer.Overlay
@@ -61,22 +61,24 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        radius: 8
-        color: Wal.foreground
+        radius: 10
+        color: Wal.surface
         border {
-            width: 2
-            color: Wal.color0
+            width: 1
+            color: Wal.outline
         }
 
         Column {
             anchors.fill: parent
-            anchors.margins: 16
-            spacing: 8
+            anchors.margins: 20
+            spacing: 16
 
             TextInput {
                 id: input
                 width: parent.width
-                color: Wal.background
+                color: Wal.foreground
+                selectionColor: Wal.selection
+                selectedTextColor: Wal.foreground
                 font.family: Wal.font
                 font.pixelSize: 16
                 onTextChanged: list.currentIndex = 0
@@ -98,9 +100,8 @@ PanelWindow {
 
                 Text {
                     visible: !input.text
-                    text: "drun:"
-                    color: Wal.color0
-                    opacity: 0.6
+                    text: "Search applications…"
+                    color: Wal.muted
                     font: input.font
                 }
             }
@@ -114,14 +115,14 @@ PanelWindow {
                 highlightMoveDuration: 0
                 highlight: Rectangle {
                     radius: 6
-                    color: Wal.color10
+                    color: Wal.selection
                 }
 
                 delegate: Item {
                     required property DesktopEntry modelData
                     required property int index
                     width: list.width
-                    height: 32
+                    height: 40
 
                     Row {
                         anchors.verticalCenter: parent.verticalCenter
@@ -136,7 +137,7 @@ PanelWindow {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: parent.parent.modelData.name
-                            color: Wal.background
+                            color: Wal.foreground
                             font.family: Wal.font
                             font.pixelSize: 14
                         }
