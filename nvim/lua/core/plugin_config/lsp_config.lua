@@ -68,6 +68,7 @@ local clangd_config = {
 }
 
 vim.lsp.config("clangd", clangd_config)
+require('core.plugin_config.lsp_target')
 
 vim.lsp.config("rust_analyzer", {
     settings = {

@@ -120,4 +120,3 @@ vim.opt.guicursor = {
     "r-cr:block-CursorReplace",
     "c:block-CursorCommand",
 }
-require('mfd').enable_cursor_sync()

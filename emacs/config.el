@@ -88,4 +88,77 @@
 (add-hook 'emacs-lisp-mode-hook 'elisp-headandfoot)
 (add-hook 'prog-mode-hook (lambda () (setq truncate-lines t)))
 
+(defvar lsp-target--projects (make-hash-table :test #'equal))
+(defvar lsp-target--directories nil)
+
+(defun lsp-target--clangd-command (original)
+  "Apply the selected target to ORIGINAL's clangd command for this project."
+  (let ((command (funcall original))
+        (settings (gethash (file-truename (file-name-as-directory default-directory))
+                           lsp-target--projects)))
+    (if settings
+        (append (list "env" (concat "XDG_CONFIG_HOME=" (car settings)))
+                command (list (concat "--query-driver=" (cdr settings))))
+      command)))
+
+(defun lsp-target (&optional target)
+  "Toggle the current clangd workspace between Linux and Windows.
+With a prefix argument, prompt for TARGET.  Project compile flags and
+unsaved buffers are preserved.  The selection lasts for this Emacs session."
+  (interactive
+   (list (when current-prefix-arg
+           (intern (completing-read "Clangd target: " '("linux" "windows") nil t)))))
+  (require 'lsp-mode)
+  (let ((workspace (seq-find
+                     (lambda (workspace)
+                       (eq (lsp--client-server-id (lsp--workspace-client workspace)) 'clangd))
+                     (lsp-workspaces))))
+    (unless (and workspace (eq (lsp--workspace-status workspace) 'initialized))
+      (user-error "Wait for clangd to attach to a C/C++ buffer"))
+    (when (file-remote-p (lsp--workspace-root workspace))
+      (user-error "Target switching requires a local clangd workspace"))
+    (let* ((root (file-truename (file-name-as-directory (lsp--workspace-root workspace))))
+           (current (if (gethash root lsp-target--projects) 'windows 'linux))
+           (target (or target (if (eq current 'linux) 'windows 'linux))))
+      (unless (memq target '(linux windows))
+        (user-error "Target must be linux or windows"))
+      (unless (eq target current)
+        (if (eq target 'windows)
+            (let ((compiler (executable-find "x86_64-w64-mingw32-gcc")))
+              (unless compiler
+                (user-error "Windows target needs x86_64-w64-mingw32-gcc on PATH"))
+              (let* ((directory (make-temp-file "emacs-clangd-windows-" t))
+                     (user-config (expand-file-name "clangd/config.yaml"
+                                                    (or (getenv "XDG_CONFIG_HOME") "~/.config"))))
+                (push directory lsp-target--directories)
+                (make-directory (expand-file-name "clangd" directory))
+                ;; Override only the parser target, retaining project and user flags.
+                (with-temp-file (expand-file-name "clangd/config.yaml" directory)
+                  (when (file-readable-p user-config)
+                    (insert-file-contents user-config)
+                    (goto-char (point-max)))
+                  (insert "\n---\n"
+                          (json-serialize
+                           `((CompileFlags .
+                              ((Compiler . ,compiler)
+                               (Remove . ["--target=*" "-target" "--sysroot=*"
+                                          "-isysroot" "--gcc-toolchain=*"])))))
+                          "\n"))
+                (puthash root (cons directory compiler) lsp-target--projects)))
+          (remhash root lsp-target--projects))
+        (lsp-workspace-restart workspace))
+      (message "clangd target: %s (current workspace)" target))))
+
+(defun lsp-target--cleanup ()
+  "Remove private clangd configs when Emacs exits."
+  (dolist (directory lsp-target--directories)
+    (when (file-directory-p directory)
+      (delete-directory directory t))))
+
+(add-hook 'kill-emacs-hook #'lsp-target--cleanup)
+(with-eval-after-load 'lsp-clangd
+  (advice-add 'lsp-clients--clangd-command :around #'lsp-target--clangd-command))
+(with-eval-after-load 'lsp-mode
+  (define-key lsp-mode-map (kbd "C-c l t") #'lsp-target))
+
 ;;; config.el ends here

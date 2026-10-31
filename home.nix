@@ -41,8 +41,11 @@ in
     wget
     clang
     clang-tools
+    pkgsCross.mingwW64.stdenv.cc # Windows headers and compiler defaults for both editors' clangd
     gnumake
     gdb
+    man-pages
+    man-pages-posix
     nodejs
     tree-sitter
     unrar
@@ -68,12 +71,18 @@ in
     nixd
     nixfmt
     moreutils
-    pince
+    # shortcut: use legacy wrapper arguments until nixpkgs fixes pince's argument array.
+    (pince.overrideAttrs (old: {
+      makeWrapperArgs = lib.concatStringsSep " " old.makeWrapperArgs;
+    }))
     libqalculate
     virt-manager
     blender
     gimp
     devenv
+    novelwriter
+    hunspellDicts.en_GB-ise
+    obsidian
   ];
 
   programs = {
@@ -139,7 +148,18 @@ in
       enable = true;
       gitCredentialHelper.enable = false;
     };
-    pywal.enable = true;
+    pywal = {
+      enable = true;
+      # shortcut: fix nixpkgs' combined wrapper argument until pywal16 splits it upstream.
+      package = pkgs.pywal.overrideAttrs {
+        makeWrapperArgs = [
+          "--prefix"
+          "PATH"
+          ":"
+          (pkgs.lib.makeBinPath [ pkgs.imagemagick ])
+        ];
+      };
+    };
     jq.enable = true;
     mangohud.enable = true;
     ripgrep.enable = true;
