@@ -71,10 +71,7 @@ in
     nixd
     nixfmt
     moreutils
-    # shortcut: use legacy wrapper arguments until nixpkgs fixes pince's argument array.
-    (pince.overrideAttrs (old: {
-      makeWrapperArgs = lib.concatStringsSep " " old.makeWrapperArgs;
-    }))
+    pince
     libqalculate
     virt-manager
     blender
