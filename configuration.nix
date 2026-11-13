@@ -17,6 +17,7 @@
   };
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 2;
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
@@ -196,10 +197,12 @@
       ];
     };
     optimise.automatic = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
   };
+  # Keep last 2 system generations and GC on every switch, in background; skipped at boot.
+  system.activationScripts.gcOldGenerations = ''
+    if [ -d /run/systemd/system ]; then
+      ${pkgs.systemd}/bin/systemd-run --no-block --collect --unit=nix-gc-on-switch \
+        ${pkgs.bash}/bin/sh -c '${config.nix.package}/bin/nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && ${config.nix.package}/bin/nix-collect-garbage' || true
+    fi
+  '';
 }
