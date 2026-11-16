@@ -17,10 +17,10 @@
   };
 
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 2;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelParams = [ "zswap.enabled=0" ];
 
@@ -69,7 +69,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
     };
 
     udisks2.enable = true;
@@ -155,9 +154,6 @@
 
     hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     };
 
     steam = {
@@ -191,18 +187,20 @@
         "nix-command"
         "flakes"
       ];
-      extra-substituters = [ "https://hyprland.cachix.org" ];
-      extra-trusted-public-keys = [
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      ];
     };
     optimise.automatic = true;
+    gc = {
+      automatic = true;
+      dates = "daily";
+    };
   };
-  # Keep last 2 system generations and GC on every switch, in background; skipped at boot.
-  system.activationScripts.gcOldGenerations = ''
-    if [ -d /run/systemd/system ]; then
-      ${pkgs.systemd}/bin/systemd-run --no-block --collect --unit=nix-gc-on-switch \
-        ${pkgs.bash}/bin/sh -c '${config.nix.package}/bin/nix-env --delete-generations +2 --profile /nix/var/nix/profiles/system && ${config.nix.package}/bin/nix-collect-garbage' || true
-    fi
+
+  # Drop system generations older than 7 days, always keeping the newest 5 and the current one.
+  systemd.services.nix-gc.preStart = ''
+    p=/nix/var/nix/profiles/system
+    cutoff=$(date -d '7 days ago' +%s)
+    old=$(${config.nix.package}/bin/nix-env -p $p --list-generations | grep -v current | head -n -5 |
+      while read -r n d t; do [ "$(date -d "$d $t" +%s)" -lt "$cutoff" ] && echo "$n"; done || true)
+    [ -z "$old" ] || ${config.nix.package}/bin/nix-env -p $p --delete-generations $old
   '';
 }

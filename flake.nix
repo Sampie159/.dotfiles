@@ -9,18 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     odin-mode = {
@@ -163,7 +151,6 @@
     inputs@{
       nixpkgs,
       home-manager,
-      chaotic,
       nixos-hardware,
       ...
     }:
@@ -176,7 +163,6 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
-          chaotic.nixosModules.default
           nixos-hardware.nixosModules.common-cpu-amd
           nixos-hardware.nixosModules.common-gpu-amd
           nixos-hardware.nixosModules.common-pc-ssd

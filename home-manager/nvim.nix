@@ -20,7 +20,6 @@ in
 {
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
     # init.lua comes from the repo, keep HM's generated bits out of it
     sideloadInitLua = true;
 
